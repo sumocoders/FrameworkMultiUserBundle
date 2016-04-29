@@ -23,9 +23,12 @@ public function registerBundles()
 
 Add the routing:
 
+```yaml
+# app/config/routing.yml
 sumo_coders_framework_multi_user:
     resource: "@SumoCodersFrameworkMultiUserBundle/Resources/config/routing.yml"
     prefix:   /
+```
 
 ## Usage
 
@@ -36,7 +39,7 @@ SumoCoders\FrameworkMultiUserBundle\User\UserRepository interface.
 * An instance of the ObjectProvider getting the repository as argument
 
 ```yaml
-# services.yml
+# app/config/confing.yml
 services:
   sumocoders.in_memory_user_repository:
     class: SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository
@@ -49,7 +52,7 @@ services:
 To use it, you have to define it and couple it to a firewall in your security.yml:
 
 ```yaml
-# security.yml
+# app/config/security.yml
 security:
   providers:
     my_in_memory_provider:
@@ -65,6 +68,7 @@ security:
 Don't forget to make the login url accessible by anonymous users
 
 ```yaml
+# app/config/security.yml
 security:
   access_control:
     - { path: ^/\w\w/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
