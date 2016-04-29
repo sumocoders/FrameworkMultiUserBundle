@@ -17,14 +17,14 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * @var UserPasswordEncoderInterface
      */
-    private $passwordDecoder;
+    private $passwordEncoder;
 
     /**
-     * @param UserPasswordEncoderInterface $passwordDecoder
+     * @param UserPasswordEncoderInterface $passwordEncoder
      */
-    public function __construct(UserPasswordEncoderInterface $passwordDecoder)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
-        $this->passwordDecoder = $passwordDecoder;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     /**
@@ -66,6 +66,8 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         if (!$encoder->isPasswordValid($user, $plainPassword)) {
             throw new BadCredentialsException();
         }
+
+        return true;
     }
 
     protected function getLoginUrl()
