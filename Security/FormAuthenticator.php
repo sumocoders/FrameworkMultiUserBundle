@@ -8,20 +8,26 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use Symfony\Component\Routing\RouterInterface;
 
 class FormAuthenticator extends AbstractFormLoginAuthenticator
 {
-    /**
-     * @var UserPasswordEncoderInterface
-     */
+    /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
+
+    /** RouterInterface */
+    private $router;
 
     /**
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param RouterInterface $router
      */
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function __construct(
+        UserPasswordEncoderInterface $passwordEncoder,
+        RouterInterface $router
+    ) {
         $this->passwordEncoder = $passwordEncoder;
+        $this->router = $router;
     }
 
     /**
@@ -31,10 +37,8 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        // @todo: there will probably be a better way te determine if the login
-        // form has been submitted
-        if (!$request->request->has('_username')
-            || !$request->request->has('_password')) {
+        if ($request->getPathInfo() !== $this->getLoginUrl()
+            || !$request->isMethod(Request::METHOD_POST)) {
             return;
         }
 
@@ -69,7 +73,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
 
     protected function getLoginUrl()
     {
-        return '/en/login';
+        return $this->router->generate('multi_user_login');
     }
 
     protected function getDefaultSuccessRedirectURL()

@@ -3,6 +3,7 @@ services:
     class: SumoCoders\FrameworkMultiUserBundle\Security\FormAuthenticator
     arguments:
       - "@security.password_encoder"
+      - "@router"
 
   multi_user.login.controller:
     class: SumoCoders\FrameworkMultiUserBundle\Controller\LoginController
