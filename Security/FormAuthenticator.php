@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class FormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -69,11 +70,11 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
 
     protected function getLoginUrl()
     {
-        return '/login';
+        return '/en/login';
     }
 
     protected function getDefaultSuccessRedirectURL()
     {
-        return '/success';
+        return '/en/success';
     }
 }
