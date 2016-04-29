@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/sumocoders/FrameworkMultiUserBundle.svg?branch=master)](https://travis-ci.org/sumocoders/FrameworkMultiUserBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sumocoders/FrameworkMultiUserBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sumocoders/FrameworkMultiUserBundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/sumocoders/FrameworkMultiUserBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/sumocoders/FrameworkMultiUserBundle/?branch=master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/xxxxxxxxxxxxxxxxxxxxxxxx/mini.png)](https://insight.sensiolabs.com/projects/6469f510-f24e-4511-bd97-893898285554)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/09e27729-eefc-443d-b63d-7351f2076062/mini.png)](https://insight.sensiolabs.com/projects/09e27729-eefc-443d-b63d-7351f2076062)
 
 https://codeclimate.com/github/sumocoders/FrameworkMultiUserBundle/badges
 
