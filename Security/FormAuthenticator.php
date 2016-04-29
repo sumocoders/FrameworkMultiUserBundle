@@ -9,6 +9,8 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class FormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -18,16 +20,22 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     /** RouterInterface */
     private $router;
 
+    /** array */
+    private $redirectRoutes = [];
+
     /**
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param RouterInterface $router
+     * @param array $redirectRoutes
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
-        RouterInterface $router
+        RouterInterface $router,
+        array $redirectRoutes = []
     ) {
         $this->passwordEncoder = $passwordEncoder;
         $this->router = $router;
+        $this->redirectRoutes = $redirectRoutes;
     }
 
     /**
@@ -71,13 +79,43 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function getLoginUrl()
     {
         return $this->router->generate('multi_user_login');
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    {
+        // if the user hit a secure page and start() was called, this was
+        // the URL they were on, and probably where you want to redirect to
+        $targetPath = $request->getSession()->get('_security.'.$providerKey.'.target_path');
+
+        if (!$targetPath) {
+            $targetPath = $this->getSuccessRedirectUrl($token);
+        }
+
+        return new RedirectResponse($targetPath);
+    }
+
+    protected function getSuccessRedirectUrl(TokenInterface $token)
+    {
+        foreach ($this->redirectRoutes as $class => $route) {
+            if (get_class($token->getUser()) === $class) {
+                return $this->router->generate($route['route']);
+            }
+        }
+
+        return $this->getDefaultSuccessRedirectURL();
+    }
+
     protected function getDefaultSuccessRedirectURL()
     {
-        return '/en/success';
+        return '/';
     }
 }
