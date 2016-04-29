@@ -1,4 +1,9 @@
 services:
+  sumocoders.form_authenticator:
+    class: SumoCoders\FrameworkMultiUserBundle\Security\FormAuthenticator
+    arguments:
+      - "@security.password_encoder"
+
   multi_user.login.controller:
     class: SumoCoders\FrameworkMultiUserBundle\Controller\LoginController
     arguments:
