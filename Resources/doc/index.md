@@ -73,3 +73,14 @@ security:
   access_control:
     - { path: ^/\w\w/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
 ```
+
+## Configuring redirect url's
+
+Add this piece of yaml in your config file and add a line for every user that has
+a custom redirect url. The default one is /.
+
+```yaml
+sumo_coders_framework_multi_user:
+  redirect_routes:
+    SumoCoders\FrameworkMultiUserBundle\User\User: sumocoders_frameworkexample_bootstrap_carousel
+```
