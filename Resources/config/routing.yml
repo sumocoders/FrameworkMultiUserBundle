@@ -1,3 +1,6 @@
 multi_user_login:
     defaults: { _controller: multi_user.login.controller:loginAction }
     path: /login
+
+multi_user_logout:
+    path: /logout
