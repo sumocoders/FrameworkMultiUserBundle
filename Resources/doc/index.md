@@ -30,6 +30,17 @@ sumo_coders_framework_multi_user:
     prefix:   /
 ```
 
+Add the logout route:
+
+```yaml
+#app/config/security.yml
+firewalls:
+  my_firewall:
+    logout:
+      path:   /%locale%/logout
+      target: /
+```
+
 ## Usage
 
 To create a user provider, you need two services:
