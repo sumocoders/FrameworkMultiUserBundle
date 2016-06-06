@@ -11,9 +11,3 @@ services:
     arguments:
       - "@templating"
       - "@security.authentication_utils"
-
-  multi_user.logout.controller:
-      class: SumoCoders\FrameworkMultiUserBundle\Controller\LogoutController
-      arguments:
-        - "@security.context"
-        - "@router"
