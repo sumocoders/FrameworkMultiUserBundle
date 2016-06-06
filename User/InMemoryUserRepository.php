@@ -8,7 +8,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 class InMemoryUserRepository implements UserRepository
 {
     /** @var array */
-    private $user = [];
+    private $users = [];
 
     public function __construct()
     {
