@@ -46,4 +46,12 @@ interface UserRepository
      * @return void
      */
     public function update(User $userToUpdate, User $user);
+
+    /**
+     * Delete an existing user.
+     *
+     * @param User $user
+     * @return void
+     */
+    public function delete(User $user);
 }
