@@ -58,4 +58,17 @@ class InMemoryUserRepository implements UserRepository
 
         $this->users[] = $user;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function update(User $userToUpdate, User $user)
+    {
+        foreach ($this->users as $key => $row){
+            if($row->getUserName() === $user->getUserName()){
+                $this->users[$key] = $user;
+                break;
+            }
+        }
+    }
 }

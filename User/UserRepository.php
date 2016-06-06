@@ -37,4 +37,13 @@ interface UserRepository
      * @return void
      */
     public function save(User $user = null);
+
+    /**
+     * Update an existing user.
+     *
+     * @param User $userToUpdate
+     * @param User $user
+     * @return void
+     */
+    public function update(User $userToUpdate, User $user);
 }
