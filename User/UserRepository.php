@@ -20,4 +20,21 @@ interface UserRepository
      * @return bool
      */
     public function supportsClass($class);
+
+    /**
+     * Add User to the repository.
+     *
+     * @param User $user
+     * @param bool $save
+     * @return void
+     */
+    public function add(User $user, $save = true);
+
+    /**
+     * Flush the repository.
+     *
+     * @param User|null $user
+     * @return void
+     */
+    public function save(User $user = null);
 }

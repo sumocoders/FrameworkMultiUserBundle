@@ -38,4 +38,24 @@ class InMemoryUserRepository implements UserRepository
     {
         return $class === User::class;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function add(User $user, $save = true)
+    {
+        $this->users[] = $user;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function save(User $user = null)
+    {
+        if($user === null){
+            return;
+        }
+
+        $this->users[] = $user;
+    }
 }
