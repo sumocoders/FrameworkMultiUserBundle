@@ -34,11 +34,12 @@ Add the logout route:
 
 ```yaml
 #app/config/security.yml
-firewalls:
-  my_firewall:
-    logout:
-      path:   /%locale%/logout
-      target: /
+security:
+  firewalls:
+    my_firewall:
+      logout:
+        path:   /%locale%/logout
+        target: /
 ```
 
 ## Usage
