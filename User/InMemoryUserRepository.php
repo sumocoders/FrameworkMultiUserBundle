@@ -20,7 +20,7 @@ class InMemoryUserRepository implements UserRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findByUsername($username)
     {
@@ -32,7 +32,7 @@ class InMemoryUserRepository implements UserRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function supportsClass($class)
     {
@@ -40,7 +40,7 @@ class InMemoryUserRepository implements UserRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function add(User $user, $save = true)
     {
@@ -48,11 +48,11 @@ class InMemoryUserRepository implements UserRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function save(User $user = null)
     {
-        if($user === null){
+        if ($user === null) {
             return;
         }
 
@@ -60,12 +60,12 @@ class InMemoryUserRepository implements UserRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function update(User $userToUpdate, User $user)
     {
-        foreach ($this->users as $key => $row){
-            if($row->getUserName() === $user->getUserName()){
+        foreach ($this->users as $key => $row) {
+            if ($row->getUserName() === $user->getUserName()) {
                 $this->users[$key] = $user;
                 break;
             }
@@ -73,12 +73,12 @@ class InMemoryUserRepository implements UserRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function delete(User $user)
     {
-        foreach ($this->users as $key => $row){
-            if($row->getUserName() === $user->getUserName()){
+        foreach ($this->users as $key => $row) {
+            if ($row->getUserName() === $user->getUserName()) {
                 unset($this->users[$key]);
                 break;
             }

@@ -6,7 +6,7 @@ use SumoCoders\FrameworkMultiUserBundle\User\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class DeleteUser
+ * Class DeleteUser.
  */
 class DeleteUser
 {

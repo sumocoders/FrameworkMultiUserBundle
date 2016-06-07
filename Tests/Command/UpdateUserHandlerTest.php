@@ -13,7 +13,6 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->userRepository = new InMemoryUserRepository();
-
     }
 
     /**
