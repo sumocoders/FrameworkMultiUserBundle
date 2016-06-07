@@ -34,7 +34,8 @@
   "prefer-stable": true,
   "require": {
     "symfony/framework-bundle": "^2.6",
-    "symfony/security-guard": "^2.6"
+    "symfony/security-guard": "^2.6",
+    "symfony/security" : "^2.8"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.2 || ^4.8"
