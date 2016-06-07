@@ -15,7 +15,7 @@ class CreateUserCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('sumocoders_multiuser:create')
+            ->setName('sumocoders:multiuser:create')
             ->setDescription('Create a user entity')
             ->addArgument(
                 'username',

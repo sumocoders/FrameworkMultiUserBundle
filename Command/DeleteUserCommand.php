@@ -15,7 +15,7 @@ class DeleteUserCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('sumocoders_multiuser:delete')
+            ->setName('sumocoders:multiuser:delete')
             ->setDescription('Delete a user entity')
             ->addArgument(
                 'username',
