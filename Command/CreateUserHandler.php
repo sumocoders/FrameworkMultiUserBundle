@@ -5,9 +5,6 @@ namespace SumoCoders\FrameworkMultiUserBundle\Command;
 use SumoCoders\FrameworkMultiUserBundle\User\User;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 
-/**
- * Class CreateUserHandler.
- */
 class CreateUserHandler
 {
     private $userRepository;
