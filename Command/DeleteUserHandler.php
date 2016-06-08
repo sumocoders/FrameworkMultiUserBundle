@@ -23,6 +23,6 @@ class DeleteUserHandler
      */
     public function handle(DeleteUser $command)
     {
-        $this->userRepository->delete($command->user);
+        $this->userRepository->delete($command->getUser());
     }
 }

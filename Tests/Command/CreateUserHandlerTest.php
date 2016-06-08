@@ -22,10 +22,7 @@ class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = new CreateUserHandler($this->userRepository);
 
-        $user = new CreateUser();
-        $user->username = 'sumo';
-        $user->displayName = 'sumocoders';
-        $user->password = 'randomPassword';
+        $user = new CreateUser('sumo', 'randomPassword', 'sumocoders');
 
         $handler->handle($user);
 

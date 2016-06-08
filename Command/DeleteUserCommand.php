@@ -36,8 +36,7 @@ class DeleteUserCommand extends ContainerAwareCommand
             exit;
         }
 
-        $command = new DeleteUser();
-        $command->user = $user;
+        $command = new DeleteUser($user);
 
         $handler->handle($command);
 

@@ -42,10 +42,7 @@ class CreateUserCommand extends ContainerAwareCommand
         $password = $input->getArgument('password');
         $displayName = $input->getArgument('displayName');
 
-        $command = new CreateUser();
-        $command->username = $username;
-        $command->password = $password;
-        $command->displayName = $displayName;
+        $command = new CreateUser($username, $password, $displayName);
 
         $handler->handle($command);
 

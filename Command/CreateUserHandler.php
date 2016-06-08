@@ -24,7 +24,7 @@ class CreateUserHandler
      */
     public function handle(CreateUser $command)
     {
-        $user = new User($command->username, $command->password, $command->displayName);
+        $user = new User($command->getUsername(), $command->getPassword(), $command->getDisplayName());
         $this->userRepository->add($user);
     }
 }

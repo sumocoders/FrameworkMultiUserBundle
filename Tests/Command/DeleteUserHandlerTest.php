@@ -22,11 +22,9 @@ class DeleteUserHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = new DeleteUserHandler($this->userRepository);
 
-        $command = new DeleteUser();
-
         $deletingUser = $this->userRepository->findByUsername('wouter');
 
-        $command->user = $deletingUser;
+        $command = new DeleteUser($deletingUser);
 
         $handler->handle($command);
 

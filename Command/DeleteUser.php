@@ -11,5 +11,25 @@ class DeleteUser
      * @var User
      * @Assert\NotNull()
      */
-    public $user;
+    private $user;
+
+    /**
+     * DeleteUser constructor.
+     *
+     * @param User $user
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Get the User.
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

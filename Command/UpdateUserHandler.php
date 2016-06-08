@@ -24,8 +24,8 @@ class UpdateUserHandler
      */
     public function handle(UpdateUser $command)
     {
-        $updatingUser = $command->user;
-        $user = new User($command->username, $command->password, $command->displayName);
+        $updatingUser = $command->getUser();
+        $user = new User($command->getUsername(), $command->getPassword(), $command->getDisplayName());
         $this->userRepository->update($updatingUser, $user);
     }
 }

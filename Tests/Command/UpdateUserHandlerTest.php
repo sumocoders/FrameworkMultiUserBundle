@@ -22,14 +22,9 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = new UpdateUserHandler($this->userRepository);
 
-        $command = new UpdateUser();
-        $command->username = 'wouter';
-        $command->displayName = 'sumocoders';
-        $command->password = 'randomPassword';
-
         $updatingUser = $this->userRepository->findByUsername('wouter');
 
-        $command->user = $updatingUser;
+        $command = new UpdateUser($updatingUser, 'wouter', 'randomPassword', 'sumocoders');
 
         $handler->handle($command);
 
