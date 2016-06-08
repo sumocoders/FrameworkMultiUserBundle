@@ -4,7 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 
-class DeleteUserHandler
+final class DeleteUserHandler
 {
     private $userRepository;
 

@@ -4,7 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\User\User;
 
-class UpdateUser
+final class UpdateUser
 {
     /**
      * @var User

@@ -4,7 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\User\User;
 
-class DeleteUser
+final class DeleteUser
 {
     /**
      * @var User

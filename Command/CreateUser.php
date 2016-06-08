@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-class CreateUser
+final class CreateUser
 {
     /**
      * @var string
