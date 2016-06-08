@@ -3,31 +3,26 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\User\User;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class UpdateUser
 {
     /**
      * @var User
-     * @Assert\NotNull()
      */
     private $user;
 
     /**
      * @var string
-     * @Assert\NotBlank()
      */
     private $username;
 
     /**
      * @var string
-     * @Assert\NotBlank()
      */
     private $password;
 
     /**
      * @var string
-     * @Assert\NotBlank()
      */
     private $displayName;
 

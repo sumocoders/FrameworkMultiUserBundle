@@ -2,25 +2,20 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 class CreateUser
 {
     /**
      * @var string
-     * @Assert\NotBlank()
      */
     private $username;
 
     /**
      * @var string
-     * @Assert\NotBlank()
      */
     private $password;
 
     /**
      * @var string
-     * @Assert\NotBlank()
      */
     private $displayName;
 
