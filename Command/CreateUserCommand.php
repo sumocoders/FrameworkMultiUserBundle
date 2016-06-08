@@ -2,9 +2,11 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
+use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateUserCommand extends ContainerAwareCommand
@@ -29,12 +31,21 @@ class CreateUserCommand extends ContainerAwareCommand
                 InputArgument::REQUIRED,
                 'The display name for the user'
             )
+            ->addOption(
+                'class',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The class off the user',
+                'SumoCoders\FrameworkMultiUserBundle\User\User'
+            )
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $repository = $this->getContainer()->get('multi_user.user.repository');
+        $userClass = $input->getOption('class');
+
+        $repository = $this->getRepository($userClass);
 
         $handler = new CreateUserHandler($repository);
 
@@ -47,5 +58,17 @@ class CreateUserCommand extends ContainerAwareCommand
         $handler->handle($command);
 
         $output->writeln($username . ' has been created');
+    }
+
+    /**
+     * Get the repository for the user's Class.
+     *
+     * @param $userClass
+     *
+     * @return UserRepository
+     */
+    private function getRepository($userClass)
+    {
+        return $this->getContainer()->get('multi_user.user_repository.collection')->findRepositoryByClassName($userClass);
     }
 }

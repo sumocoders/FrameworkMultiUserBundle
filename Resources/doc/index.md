@@ -96,3 +96,15 @@ sumo_coders_framework_multi_user:
   redirect_routes:
     SumoCoders\FrameworkMultiUserBundle\User\User: sumocoders_frameworkexample_bootstrap_carousel
 ```
+
+## User commands
+
+The sumocoders:multiuser:xxx require the `multi_user.user_repository.collection` service
+
+```yaml
+services:
+  multi_user.user_repository.collection:
+    class: SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection
+    arguments:
+      - ['@your.user.repositories']
+```
