@@ -21,7 +21,7 @@ class UserRepositoryCollection
     {
         $this->userRepositories = new ArrayCollection();
         foreach ($userRepositories as $repository) {
-            $this->registerUserRepository($repository);
+            $this->addUserRepository($repository);
         }
     }
 
@@ -30,15 +30,15 @@ class UserRepositoryCollection
      *
      * @param UserRepository $userRepository
      */
-    public function registerUserRepository(UserRepository $userRepository)
+    public function addUserRepository(UserRepository $userRepository)
     {
-        $this->userRepositories->add($userRepository);
+        $this->userRepositories[] = $userRepository;
     }
 
     /**
      * Get the userRepositories.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function all()
     {
