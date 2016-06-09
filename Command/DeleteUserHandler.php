@@ -6,6 +6,9 @@ use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 
 final class DeleteUserHandler
 {
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     /**

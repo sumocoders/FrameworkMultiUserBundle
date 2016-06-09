@@ -5,9 +5,13 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 use SumoCoders\FrameworkMultiUserBundle\Command\UpdateUser;
 use SumoCoders\FrameworkMultiUserBundle\Command\UpdateUserHandler;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 
 class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     public function setUp()

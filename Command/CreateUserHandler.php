@@ -7,11 +7,12 @@ use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 
 final class CreateUserHandler
 {
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     /**
-     * CreateUserHandler constructor.
-     *
      * @param UserRepository $userRepository
      */
     public function __construct(UserRepository $userRepository)

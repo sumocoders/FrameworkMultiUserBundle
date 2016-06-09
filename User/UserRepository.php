@@ -22,7 +22,7 @@ interface UserRepository
     public function supportsClass($class);
 
     /**
-     * Add User to the repository.
+     * Saves the given user.
      *
      * @param User $user
      * @param bool $save

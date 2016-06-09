@@ -8,6 +8,9 @@ use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 
 class DeleteUserHandlerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     public function setUp()

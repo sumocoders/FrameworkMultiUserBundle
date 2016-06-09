@@ -8,7 +8,7 @@ use SumoCoders\FrameworkMultiUserBundle\Exception\RepositoryNotRegisteredExcepti
 class UserRepositoryCollection
 {
     /**
-     * @var ArrayCollection
+     * @var array
      */
     private $userRepositories;
 

@@ -7,6 +7,9 @@ use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 
 final class UpdateUserHandler
 {
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     /**
