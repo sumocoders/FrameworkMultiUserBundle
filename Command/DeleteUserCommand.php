@@ -3,6 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,6 +12,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class DeleteUserCommand extends ContainerAwareCommand
 {
+    /**
+     * @var UserRepositoryCollection
+     */
+    private $userRepositoryCollection;
+
+    /**
+     * @param UserRepositoryCollection $userRepositoryCollection
+     */
+    public function __construct(UserRepositoryCollection $userRepositoryCollection)
+    {
+        parent::__construct();
+        $this->userRepositoryCollection = $userRepositoryCollection;
+    }
+    
     protected function configure()
     {
         $this
@@ -63,6 +78,6 @@ final class DeleteUserCommand extends ContainerAwareCommand
      */
     private function getRepository($userClass)
     {
-        return $this->getContainer()->get('multi_user.user_repository.collection')->findRepositoryByClassName($userClass);
+        return $this->userRepositoryCollection->findRepositoryByClassName($userClass);
     }
 }
