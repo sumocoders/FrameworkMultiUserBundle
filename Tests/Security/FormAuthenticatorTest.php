@@ -9,10 +9,10 @@ use SumoCoders\FrameworkMultiUserBundle\Security\ObjectUserProvider;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\User;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
@@ -24,7 +24,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->router = new Router(new Container(), '');
+        $this->router = $this->getMock(RouterInterface::class);
         $encoders['SumoCoders\FrameworkMultiUserBundle\User\User'] = [
             'class' => 'Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder',
             'arguments' => [12],
@@ -39,7 +39,9 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $provider = new ObjectUserProvider(new InMemoryUserRepository());
         $user = $this->formAuthenticator->getUser($this->getCredentials(), $provider);
 
-        $this->assertEquals($this->getUser(), $user);
+        $this->assertEquals($this->getUser()->getUserName(), $user->getUserName());
+        $this->assertEquals($this->getUser()->getPassword(), $user->getPassword());
+        $this->assertEquals($this->getUser()->getDisplayName(), $user->getDisplayName());
     }
 
     public function testCheckCredentials()
@@ -75,11 +77,20 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     private function getCredentials($username = 'wouter', $password = 'test')
     {
-        return new FormCredentials($username, $password);
+        $mock = $this->getMock(FormCredentials::class, [], [$username, $password]);
+        $mock->method('getUserName')->willReturn($username);
+        $mock->method('getPlainPassword')->willReturn($password);
+
+        return $mock;
     }
 
     private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen')
     {
-        return new User($username, $password, $displayName);
+        $mock = $this->getMock(User::class, [], [$username, $password, $displayName]);
+        $mock->method('getUserName')->willReturn($username);
+        $mock->method('getPassword')->willReturn($password);
+        $mock->method('getDisplayName')->willReturn($displayName);
+
+        return $mock;
     }
 }
