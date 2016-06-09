@@ -62,8 +62,6 @@ class UserRepositoryCollection
             }
         }
 
-        $error = 'No repository has been registered for the '.$className.' class.';
-
-        throw new RepositoryNotRegisteredException($error);
+        throw RepositoryNotRegisteredException::withClassName($className);
     }
 }
