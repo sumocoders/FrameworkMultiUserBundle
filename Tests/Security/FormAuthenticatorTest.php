@@ -54,10 +54,8 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
      */
     public function testBadCredentialsException()
     {
-        $this->expectException(
-            'Symfony\Component\Security\Core\Exception\BadCredentialsException',
-            $this->formAuthenticator->checkCredentials($this->getCredentials('wouter', 'wrongPassword'), $this->getUser())
-        );
+        $this->setExpectedException('Symfony\Component\Security\Core\Exception\BadCredentialsException');
+        $this->formAuthenticator->checkCredentials($this->getCredentials('wouter', 'wrongPassword'), $this->getUser());
     }
 
     public function testOnAuthenticationSuccess()
