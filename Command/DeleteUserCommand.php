@@ -51,19 +51,18 @@ final class DeleteUserCommand extends ContainerAwareCommand
         $userClass = $input->getOption('class');
 
         $repository = $this->getRepository($userClass);
-
-        $handler = new DeleteUserHandler($repository);
-
+        
         $username = $input->getArgument('username');
         $user = $repository->findByUsername($username);
 
         if (!$user) {
             $output->writeln('<error>'.$username.' doesn\'t exists');
-            exit;
+            return;
         }
 
         $command = new DeleteUser($user);
-
+        
+        $handler = new DeleteUserHandler($repository);
         $handler->handle($command);
 
         $output->writeln($username . ' has been deleted');
