@@ -39,9 +39,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $provider = new ObjectUserProvider(new InMemoryUserRepository());
         $user = $this->formAuthenticator->getUser($this->getCredentials(), $provider);
 
-        $this->assertEquals($this->getUser()->getUserName(), $user->getUserName());
-        $this->assertEquals($this->getUser()->getPassword(), $user->getPassword());
-        $this->assertEquals($this->getUser()->getDisplayName(), $user->getDisplayName());
+        $this->assertEquals($this->getUser(), $user);
     }
 
     public function testCheckCredentials()
@@ -89,11 +87,6 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen')
     {
-        $mock = $this->getMock(User::class, [], [$username, $password, $displayName]);
-        $mock->method('getUserName')->willReturn($username);
-        $mock->method('getPassword')->willReturn($password);
-        $mock->method('getDisplayName')->willReturn($displayName);
-
-        return $mock;
+        return new User($username, $password, $displayName);
     }
 }
