@@ -42,20 +42,16 @@ class InMemoryUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function add(User $user, $save = true)
+    public function add(User $user)
     {
-        $this->users[] = $user;
+        $this->save($user);
     }
-
+    
     /**
      * {@inheritdoc}
      */
-    public function save(User $user = null)
+    public function save(User $user)
     {
-        if ($user === null) {
-            return;
-        }
-
         $this->users[] = $user;
     }
 

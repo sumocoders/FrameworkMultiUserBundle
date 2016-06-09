@@ -25,18 +25,17 @@ interface UserRepository
      * Saves the given user.
      *
      * @param User $user
-     * @param bool $save
      * @return void
      */
-    public function add(User $user, $save = true);
+    public function add(User $user);
 
     /**
-     * Flush the repository.
+     * Saves the given user.
      *
-     * @param User|null $user
+     * @param User $user
      * @return void
      */
-    public function save(User $user = null);
+    public function save(User $user);
 
     /**
      * Update an existing user.
