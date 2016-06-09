@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
-use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 {
@@ -26,10 +25,10 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->router = new Router(new Container(), '');
-        $encoders['SumoCoders\FrameworkMultiUserBundle\User\User'] = array (
+        $encoders['SumoCoders\FrameworkMultiUserBundle\User\User'] = [
             'class' => 'Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder',
-            'arguments' => array(12),
-        );
+            'arguments' => [12],
+        ];
         $encoder = new UserPasswordEncoder(new EncoderFactory($encoders));
         $redirectRoutes = [];
         $this->formAuthenticator = new FormAuthenticator($encoder, $this->router, $redirectRoutes);
@@ -81,7 +80,8 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         return new FormCredentials($username, $password);
     }
 
-    private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen'){
+    private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen')
+    {
         return new User($username, $password, $displayName);
     }
 }
