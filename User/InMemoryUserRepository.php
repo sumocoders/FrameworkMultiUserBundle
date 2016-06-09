@@ -44,7 +44,7 @@ class InMemoryUserRepository implements UserRepository
      */
     public function add(User $user)
     {
-        $this->save($user);
+        $this->users[] = $user;
     }
     
     /**
@@ -52,7 +52,6 @@ class InMemoryUserRepository implements UserRepository
      */
     public function save(User $user)
     {
-        $this->users[] = $user;
     }
 
     /**
