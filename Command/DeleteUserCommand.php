@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 
 final class DeleteUserCommand extends Command
 {
@@ -25,7 +26,7 @@ final class DeleteUserCommand extends Command
         parent::__construct();
         $this->userRepositoryCollection = $userRepositoryCollection;
     }
-    
+
     protected function configure()
     {
         $this
@@ -50,22 +51,60 @@ final class DeleteUserCommand extends Command
     {
         $userClass = $input->getOption('class');
 
+        $availableUserClasses = $this->getAllValidUserClasses();
+
+        if (count($availableUserClasses) == 1) {
+            $userClass = $availableUserClasses[0];
+        }
+
+        if (!isset($userClass)) {
+            $helper = $this->getHelper('question');
+            $question = new ChoiceQuestion(
+                'Please select the user class',
+                $availableUserClasses,
+                0
+            );
+
+            $userClass = $helper->ask($input, $output, $question);
+        }
+
         $repository = $this->getRepository($userClass);
-        
+
         $username = $input->getArgument('username');
         $user = $repository->findByUsername($username);
 
         if (!$user) {
             $output->writeln('<error>'.$username.' doesn\'t exists');
+
             return;
         }
 
         $command = new DeleteUser($user);
-        
+
         $handler = new DeleteUserHandler($repository);
         $handler->handle($command);
 
         $output->writeln($username . ' has been deleted');
+    }
+
+    /**
+     * @throws NoRepositoriesRegisteredException
+     *
+     * @return array
+     */
+    private function getAllValidUserClasses()
+    {
+        if (count($this->userRepositoryCollection->all()) === 0) {
+            throw new NoRepositoriesRegisteredException('No user repositories registered');
+        }
+
+        $validClasses = [];
+
+        foreach ($this->userRepositoryCollection->all() as $repository) {
+            $validClasses[] = $repository->getSupportedClass();
+        }
+
+        return $validClasses;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
+use SumoCoders\FrameworkMultiUserBundle\Exception\NoRepositoriesRegisteredException;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Component\Console\Command\Command;
@@ -9,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 
 final class CreateUserCommand extends Command
 {
@@ -50,8 +52,7 @@ final class CreateUserCommand extends Command
                 'class',
                 null,
                 InputOption::VALUE_OPTIONAL,
-                'The class off the user',
-                'SumoCoders\FrameworkMultiUserBundle\User\User'
+                'The class off the user'
             )
         ;
     }
@@ -59,6 +60,23 @@ final class CreateUserCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $userClass = $input->getOption('class');
+
+        $availableUserClasses = $this->getAllValidUserClasses();
+
+        if (count($availableUserClasses) == 1) {
+            $userClass = $availableUserClasses[0];
+        }
+
+        if (!isset($userClass)) {
+            $helper = $this->getHelper('question');
+            $question = new ChoiceQuestion(
+                'Please select the user class',
+                $availableUserClasses,
+                0
+            );
+
+            $userClass = $helper->ask($input, $output, $question);
+        }
 
         $repository = $this->getRepository($userClass);
 
@@ -73,6 +91,26 @@ final class CreateUserCommand extends Command
         $handler->handle($command);
 
         $output->writeln($username . ' has been created');
+    }
+
+    /**
+     * @throws NoRepositoriesRegisteredException
+     *
+     * @return array
+     */
+    private function getAllValidUserClasses()
+    {
+        if (count($this->userRepositoryCollection->all()) === 0) {
+            throw new NoRepositoriesRegisteredException('No user repositories registered');
+        }
+
+        $validClasses = [];
+
+        foreach ($this->userRepositoryCollection->all() as $repository) {
+            $validClasses[] = $repository->getSupportedClass();
+        }
+
+        return $validClasses;
     }
 
     /**
