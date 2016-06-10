@@ -66,7 +66,7 @@ final class CreateUserCommand extends UserCommand
     {
         $availableUserClasses = $this->getAllValidUserClasses($this->userRepositoryCollection);
 
-        $userClass = $this->setUserClass($input, $output, $availableUserClasses);
+        $userClass = $this->getUserClass($input, $output, $availableUserClasses);
 
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');

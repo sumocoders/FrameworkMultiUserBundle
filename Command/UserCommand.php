@@ -26,7 +26,7 @@ abstract class UserCommand extends Command
         );
     }
 
-    protected function setUserClass(InputInterface $input, OutputInterface $output, array $availableUserClasses)
+    protected function getUserClass(InputInterface $input, OutputInterface $output, array $availableUserClasses)
     {
         $userClass = $input->getOption('class');
 

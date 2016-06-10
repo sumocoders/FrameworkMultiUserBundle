@@ -58,7 +58,7 @@ final class DeleteUserCommand extends UserCommand
     {
         $availableUserClasses = $this->getAllValidUserClasses($this->userRepositoryCollection);
 
-        $userClass = $this->setUserClass($input, $output, $availableUserClasses);
+        $userClass = $this->getUserClass($input, $output, $availableUserClasses);
 
         $repository = $this->getRepository($userClass);
 
