@@ -50,7 +50,7 @@ class InMemoryUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function add(User $user)
+    public function add(UserInterface $user)
     {
         $this->users[] = $user;
     }
@@ -58,14 +58,14 @@ class InMemoryUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function save(User $user)
+    public function save(UserInterface $user)
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function update(User $userToUpdate, User $user)
+    public function update(UserInterface $userToUpdate, UserInterface $user)
     {
         foreach ($this->users as $key => $row) {
             if ($row->getUserName() === $user->getUserName()) {
@@ -78,7 +78,7 @@ class InMemoryUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function delete(User $user)
+    public function delete(UserInterface $user)
     {
         foreach ($this->users as $key => $row) {
             if ($row->getUserName() === $user->getUserName()) {

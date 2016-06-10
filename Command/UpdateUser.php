@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\User\User;
+use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
 
 final class UpdateUser
 {
@@ -29,12 +29,12 @@ final class UpdateUser
     /**
      * UpdateUser constructor.
      *
-     * @param User $user
+     * @param UserInterface $user
      * @param $username
      * @param $password
      * @param $displayName
      */
-    public function __construct(User $user, $username, $password, $displayName)
+    public function __construct(UserInterface $user, $username, $password, $displayName)
     {
         $this->user = $user;
         $this->username = $username;
@@ -45,7 +45,7 @@ final class UpdateUser
     /**
      * Get the User.
      *
-     * @return User
+     * @return UserInterface
      */
     public function getUser()
     {

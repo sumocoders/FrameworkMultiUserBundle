@@ -108,17 +108,29 @@ services:
     arguments:
       - ["@user_repository1", "@user_repository2"]
 
-  multi_user.command.create_user:
-      class: SumoCoders\FrameworkMultiUserBundle\Command\CreateUserCommand
+  multi_user.handler.create_user:
+      class: SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler
       arguments:
         - "@multi_user.user_repository.collection"
-      tags:
-        -  { name: "console.command" }
+
+  multi_user.handler.delete_user:
+        class: SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserHandler
+        arguments:
+          - "@multi_user.user_repository.collection"
+
+  multi_user.command.create_user:
+    class: SumoCoders\FrameworkMultiUserBundle\Command\CreateUserCommand
+    arguments:
+      - "@multi_user.user_repository.collection"
+      - "@multi_user.handler.create_user"
+    tags:
+      -  { name: "console.command" }
 
   multi_user.command.delete_user:
       class: SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserCommand
       arguments:
         - "@multi_user.user_repository.collection"
+        - "@multi_user.handler.delete_user"
       tags:
         -  { name: "console.command" }
 ```

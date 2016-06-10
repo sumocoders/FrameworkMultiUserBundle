@@ -6,6 +6,7 @@ use SumoCoders\FrameworkMultiUserBundle\Command\UpdateUser;
 use SumoCoders\FrameworkMultiUserBundle\Command\UpdateUserHandler;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
 class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,9 +15,15 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
      */
     private $userRepository;
 
+    /**
+     * @var UserRepositoryCollection
+     */
+    private $userRepositoryCollection;
+
     public function setUp()
     {
         $this->userRepository = new InMemoryUserRepository();
+        $this->userRepositoryCollection = new UserRepositoryCollection([$this->userRepository]);
     }
 
     /**
@@ -24,7 +31,7 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testUpdateUserGetsHandled()
     {
-        $handler = new UpdateUserHandler($this->userRepository);
+        $handler = new UpdateUserHandler($this->userRepositoryCollection);
 
         $updatingUser = $this->userRepository->findByUsername('wouter');
 

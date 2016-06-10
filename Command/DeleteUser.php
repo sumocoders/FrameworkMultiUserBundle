@@ -2,21 +2,21 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\User\User;
+use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
 
 final class DeleteUser
 {
     /**
-     * @var User
+     * @var UserInterface
      */
     private $user;
 
     /**
      * DeleteUser constructor.
      *
-     * @param User $user
+     * @param UserInterface $user
      */
-    public function __construct(User $user)
+    public function __construct(UserInterface $user)
     {
         $this->user = $user;
     }

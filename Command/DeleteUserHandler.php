@@ -2,23 +2,23 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
-final class DeleteUserHandler
+final class DeleteUserHandler extends UserHandler
 {
     /**
-     * @var UserRepository
+     * @var UserRepositoryCollection
      */
-    private $userRepository;
+    private $userRepositoryCollection;
 
     /**
      * DeleteUserHandler constructor.
      *
-     * @param UserRepository $userRepository
+     * @param UserRepositoryCollection $userRepositoryCollection
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryCollection $userRepositoryCollection)
     {
-        $this->userRepository = $userRepository;
+        $this->userRepositoryCollection = $userRepositoryCollection;
     }
 
     /**
@@ -26,6 +26,7 @@ final class DeleteUserHandler
      */
     public function handle(DeleteUser $command)
     {
-        $this->userRepository->delete($command->getUser());
+        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $command->getUser());
+        $repository->delete($command->getUser());
     }
 }

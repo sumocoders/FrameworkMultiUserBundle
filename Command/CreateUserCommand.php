@@ -2,7 +2,6 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,12 +16,21 @@ final class CreateUserCommand extends UserCommand
     private $userRepositoryCollection;
 
     /**
-     * @param UserRepositoryCollection $userRepositoryCollection
+     * @var CreateUserHandler
      */
-    public function __construct(UserRepositoryCollection $userRepositoryCollection)
+    private $handler;
+
+    /**
+     * CreateUserCommand constructor.
+     *
+     * @param UserRepositoryCollection $userRepositoryCollection
+     * @param CreateUserHandler $handler
+     */
+    public function __construct(UserRepositoryCollection $userRepositoryCollection, CreateUserHandler $handler)
     {
         parent::__construct();
         $this->userRepositoryCollection = $userRepositoryCollection;
+        $this->handler = $handler;
     }
 
     protected function configure()
@@ -60,29 +68,14 @@ final class CreateUserCommand extends UserCommand
 
         $userClass = $this->setUserClass($input, $output, $availableUserClasses);
 
-        $repository = $this->getRepository($userClass);
-
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
         $displayName = $input->getArgument('displayName');
 
         $command = new CreateUser($username, $password, $displayName);
 
-        $handler = new CreateUserHandler($repository);
-        $handler->handle($command);
+        $this->handler->handle($command, $userClass);
 
         $output->writeln($username . ' has been created');
-    }
-
-    /**
-     * Get the repository for the user's Class.
-     *
-     * @param $userClass
-     *
-     * @return UserRepository
-     */
-    private function getRepository($userClass)
-    {
-        return $this->userRepositoryCollection->findRepositoryByClassName($userClass);
     }
 }

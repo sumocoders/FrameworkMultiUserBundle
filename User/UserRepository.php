@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-use Symfony\Component\Security\Core\User\UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
 
 /**
  * Interface UserRepository
@@ -29,33 +29,33 @@ interface UserRepository
     /**
      * Saves the given user.
      *
-     * @param User $user
+     * @param UserInterface $user
      * @return void
      */
-    public function add(User $user);
+    public function add(UserInterface $user);
 
     /**
      * Saves the given user.
      *
-     * @param User $user
+     * @param UserInterface $user
      * @return void
      */
-    public function save(User $user);
+    public function save(UserInterface $user);
 
     /**
      * Update an existing user.
      *
-     * @param User $userToUpdate
-     * @param User $user
+     * @param UserInterface $userToUpdate
+     * @param UserInterface $user
      * @return void
      */
-    public function update(User $userToUpdate, User $user);
+    public function update(UserInterface $userToUpdate, UserInterface $user);
 
     /**
      * Delete an existing user.
      *
-     * @param User $user
+     * @param UserInterface $user
      * @return void
      */
-    public function delete(User $user);
+    public function delete(UserInterface $user);
 }

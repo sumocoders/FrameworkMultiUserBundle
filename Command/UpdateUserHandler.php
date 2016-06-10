@@ -3,23 +3,23 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\User\User;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
-final class UpdateUserHandler
+final class UpdateUserHandler extends UserHandler
 {
     /**
-     * @var UserRepository
+     * @var UserRepositoryCollection
      */
-    private $userRepository;
+    private $userRepositoryCollection;
 
     /**
      * CreateUserHandler constructor.
      *
-     * @param UserRepository $userRepository
+     * @param UserRepositoryCollection $userRepositoryCollection
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryCollection $userRepositoryCollection)
     {
-        $this->userRepository = $userRepository;
+        $this->userRepositoryCollection = $userRepositoryCollection;
     }
 
     /**
@@ -29,6 +29,7 @@ final class UpdateUserHandler
     {
         $updatingUser = $command->getUser();
         $user = new User($command->getUsername(), $command->getPassword(), $command->getDisplayName());
-        $this->userRepository->update($updatingUser, $user);
+        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $updatingUser);
+        $repository->update($updatingUser, $user);
     }
 }

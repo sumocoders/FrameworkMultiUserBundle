@@ -17,12 +17,21 @@ final class DeleteUserCommand extends UserCommand
     private $userRepositoryCollection;
 
     /**
-     * @param UserRepositoryCollection $userRepositoryCollection
+     * @var DeleteUserHandler
      */
-    public function __construct(UserRepositoryCollection $userRepositoryCollection)
+    private $handler;
+
+    /**
+     * DeleteUserCommand constructor.
+     *
+     * @param UserRepositoryCollection $userRepositoryCollection
+     * @param DeleteUserHandler $handler
+     */
+    public function __construct(UserRepositoryCollection $userRepositoryCollection, DeleteUserHandler $handler)
     {
         parent::__construct();
         $this->userRepositoryCollection = $userRepositoryCollection;
+        $this->handler = $handler;
     }
 
     protected function configure()
@@ -64,8 +73,7 @@ final class DeleteUserCommand extends UserCommand
 
         $command = new DeleteUser($user);
 
-        $handler = new DeleteUserHandler($repository);
-        $handler->handle($command);
+        $this->handler->handle($command);
 
         $output->writeln($username . ' has been deleted');
     }
