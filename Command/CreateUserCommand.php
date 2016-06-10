@@ -104,13 +104,12 @@ final class CreateUserCommand extends Command
             throw new NoRepositoriesRegisteredException('No user repositories registered');
         }
 
-        $validClasses = [];
-
-        foreach ($this->userRepositoryCollection->all() as $repository) {
-            $validClasses[] = $repository->getSupportedClass();
-        }
-
-        return $validClasses;
+        return array_map(
+            function (UserRepository $repository) {
+                return $repository->getSupportedClass();
+            },
+            $this->userRepositoryCollection->all()
+        );
     }
 
     /**

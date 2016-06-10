@@ -42,6 +42,14 @@ class InMemoryUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
+    public function getSupportedClass()
+    {
+        return User::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function add(User $user)
     {
         $this->users[] = $user;

@@ -2,7 +2,6 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use SumoCoders\FrameworkMultiUserBundle\Exception\RepositoryNotRegisteredException;
 
 class UserRepositoryCollection
@@ -10,7 +9,7 @@ class UserRepositoryCollection
     /**
      * @var array
      */
-    private $userRepositories;
+    private $userRepositories = [];
 
     /**
      * UserRepositoryCollection constructor.
@@ -19,7 +18,6 @@ class UserRepositoryCollection
      */
     public function __construct(array $userRepositories)
     {
-        $this->userRepositories = new ArrayCollection();
         foreach ($userRepositories as $repository) {
             $this->addUserRepository($repository);
         }

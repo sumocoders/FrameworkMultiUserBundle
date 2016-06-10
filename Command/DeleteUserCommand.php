@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
+use SumoCoders\FrameworkMultiUserBundle\Exception\NoRepositoriesRegisteredException;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Component\Console\Command\Command;
@@ -98,13 +99,12 @@ final class DeleteUserCommand extends Command
             throw new NoRepositoriesRegisteredException('No user repositories registered');
         }
 
-        $validClasses = [];
-
-        foreach ($this->userRepositoryCollection->all() as $repository) {
-            $validClasses[] = $repository->getSupportedClass();
-        }
-
-        return $validClasses;
+        return array_map(
+            function (UserRepository $repository) {
+                return $repository->getSupportedClass();
+            },
+            $this->userRepositoryCollection->all()
+        );
     }
 
     /**

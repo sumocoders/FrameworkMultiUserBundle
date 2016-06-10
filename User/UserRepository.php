@@ -22,6 +22,11 @@ interface UserRepository
     public function supportsClass($class);
 
     /**
+     * @return string
+     */
+    public function getSupportedClass();
+
+    /**
      * Saves the given user.
      *
      * @param User $user
