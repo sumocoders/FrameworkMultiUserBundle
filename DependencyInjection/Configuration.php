@@ -15,12 +15,14 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('redirect_routes')
-                    ->example(array(
+                    ->example([
                         'Acme\DemoBundle\Entity\User1' => 'dashboard_route',
-                    ))
+                    ])
                     ->useAttributeAsKey('class')
                     ->prototype('array')
-                        ->beforeNormalization()->ifString()->then(function ($v) { return array('route' => $v); })->end()
+                        ->beforeNormalization()->ifString()->then(function ($v) {
+                            return ['route' => $v];
+                        })->end()
                         ->children()
                             ->scalarNode('route')->cannotBeEmpty()->end()
                         ->end()
