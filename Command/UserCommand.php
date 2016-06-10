@@ -18,10 +18,6 @@ abstract class UserCommand extends Command
      */
     protected function getAllValidUserClasses(UserRepositoryCollection $userRepositoryCollection)
     {
-        if (count($userRepositoryCollection->all()) === 0) {
-            throw new NoRepositoriesRegisteredException('No user repositories registered');
-        }
-
         return array_map(
             function (UserRepository $repository) {
                 return $repository->getSupportedClass();

@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
+use SumoCoders\FrameworkMultiUserBundle\Exception\NoRepositoriesRegisteredException;
 use SumoCoders\FrameworkMultiUserBundle\Exception\RepositoryNotRegisteredException;
 
 class UserRepositoryCollection
@@ -36,10 +37,16 @@ class UserRepositoryCollection
     /**
      * Get the userRepositories.
      *
+     * @throws NoRepositoriesRegisteredException
+     *
      * @return array
      */
     public function all()
     {
+        if (count($this->userRepositories) === 0) {
+            throw new NoRepositoriesRegisteredException('No user repositories registered');
+        }
+
         return $this->userRepositories;
     }
 
