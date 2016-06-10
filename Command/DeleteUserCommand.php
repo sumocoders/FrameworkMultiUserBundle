@@ -8,7 +8,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ChoiceQuestion;
 
 final class DeleteUserCommand extends UserCommand
 {
@@ -48,24 +47,9 @@ final class DeleteUserCommand extends UserCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userClass = $input->getOption('class');
-
         $availableUserClasses = $this->getAllValidUserClasses($this->userRepositoryCollection);
 
-        if (count($availableUserClasses) == 1) {
-            $userClass = $availableUserClasses[0];
-        }
-
-        if (!isset($userClass)) {
-            $helper = $this->getHelper('question');
-            $question = new ChoiceQuestion(
-                'Please select the user class',
-                $availableUserClasses,
-                0
-            );
-
-            $userClass = $helper->ask($input, $output, $question);
-        }
+        $userClass = $this->setUserClass($input, $output, $availableUserClasses);
 
         $repository = $this->getRepository($userClass);
 
