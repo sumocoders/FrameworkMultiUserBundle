@@ -26,7 +26,10 @@ final class DeleteUserHandler extends UserHandler
      */
     public function handle(DeleteUser $command)
     {
-        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $command->getUser());
+        $repository = $this->getUserRepositoryForUser(
+            $this->userRepositoryCollection,
+            $command->getUser()
+        );
         $repository->delete($command->getUser());
     }
 }

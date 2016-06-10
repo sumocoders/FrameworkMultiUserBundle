@@ -26,7 +26,11 @@ final class CreateUserHandler extends UserHandler
      */
     public function handle(CreateUser $command, $class)
     {
-        $user = new $class($command->getUsername(), $command->getPassword(), $command->getDisplayName());
+        $user = new $class(
+            $command->getUsername(),
+            $command->getPassword(),
+            $command->getDisplayName()
+        );
         $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $user);
         $repository->add($user);
     }
