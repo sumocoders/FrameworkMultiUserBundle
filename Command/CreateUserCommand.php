@@ -80,14 +80,13 @@ final class CreateUserCommand extends Command
 
         $repository = $this->getRepository($userClass);
 
-        $handler = new CreateUserHandler($repository);
-
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
         $displayName = $input->getArgument('displayName');
 
         $command = new CreateUser($username, $password, $displayName);
 
+        $handler = new CreateUserHandler($repository);
         $handler->handle($command);
 
         $output->writeln($username . ' has been created');
