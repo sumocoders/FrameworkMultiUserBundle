@@ -4,4 +4,3 @@ multi_user_login:
 
 multi_user_logout:
     path: /logout
-
