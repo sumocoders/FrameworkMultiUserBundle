@@ -2,17 +2,15 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\Exception\NoRepositoriesRegisteredException;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
-final class CreateUserCommand extends Command
+final class CreateUserCommand extends UserCommand
 {
     /**
      * @var UserRepositoryCollection
@@ -61,7 +59,7 @@ final class CreateUserCommand extends Command
     {
         $userClass = $input->getOption('class');
 
-        $availableUserClasses = $this->getAllValidUserClasses();
+        $availableUserClasses = $this->getAllValidUserClasses($this->userRepositoryCollection);
 
         if (count($availableUserClasses) == 1) {
             $userClass = $availableUserClasses[0];
@@ -90,25 +88,6 @@ final class CreateUserCommand extends Command
         $handler->handle($command);
 
         $output->writeln($username . ' has been created');
-    }
-
-    /**
-     * @throws NoRepositoriesRegisteredException
-     *
-     * @return array
-     */
-    private function getAllValidUserClasses()
-    {
-        if (count($this->userRepositoryCollection->all()) === 0) {
-            throw new NoRepositoriesRegisteredException('No user repositories registered');
-        }
-
-        return array_map(
-            function (UserRepository $repository) {
-                return $repository->getSupportedClass();
-            },
-            $this->userRepositoryCollection->all()
-        );
     }
 
     /**
