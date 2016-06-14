@@ -1,0 +1,6 @@
+sumocoders:
+  multiuserbundle:
+    form:
+      password: password
+      repeat_password: repeat password
+      change_password: change password

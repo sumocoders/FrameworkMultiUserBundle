@@ -1,0 +1,4 @@
+sumocoders:
+  multiuserbundle:
+    form:
+      length: a password should be at least 6 characters long.

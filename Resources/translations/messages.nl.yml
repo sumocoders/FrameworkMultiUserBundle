@@ -1,0 +1,6 @@
+sumocoders:
+  multiuserbundle:
+    form:
+      password: wachtwoord
+      repeat_password: herhaal wachtwoord
+      change_password: update wachtwoord
