@@ -6,6 +6,8 @@ use SumoCoders\FrameworkMultiUserBundle\User\PasswordResetInterface;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Swift_Mailer;
 use Swift_Message;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class PasswordResetRequestHandler
 {
@@ -20,14 +22,21 @@ class PasswordResetRequestHandler
     private $mailer;
 
     /**
-     * @var string
+     * @var TranslatorInterface
      */
-    private $bodyText;
+    private $translator;
 
-    public function __construct(UserRepositoryCollection $userRepositoryCollection, Swift_Mailer $mailer, $bodyText)
+    /**
+     * @var Router
+     */
+    private $router;
+
+    public function __construct(UserRepositoryCollection $userRepositoryCollection, Swift_Mailer $mailer, TranslatorInterface $translator, Router $router)
     {
         $this->userRepositoryCollection = $userRepositoryCollection;
         $this->mailer = $mailer;
+        $this->translator = $translator;
+        $this->router = $router;
     }
 
     /**
@@ -76,6 +85,9 @@ class PasswordResetRequestHandler
      */
     private function getPasswordResetMessage(PasswordResetInterface $user)
     {
-        return str_replace('%token%', $user->getPasswordResetToken(), $this->bodyText);
+        $url = $this->router->generate('multi_user_reset_password');
+        $token = '?token='.$user->getPasswordResetToken();
+
+        return $this->translator->trans('sumocoders.multiuserbundle.mail.request_password', ['%link%' => $url.$token]);
     }
 }

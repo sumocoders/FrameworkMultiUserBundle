@@ -4,3 +4,5 @@ sumocoders:
       password: password
       repeat_password: repeat password
       change_password: change password
+    mail:
+      request_password: you can reset your password <a href="%link%">here</a>
