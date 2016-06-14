@@ -2,8 +2,6 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
-
 /**
  * Interface UserRepository
  */
@@ -11,12 +9,14 @@ interface UserRepository
 {
     /**
      * @param string $username
+     *
      * @return UserInterface|null
      */
     public function findByUsername($username);
 
     /**
      * @param string $class
+     *
      * @return bool
      */
     public function supportsClass($class);
@@ -30,7 +30,6 @@ interface UserRepository
      * Saves the given user.
      *
      * @param UserInterface $user
-     * @return void
      */
     public function add(UserInterface $user);
 
@@ -38,7 +37,6 @@ interface UserRepository
      * Saves the given user.
      *
      * @param UserInterface $user
-     * @return void
      */
     public function save(UserInterface $user);
 
@@ -47,7 +45,6 @@ interface UserRepository
      *
      * @param UserInterface $userToUpdate
      * @param UserInterface $user
-     * @return void
      */
     public function update(UserInterface $userToUpdate, UserInterface $user);
 
@@ -55,7 +52,6 @@ interface UserRepository
      * Delete an existing user.
      *
      * @param UserInterface $user
-     * @return void
      */
     public function delete(UserInterface $user);
 }

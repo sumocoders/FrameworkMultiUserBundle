@@ -2,7 +2,12 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-interface PasswordResetInterface{
+interface PasswordResetInterface
+{
+    /**
+     * @return self
+     */
+    public function clearPasswordResetToken();
 
     /**
      * @return self

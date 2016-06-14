@@ -27,7 +27,7 @@ class PasswordReset
         $this->password = $password;
         $this->passwordConfirmation = $passwordConfirmation;
     }
-    
+
     public function getUser()
     {
         return $this->user;

@@ -15,13 +15,13 @@ class PasswordResetRequest
 
     public function __construct(UserInterface $user)
     {
-        if (! $user instanceof PasswordResetInterface) {
+        if (!$user instanceof PasswordResetInterface) {
             throw new InterfaceNotImplemented('The user doesn\'t implement PasswordResetInterface');
         }
 
         $this->user = $user;
     }
-    
+
     public function getUser()
     {
         return $this->user;

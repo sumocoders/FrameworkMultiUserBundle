@@ -52,6 +52,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepositoryI
 
     /**
      * @param string $token
+     *
      * @return UserInterface|null
      */
     public function findByPasswordResetToken($token)
@@ -80,7 +81,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepositoryI
     {
         $this->users[] = $user;
     }
-    
+
     /**
      * {@inheritdoc}
      */

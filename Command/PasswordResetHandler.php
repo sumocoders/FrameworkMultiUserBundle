@@ -3,7 +3,6 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
-use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
 class PasswordResetHandler
