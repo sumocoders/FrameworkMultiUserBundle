@@ -48,12 +48,61 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepositoryI
      */
     public function findByPasswordResetToken($token)
     {
-        foreach ($this->users as $user){
-            if ($user->getPasswordResetToken() === $token){
+        foreach ($this->users as $user) {
+            if ($user->getPasswordResetToken() === $token) {
                 return $user;
             }
         }
-        
+
         return;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedClass()
+    {
+        return User::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function add(UserInterface $user)
+    {
+        $this->users[] = $user;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function save(UserInterface $user)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function update(UserInterface $userToUpdate, UserInterface $user)
+    {
+        foreach ($this->users as $key => $row) {
+            if ($row->getUserName() === $user->getUserName()) {
+                $this->users[$key] = $user;
+                break;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(UserInterface $user)
+    {
+        foreach ($this->users as $key => $row) {
+            if ($row->getUserName() === $user->getUserName()) {
+                unset($this->users[$key]);
+                break;
+            }
+        }
     }
 }

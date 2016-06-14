@@ -96,3 +96,41 @@ sumo_coders_framework_multi_user:
   redirect_routes:
     SumoCoders\FrameworkMultiUserBundle\User\User: sumocoders_frameworkexample_bootstrap_carousel
 ```
+
+## User commands
+
+The sumocoders:multiuser:xxx require the `multi_user.user_repository.collection` service
+
+```yaml
+services:
+  multi_user.user_repository.collection:
+    class: SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection
+    arguments:
+      - ["@user_repository1", "@user_repository2"]
+
+  multi_user.handler.create_user:
+      class: SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler
+      arguments:
+        - "@multi_user.user_repository.collection"
+
+  multi_user.handler.delete_user:
+        class: SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserHandler
+        arguments:
+          - "@multi_user.user_repository.collection"
+
+  multi_user.command.create_user:
+    class: SumoCoders\FrameworkMultiUserBundle\Command\CreateUserCommand
+    arguments:
+      - "@multi_user.user_repository.collection"
+      - "@multi_user.handler.create_user"
+    tags:
+      -  { name: "console.command" }
+
+  multi_user.command.delete_user:
+      class: SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserCommand
+      arguments:
+        - "@multi_user.user_repository.collection"
+        - "@multi_user.handler.delete_user"
+      tags:
+        -  { name: "console.command" }
+```
