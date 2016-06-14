@@ -4,9 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SumoCoders\FrameworkMultiUserBundle\Command\PasswordReset;
-use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetHandler;
 use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequest;
-use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequestHandler;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\Form\ChangePassword;
 use SumoCoders\FrameworkMultiUserBundle\Form\ChangePasswordType;

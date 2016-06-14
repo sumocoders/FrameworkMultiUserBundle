@@ -134,7 +134,7 @@ class User implements UserInterface, PasswordResetInterface
     public function setEmail($email)
     {
         $this->email = $email;
-        
+
         return $this;
     }
 

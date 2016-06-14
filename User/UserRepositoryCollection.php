@@ -79,7 +79,7 @@ class UserRepositoryCollection
     {
         foreach ($this->userRepositories as $repository) {
             $user = $repository->findByPasswordResetToken($token);
-            
+
             if ($user) {
                 return $user;
             }
@@ -90,8 +90,7 @@ class UserRepositoryCollection
 
     public function findUserByUserName($username)
     {
-        foreach ($this->userRepositories as $repository)
-        {
+        foreach ($this->userRepositories as $repository) {
             $user = $repository->findByUsername($username);
 
             if ($user) {

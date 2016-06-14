@@ -4,7 +4,6 @@ namespace SumoCoders\FrameworkMultiUserBundle\Form;
 
 use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class RequestPassword
 {
@@ -12,9 +11,9 @@ class RequestPassword
      * @var UserInterface
      */
     private $user;
-    
+
     private $userRepositoryCollection;
-    
+
     public function __construct(UserRepositoryCollection $userRepositoryCollection)
     {
         $this->userRepositoryCollection = $userRepositoryCollection;

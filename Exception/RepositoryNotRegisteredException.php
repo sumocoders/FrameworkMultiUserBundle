@@ -8,6 +8,7 @@ final class RepositoryNotRegisteredException extends Exception
 {
     /**
      * @param $classname
+     *
      * @return static
      */
     public static function withClassName($classname)
