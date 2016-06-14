@@ -31,7 +31,8 @@ final class UpdateUserHandler extends UserHandler
         $user = new User(
             $command->getUsername(),
             $command->getPassword(),
-            $command->getDisplayName()
+            $command->getDisplayName(),
+            $command->getEmail()
         );
         $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $updatingUser);
         $repository->update($updatingUser, $user);

@@ -85,8 +85,8 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         return $mock;
     }
 
-    private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen')
+    private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen', $email = 'wouter@example.dev')
     {
-        return new User($username, $password, $displayName);
+        return new User($username, $password, $displayName, $email);
     }
 }

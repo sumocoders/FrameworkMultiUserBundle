@@ -20,17 +20,23 @@ final class CreateUser
     private $displayName;
 
     /**
+     * @var string
+     */
+    private $email;
+
+    /**
      * CreateUser constructor.
      *
      * @param $username
      * @param $password
      * @param $displayName
      */
-    public function __construct($username, $password, $displayName)
+    public function __construct($username, $password, $displayName, $email)
     {
         $this->username = $username;
         $this->password = $password;
         $this->displayName = $displayName;
+        $this->email = $email;
     }
 
     /**
@@ -61,5 +67,15 @@ final class CreateUser
     public function getDisplayName()
     {
         return $this->displayName;
+    }
+
+    /**
+     * Get the email.
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

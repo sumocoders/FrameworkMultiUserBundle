@@ -26,11 +26,12 @@ class User implements UserInterface, PasswordResetInterface
      * @param string $password
      * @param string $displayName
      */
-    public function __construct($username, $password, $displayName)
+    public function __construct($username, $password, $displayName, $email)
     {
         $this->username = $username;
         $this->password = $password;
         $this->displayName = $displayName;
+        $this->email = $email;
     }
 
     /**
@@ -123,6 +124,18 @@ class User implements UserInterface, PasswordResetInterface
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @param $email
+     *
+     * @return self
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        
+        return $this;
     }
 
     /**
