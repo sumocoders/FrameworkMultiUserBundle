@@ -5,18 +5,21 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 /**
  * Class InMemoryUserRepository
  */
-class InMemoryUserRepository implements UserRepository
+class InMemoryUserRepository implements UserRepository, PasswordResetRepositoryInterface
 {
     /** @var array */
-    private $user = [];
+    private $users = [];
 
     public function __construct()
     {
-        $this->users[] = new User(
+        $user = new User(
             'wouter',
             'test',
             'Wouter Sioen'
         );
+        
+        $user->generatePasswordResetToken();
+        $this->users[] = $user;
     }
 
     /**
@@ -37,5 +40,20 @@ class InMemoryUserRepository implements UserRepository
     public function supportsClass($class)
     {
         return $class === User::class;
+    }
+
+    /**
+     * @param string $token
+     * @return UserInterface|null
+     */
+    public function findByPasswordResetToken($token)
+    {
+        foreach ($this->users as $user){
+            if ($user->getPasswordResetToken() === $token){
+                return $user;
+            }
+        }
+        
+        return;
     }
 }

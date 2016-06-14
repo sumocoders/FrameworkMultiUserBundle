@@ -2,7 +2,9 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-class User implements UserInterface
+use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+
+class User implements UserInterface, PasswordResetInterface
 {
     /** @var string */
     private $username;
@@ -12,6 +14,12 @@ class User implements UserInterface
 
     /** @var string */
     private $displayName;
+
+    /** @var */
+    private $passwordResetToken;
+
+    /** @var */
+    private $email;
 
     /**
      * @param string $username
@@ -79,5 +87,43 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->getDisplayName();
+    }
+
+    /**
+     * @return self
+     */
+    public function generatePasswordResetToken()
+    {
+        $this->passwordResetToken = PasswordResetToken::getToken();
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPasswordResetToken()
+    {
+        return $this->passwordResetToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param $password
+     *
+     * @return self
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
     }
 }
