@@ -7,7 +7,7 @@ use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
 
 class PasswordResetToken
 {
-    private function generatePasswordResetToken(){
+    private static function generatePasswordResetToken(){
         return time() . base64_encode(random_bytes(10));
     }
 
