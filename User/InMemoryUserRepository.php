@@ -17,9 +17,17 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepositoryI
             'test',
             'Wouter Sioen'
         );
-        
-        $user->generatePasswordResetToken();
+
         $this->users[] = $user;
+
+        $passwordResetUSer = new User(
+            'reset',
+            'reset',
+            'reset'
+        );
+
+        $passwordResetUSer->generatePasswordResetToken();
+        $this->users[] = $passwordResetUSer;
     }
 
     /**
