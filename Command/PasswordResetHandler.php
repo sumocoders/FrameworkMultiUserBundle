@@ -25,15 +25,17 @@ class PasswordResetHandler
      */
     public function handle(PasswordReset $command)
     {
-        if ($command->passwordConfirmationIsValid()){
+        if ($command->passwordConfirmationIsValid()) {
             $user = $command->getUser();
             $updatedUser = clone $user;
             $updatedUser->setPassword($command->getPassword());
+            $updatedUser->clearPasswordResetToken();
             $repository = $this->userRepositoryCollection->findRepositoryByClassName(get_class($user));
             $repository->update($user, $updatedUser);
+
             return;
         }
-        
+
         throw new InvalidPasswordConfirmationException('The password confirmation isn\'t valid');
     }
 }

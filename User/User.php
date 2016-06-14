@@ -90,6 +90,16 @@ class User implements UserInterface, PasswordResetInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function clearPasswordResetToken()
+    {
+        $this->passwordResetToken = null;
+
+        return $this;
+    }
+
+    /**
      * @return self
      */
     public function generatePasswordResetToken()
