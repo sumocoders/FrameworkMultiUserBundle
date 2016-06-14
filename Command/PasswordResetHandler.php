@@ -19,7 +19,7 @@ class PasswordResetHandler
 
     /**
      * @param PasswordReset $command
-     * 
+     *
      * @throws InvalidPasswordConfirmationException
      */
     public function handle(PasswordReset $command)

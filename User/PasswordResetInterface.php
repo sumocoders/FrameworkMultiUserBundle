@@ -31,7 +31,7 @@ interface PasswordResetInterface
 
     /**
      * @param $password
-     * 
+     *
      * @return self
      */
     public function setPassword($password);
