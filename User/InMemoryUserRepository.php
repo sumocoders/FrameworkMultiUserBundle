@@ -8,7 +8,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 class InMemoryUserRepository implements UserRepository
 {
     /** @var array */
-    private $user = [];
+    private $users = [];
 
     public function __construct()
     {
@@ -20,7 +20,7 @@ class InMemoryUserRepository implements UserRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findByUsername($username)
     {
@@ -32,10 +32,59 @@ class InMemoryUserRepository implements UserRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function supportsClass($class)
     {
         return $class === User::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedClass()
+    {
+        return User::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function add(UserInterface $user)
+    {
+        $this->users[] = $user;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function save(UserInterface $user)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function update(UserInterface $userToUpdate, UserInterface $user)
+    {
+        foreach ($this->users as $key => $row) {
+            if ($row->getUserName() === $user->getUserName()) {
+                $this->users[$key] = $user;
+                break;
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(UserInterface $user)
+    {
+        foreach ($this->users as $key => $row) {
+            if ($row->getUserName() === $user->getUserName()) {
+                unset($this->users[$key]);
+                break;
+            }
+        }
     }
 }
