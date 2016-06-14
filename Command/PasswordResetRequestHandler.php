@@ -85,7 +85,7 @@ class PasswordResetRequestHandler
      */
     private function getPasswordResetMessage(PasswordResetInterface $user)
     {
-        $url = $this->router->generate('multi_user_reset_password',[], true);
+        $url = $this->router->generate('multi_user_reset_password', [], true);
         $token = '?token='.urlencode($user->getPasswordResetToken());
 
         return $this->translator->trans('sumocoders.multiuserbundle.mail.request_password', ['%link%' => $url.$token]);
