@@ -134,3 +134,25 @@ services:
       tags:
         -  { name: "console.command" }
 ```
+
+## Password reset
+
+To use the password reset you need two services:
+
+* PasswordResetRequestHandler
+* PasswordResetHandler
+
+```yaml
+  multi_user.handler.request_password:
+      class: SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequestHandler
+      arguments:
+        - "@multi_user.user_repository.collection"
+        - "@mailer"
+        - "@translator"
+        - "@router"
+
+  multi_user.handler.reset_password:
+      class: SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetHandler
+      arguments:
+        - "@multi_user.user_repository.collection"
+``
