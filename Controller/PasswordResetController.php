@@ -2,11 +2,16 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SumoCoders\FrameworkMultiUserBundle\Command\PasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetHandler;
+use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequest;
+use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequestHandler;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\Form\ChangePassword;
 use SumoCoders\FrameworkMultiUserBundle\Form\ChangePasswordType;
+use SumoCoders\FrameworkMultiUserBundle\Form\RequestPassword;
+use SumoCoders\FrameworkMultiUserBundle\Form\RequestPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +20,35 @@ class PasswordResetController extends Controller
 {
     /**
      * @param Request $request
+     *
+     * @Template()
+     *
+     * @return array|RedirectResponse
+     */
+    public function requestAction(Request $request)
+    {
+        $userReposioryCollection = $this->container->get('multi_user.user_repository.collection');
+        $requestPassword = new RequestPassword($userReposioryCollection);
+        $form = $this->createForm(RequestPasswordType::class, $requestPassword);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $command = new PasswordResetRequest($requestPassword->getUser());
+            $handler = $this->container->get('multi_user.handler.request_password');
+            $handler->handle($command);
+        }
+
+        return
+            [
+                'form' => $form->createView(),
+            ];
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Template()
      *
      * @throws InvalidPasswordConfirmationException
      *
@@ -32,7 +66,7 @@ class PasswordResetController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $command = new PasswordReset($user, $changePassword->getNewPassword(), $changePassword->getNewPassword());
-            $handler = new PasswordResetHandler($userReposioryCollection);
+            $handler = $this->container->get('multi_user.handler.reset_password');
             $handler->handle($command);
 
             return $this->redirectToRoute('multi_user_login');
