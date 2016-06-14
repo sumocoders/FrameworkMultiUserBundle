@@ -69,4 +69,15 @@ class UserRepositoryCollection
 
         throw RepositoryNotRegisteredException::withClassName($className);
     }
+    
+    public function findUserByToken($token)
+    {
+        foreach ($this->userRepositories as $repository) {
+            $user = $repository->findByPasswordResetToken($token);
+            
+            if ($user) {
+                return $user;
+            }
+        }
+    }
 }
