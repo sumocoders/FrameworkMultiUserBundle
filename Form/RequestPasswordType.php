@@ -25,7 +25,7 @@ class RequestPasswordType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'SumoCoders\FrameworkMultiUserBundle\Form\RequestPassword',
+            'data_class' => RequestPassword::class,
         ]);
     }
 

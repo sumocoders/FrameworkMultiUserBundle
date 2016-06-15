@@ -28,7 +28,7 @@ class ChangePasswordType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'SumoCoders\FrameworkMultiUserBundle\Form\ChangePassword',
+            'data_class' => ChangePassword::class,
         ]);
     }
 
