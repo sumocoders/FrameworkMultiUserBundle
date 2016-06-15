@@ -105,7 +105,8 @@ class User implements UserInterface, PasswordReset
      */
     public function generatePasswordResetToken()
     {
-        $this->passwordResetToken = PasswordResetToken::generate();
+        $token = PasswordResetToken::generate();
+        $this->passwordResetToken = $token->getToken();
 
         return $this;
     }
