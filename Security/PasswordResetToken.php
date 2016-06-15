@@ -17,13 +17,9 @@ class PasswordResetToken
      *
      * @param string|null $token
      */
-    public function __construct($token = null)
+    public function __construct($token)
     {
-        $this->token = $this->generateToken();
-
-        if ($token) {
-            $this->token = $token;
-        }
+        $this->token = $token;
     }
 
     /**
@@ -32,16 +28,6 @@ class PasswordResetToken
     public function getToken()
     {
         return $this->token;
-    }
-
-    /**
-     * Generates a token string.
-     *
-     * @return string
-     */
-    private function generateToken()
-    {
-        return time() . base64_encode(random_bytes(10));
     }
 
     /**
@@ -54,7 +40,7 @@ class PasswordResetToken
      */
     public static function validateToken(UserInterface $user, PasswordResetToken $token)
     {
-        if ($user->getPasswordResetToken() === $token->getToken()) {
+        if ($user->getPasswordResetToken()->equals($token)) {
             return true;
         }
 
@@ -68,6 +54,8 @@ class PasswordResetToken
      */
     public static function generate()
     {
-        return new self();
+        $token = time() . base64_encode(random_bytes(10));
+
+        return new self($token);
     }
 }

@@ -36,7 +36,7 @@ class User implements UserInterface, PasswordReset
         $this->email = $email;
         
         if ($token) {
-            $this->passwordResetToken = $token->getToken();
+            $this->passwordResetToken = $token;
         }
     }
 
@@ -111,8 +111,7 @@ class User implements UserInterface, PasswordReset
      */
     public function generatePasswordResetToken()
     {
-        $token = PasswordResetToken::generate();
-        $this->passwordResetToken = $token->getToken();
+        $this->passwordResetToken = PasswordResetToken::generate();
 
         return $this;
     }
