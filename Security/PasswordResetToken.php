@@ -58,4 +58,16 @@ class PasswordResetToken
 
         return new self($token);
     }
+
+    /**
+     * Check if a token is equal to a different token.
+     *
+     * @param PasswordResetToken $token
+     *
+     * @return bool
+     */
+    public function equals(PasswordResetToken $token)
+    {
+        return $token->getToken() === $this->token;
+    }
 }
