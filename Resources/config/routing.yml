@@ -11,4 +11,4 @@ multi_user_reset_password:
 
 multi_user_request_password:
     defaults: { _controller: SumoCodersFrameworkMultiUserBundle:PasswordReset:request }
-    path:   /request-password
+    path:   /request-password-reset
