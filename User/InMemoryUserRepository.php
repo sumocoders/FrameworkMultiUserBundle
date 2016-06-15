@@ -2,6 +2,8 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
+use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+
 /**
  * Class InMemoryUserRepository
  */
@@ -28,10 +30,10 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
             'reset',
             'reset',
             'reset',
-            'test@example.dev'
+            'test@example.dev',
+            PasswordResetToken::generate()
         );
-
-        $passwordResetUser->generatePasswordResetToken();
+        
         $this->users[] = $passwordResetUser;
     }
 

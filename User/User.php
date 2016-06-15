@@ -25,13 +25,19 @@ class User implements UserInterface, PasswordReset
      * @param string $username
      * @param string $password
      * @param string $displayName
+     * @param $email
+     * @param PasswordResetToken $token
      */
-    public function __construct($username, $password, $displayName, $email)
+    public function __construct($username, $password, $displayName, $email, PasswordResetToken $token = null)
     {
         $this->username = $username;
         $this->password = $password;
         $this->displayName = $displayName;
         $this->email = $email;
+        
+        if ($token) {
+            $this->passwordResetToken = $token->getToken();
+        }
     }
 
     /**
