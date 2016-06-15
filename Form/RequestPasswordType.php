@@ -19,6 +19,7 @@ class RequestPasswordType extends AbstractType
                 'user',
                 'text',
                 [
+                    'label' => 'sumocoders.multiuserbundle.form.user',
                     'required' => true,
                 ]
             )->add('submit', 'submit', [
