@@ -9,22 +9,53 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class OnPasswordResetTokenCreated
 {
+    /**
+     * @var Swift_Mailer
+     */
     private $mailer;
 
+    /**
+     * @var TranslatorInterface
+     */
     private $translator;
 
+    /**
+     * @var string
+     */
     private $emailFrom;
 
+    /**
+     * @var TwigEngine
+     */
     private $twig;
 
-    public function __construct(Swift_Mailer $mailer, TranslatorInterface $translator, TwigEngine $twig, $emailFrom)
-    {
+    /**
+     * OnPasswordResetTokenCreated constructor.
+     *
+     * @param Swift_Mailer $mailer
+     * @param TranslatorInterface $translator
+     * @param TwigEngine $twig
+     * @param $emailFrom
+     */
+    public function __construct(
+        Swift_Mailer $mailer,
+        TranslatorInterface $translator,
+        TwigEngine $twig,
+        $emailFrom
+    ) {
         $this->mailer = $mailer;
         $this->translator = $translator;
         $this->emailFrom = $emailFrom;
         $this->twig = $twig;
     }
 
+    /**
+     * @param PasswordResetTokenCreated $event
+     *
+     * @return int
+     *
+     * @throws \Twig_Error
+     */
     public function onPasswordResetTokenCreated(PasswordResetTokenCreated $event)
     {
         $message = Swift_Message::newInstance()
