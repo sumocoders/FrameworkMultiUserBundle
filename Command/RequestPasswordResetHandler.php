@@ -8,7 +8,7 @@ use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Swift_Mailer;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class PasswordResetRequestHandler
+class RequestPasswordResetHandler
 {
     /**
      * @var UserRepositoryCollection

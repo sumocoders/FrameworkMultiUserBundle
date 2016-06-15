@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\ResetPassword;
-use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetHandler;
+use SumoCoders\FrameworkMultiUserBundle\Command\ResetPasswordHandler;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\User;
@@ -34,7 +34,7 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPasswordResetThrowsError()
     {
-        $handler = new PasswordResetHandler($this->userRepositoryCollection);
+        $handler = new ResetPasswordHandler($this->userRepositoryCollection);
 
         $user = $this->userRepository->findByUsername('wouter');
         $event = new ResetPassword($user, 'password', 'wrong_confirmation');
@@ -51,7 +51,7 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPasswordResetGetsHandled()
     {
-        $handler = new PasswordResetHandler($this->userRepositoryCollection);
+        $handler = new ResetPasswordHandler($this->userRepositoryCollection);
 
         $user = $this->userRepository->findByUsername('reset');
         $event = new ResetPassword($user, 'password', 'password');
