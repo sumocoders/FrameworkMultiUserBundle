@@ -6,7 +6,7 @@ use SumoCoders\FrameworkMultiUserBundle\User\PasswordReset as UserPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class PasswordResetRequestHandler
@@ -27,7 +27,7 @@ class PasswordResetRequestHandler
     private $translator;
 
     /**
-     * @var RouterInterface
+     * @var UrlGeneratorInterface
      */
     private $router;
 
@@ -37,10 +37,14 @@ class PasswordResetRequestHandler
      * @param UserRepositoryCollection $userRepositoryCollection
      * @param Swift_Mailer $mailer
      * @param TranslatorInterface $translator
-     * @param RouterInterface $router
+     * @param UrlGeneratorInterface $router
      */
-    public function __construct(UserRepositoryCollection $userRepositoryCollection, Swift_Mailer $mailer, TranslatorInterface $translator, RouterInterface $router)
-    {
+    public function __construct(
+        UserRepositoryCollection $userRepositoryCollection,
+        Swift_Mailer $mailer,
+        TranslatorInterface $translator,
+        UrlGeneratorInterface $router
+    ) {
         $this->userRepositoryCollection = $userRepositoryCollection;
         $this->mailer = $mailer;
         $this->translator = $translator;
