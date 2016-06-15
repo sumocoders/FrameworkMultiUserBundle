@@ -21,7 +21,7 @@ class PasswordResetToken
         throw new InvalidPasswordResetTokenException('The given token is not valid.');
     }
 
-    public static function getToken()
+    public static function generate()
     {
         return self::generatePasswordResetToken();
     }
