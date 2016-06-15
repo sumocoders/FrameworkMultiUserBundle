@@ -152,7 +152,6 @@ services:
   your_bundle.listener.on_password_reset_token_created:
     class: Your_Event_Listener_Class
     arguments:
-      - "@event_dispatcher"
       - "@mailer"
       - "@translator"
       - "@templating"
