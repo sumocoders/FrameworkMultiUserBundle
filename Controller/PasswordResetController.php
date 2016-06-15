@@ -52,10 +52,10 @@ class PasswordResetController extends Controller
      *
      * @return array|RedirectResponse
      */
-    public function resetAction(Request $request)
+    public function resetAction(Request $request, $token)
     {
         $userReposioryCollection = $this->container->get('multi_user.user_repository.collection');
-        $user = $userReposioryCollection->findUserByToken($request->get('token'));
+        $user = $userReposioryCollection->findUserByToken($token);
 
         $changePassword = new ChangePassword();
         $form = $this->createForm(ChangePasswordType::class, $changePassword);
