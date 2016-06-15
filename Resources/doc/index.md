@@ -137,11 +137,7 @@ services:
 
 ## Password reset
 
-To use the password reset you need three services:
-
-* UserRepositoryCollection
-* PasswordResetRequestHandler
-* PasswordResetHandler
+To use the password reset needs the `@multi_user.user_repository.collection` service
 
 ```yaml
 services:
@@ -149,17 +145,4 @@ services:
     class: SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection
     arguments:
       - ["@user_repository1", "@user_repository2"]
-
-  multi_user.handler.request_password:
-      class: SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequestHandler
-      arguments:
-        - "@multi_user.user_repository.collection"
-        - "@mailer"
-        - "@translator"
-        - "@router"
-
-  multi_user.handler.reset_password:
-      class: SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetHandler
-      arguments:
-        - "@multi_user.user_repository.collection"
-``
+```
