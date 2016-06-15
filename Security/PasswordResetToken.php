@@ -15,7 +15,7 @@ class PasswordResetToken
     /**
      * PasswordResetToken constructor.
      *
-     * @param string|null $token
+     * @param string $token
      */
     public function __construct($token)
     {
