@@ -34,11 +34,10 @@ class ResetPasswordHandler
         }
         
         $user = $command->getUser();
-        $updatedUser = clone $user;
-        $updatedUser->setPassword($command->getPassword());
-        $updatedUser->clearPasswordResetToken();
+        $user->setPassword($command->getPassword());
+        $user->clearPasswordResetToken();
         $repository = $this->userRepositoryCollection->findRepositoryByClassName(get_class($user));
-        $repository->update($user, $updatedUser);
+        $repository->update($user, $user);
 
         return;
     }
