@@ -18,11 +18,11 @@ class PasswordResetHandler
     }
 
     /**
-     * @param PasswordReset $command
+     * @param ResetPassword $command
      *
      * @throws InvalidPasswordConfirmationException
      */
-    public function handle(PasswordReset $command)
+    public function handle(ResetPassword $command)
     {
         if ($command->passwordConfirmationIsValid()) {
             $user = $command->getUser();

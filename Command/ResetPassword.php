@@ -4,7 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
 
-class PasswordReset
+final class ResetPassword
 {
     /**
      * @var UserInterface
