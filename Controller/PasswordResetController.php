@@ -21,7 +21,7 @@ class PasswordResetController extends Controller
      *
      * @Template()
      *
-     * @return array|RedirectResponse
+     * @return array
      */
     public function requestAction(Request $request)
     {
