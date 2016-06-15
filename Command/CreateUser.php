@@ -30,6 +30,7 @@ final class CreateUser
      * @param $username
      * @param $password
      * @param $displayName
+     * @param $email
      */
     public function __construct($username, $password, $displayName, $email)
     {
