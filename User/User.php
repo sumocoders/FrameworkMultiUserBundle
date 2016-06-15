@@ -15,7 +15,7 @@ class User implements UserInterface, PasswordReset
     /** @var string */
     private $displayName;
 
-    /** @var */
+    /** @var PasswordResetToken */
     private $passwordResetToken;
 
     /** @var */
