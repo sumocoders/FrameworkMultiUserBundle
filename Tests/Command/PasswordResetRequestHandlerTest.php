@@ -7,7 +7,7 @@ use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequestHandler;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Swift_Mailer;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class PasswordResetRequestHandlerTest extends \PHPUnit_Framework_TestCase
@@ -40,7 +40,7 @@ class PasswordResetRequestHandlerTest extends \PHPUnit_Framework_TestCase
 
         $translatorMock = $this->getMockBuilder(TranslatorInterface::class)->getMock();
 
-        $routerMock = $this->getMockBuilder(RouterInterface::class)
+        $routerMock = $this->getMockBuilder(UrlGeneratorInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
