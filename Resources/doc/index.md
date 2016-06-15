@@ -137,7 +137,10 @@ services:
 
 ## Password reset
 
-To use the password reset needs the `@multi_user.user_repository.collection` service
+The password reset service needs two services
+
+* the `@multi_user.user_repository.collection` service
+* the `@multi_user.listener.on_password_reset_token_created` service
 
 ```yaml
 services:
@@ -145,4 +148,13 @@ services:
     class: SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection
     arguments:
       - ["@user_repository1", "@user_repository2"]
+
+  multi_user.listener.on_password_reset_token_created:
+    class: Your_Event_Listener_Class
+    arguments:
+      - "@mailer"
+      - "@translator"
+      - "%mailer_default_sender_email%"
+    tags:
+      - { name: "kernel.event_listener", event: "multi_user.event.password_reset_token_created", method: "onPasswordResetTokenCreated" }
 ```
