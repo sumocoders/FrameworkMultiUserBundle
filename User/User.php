@@ -4,7 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 
-class User implements UserInterface, PasswordResetInterface
+class User implements UserInterface, PasswordReset
 {
     /** @var string */
     private $username;

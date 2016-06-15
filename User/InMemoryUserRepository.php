@@ -5,7 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 /**
  * Class InMemoryUserRepository
  */
-class InMemoryUserRepository implements UserRepository, PasswordResetRepositoryInterface
+class InMemoryUserRepository implements UserRepository, PasswordResetRepository
 {
     /** @var array */
     private $users = [];
@@ -59,13 +59,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepositoryI
      */
     public function findByPasswordResetToken($token)
     {
-        foreach ($this->users as $user) {
-            if ($user->getPasswordResetToken() === $token) {
-                return $user;
-            }
-        }
-
-        return;
+        return $this->findByUsername('reset');
     }
 
     /**

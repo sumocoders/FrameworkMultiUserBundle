@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-interface PasswordResetRepositoryInterface
+interface PasswordResetRepository
 {
     /**
      * @param string $token
