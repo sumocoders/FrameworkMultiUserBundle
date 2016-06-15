@@ -63,7 +63,7 @@ class PasswordResetController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $command = new ResetPassword($user, $changePassword->getNewPassword(), $changePassword->getNewPassword());
+            $command = new ResetPassword($user, $changePassword->newPassword, $changePassword->newPassword);
             $handler = $this->container->get('multi_user.handler.reset_password');
             $handler->handle($command);
 

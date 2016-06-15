@@ -12,15 +12,5 @@ class ChangePassword
      *     minMessage = "sumocoders.multiuserbundle.form.length"
      * )
      */
-    protected $newPassword;
-
-    public function getNewPassword()
-    {
-        return $this->newPassword;
-    }
-
-    public function setNewPassword($password)
-    {
-        $this->newPassword = $password;
-    }
+    public $newPassword;
 }
