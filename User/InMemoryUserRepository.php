@@ -21,7 +21,8 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
             'wouter',
             'test',
             'Wouter Sioen',
-            'wouter@example.dev'
+            'wouter@example.dev',
+            1
         );
 
         $this->users[] = $user;
@@ -31,6 +32,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
             'reset',
             'reset',
             'test@example.dev',
+            2,
             PasswordResetToken::generate()
         );
         
@@ -93,10 +95,10 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     /**
      * {@inheritdoc}
      */
-    public function update(UserInterface $userToUpdate, UserInterface $user)
+    public function update(UserInterface $user)
     {
         foreach ($this->users as $key => $row) {
-            if ($row->getUserName() === $user->getUserName()) {
+            if ($row->getId() === $user->getId()) {
                 $this->users[$key] = $user;
                 break;
             }

@@ -43,10 +43,9 @@ interface UserRepository
     /**
      * Update an existing user.
      *
-     * @param UserInterface $userToUpdate
      * @param UserInterface $user
      */
-    public function update(UserInterface $userToUpdate, UserInterface $user);
+    public function update(UserInterface $user);
 
     /**
      * Delete an existing user.
