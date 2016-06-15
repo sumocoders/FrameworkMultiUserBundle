@@ -5,6 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Event;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Bundle\TwigBundle\TwigEngine;
+use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class OnPasswordResetTokenCreated
@@ -25,28 +26,28 @@ class OnPasswordResetTokenCreated
     private $emailFrom;
 
     /**
-     * @var TwigEngine
+     * @var EngineInterface
      */
-    private $twig;
+    private $engine;
 
     /**
      * OnPasswordResetTokenCreated constructor.
      *
      * @param Swift_Mailer $mailer
      * @param TranslatorInterface $translator
-     * @param TwigEngine $twig
+     * @param EngineInterface $engine
      * @param $emailFrom
      */
     public function __construct(
         Swift_Mailer $mailer,
         TranslatorInterface $translator,
-        TwigEngine $twig,
+        EngineInterface $engine,
         $emailFrom
     ) {
         $this->mailer = $mailer;
         $this->translator = $translator;
         $this->emailFrom = $emailFrom;
-        $this->twig = $twig;
+        $this->$engine = $engine;
     }
 
     /**
@@ -63,7 +64,7 @@ class OnPasswordResetTokenCreated
             ->setFrom($this->emailFrom)
             ->setTo($event->getUser()->getEmail())
             ->setBody(
-                $this->twig->render(
+                $this->engine->render(
                     'SumoCodersFrameworkMultiUserBundle:Email:passwordReset.html.twig',
                     ['user' => $event->getUser()]
                 ),
