@@ -68,6 +68,6 @@ class PasswordResetToken
      */
     public function equals(PasswordResetToken $token)
     {
-        return $token->getToken() === $this->token;
+        return $token->token === $this->token;
     }
 }
