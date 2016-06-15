@@ -4,7 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SumoCoders\FrameworkMultiUserBundle\Command\ResetPassword;
-use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequest;
+use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\Form\ChangePassword;
 use SumoCoders\FrameworkMultiUserBundle\Form\ChangePasswordType;
@@ -32,7 +32,7 @@ class PasswordResetController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $command = new PasswordResetRequest($requestPassword->getUser());
+            $command = new RequestPasswordReset($requestPassword->getUser());
             $handler = $this->container->get('multi_user.handler.request_password');
             $handler->handle($command);
         }

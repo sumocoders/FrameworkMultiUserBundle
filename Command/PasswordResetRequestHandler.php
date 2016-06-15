@@ -54,11 +54,11 @@ class PasswordResetRequestHandler
     /**
      * Creates a password reset token and sends an email to the user.
      *
-     * @param PasswordResetRequest $command
+     * @param RequestPasswordReset $command
      *
      * @return int
      */
-    public function handle(PasswordResetRequest $command)
+    public function handle(RequestPasswordReset $command)
     {
         $user = $command->getUser();
         $user->generatePasswordResetToken();

@@ -6,7 +6,7 @@ use SumoCoders\FrameworkMultiUserBundle\Exception\InterfaceNotImplemented;
 use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
 use SumoCoders\FrameworkMultiUserBundle\User\PasswordReset as UserPasswordReset;
 
-class PasswordResetRequest
+class RequestPasswordReset
 {
     /**
      * @var UserInterface

@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequest;
+use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequestHandler;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
@@ -47,7 +47,7 @@ class PasswordResetRequestHandlerTest extends \PHPUnit_Framework_TestCase
         $handler = new PasswordResetRequestHandler($this->userRepositoryCollection, $mailerMock, $translatorMock, $routerMock);
 
         $user = $this->userRepository->findByUsername('wouter');
-        $event = new PasswordResetRequest($user);
+        $event = new RequestPasswordReset($user);
 
         $this->assertEquals(1, $handler->handle($event));
     }
