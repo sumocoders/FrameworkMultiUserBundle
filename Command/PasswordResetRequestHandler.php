@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\User\PasswordResetInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\PasswordReset as UserPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Swift_Mailer;
 use Swift_Message;
@@ -59,11 +59,11 @@ class PasswordResetRequestHandler
     /**
      * Sends the password reset token to the user.
      *
-     * @param PasswordResetInterface $user
+     * @param UserPasswordReset $user
      *
      * @return int
      */
-    private function sendPasswordResetToken(PasswordResetInterface $user)
+    private function sendPasswordResetToken(UserPasswordReset $user)
     {
         $messageBody = $this->getPasswordResetMessage($user);
 
@@ -79,11 +79,11 @@ class PasswordResetRequestHandler
     /**
      * Creates the password reset message.
      *
-     * @param PasswordResetInterface $user
+     * @param UserPasswordReset $user
      *
      * @return string
      */
-    private function getPasswordResetMessage(PasswordResetInterface $user)
+    private function getPasswordResetMessage(UserPasswordReset $user)
     {
         $url = $this->router->generate('multi_user_reset_password', [], true);
         $token = '?token='.urlencode($user->getPasswordResetToken());
