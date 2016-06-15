@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Exception\InterfaceNotImplemented;
-use SumoCoders\FrameworkMultiUserBundle\User\PasswordResetInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\PasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
 
 class PasswordResetRequest
@@ -15,7 +15,7 @@ class PasswordResetRequest
 
     public function __construct(UserInterface $user)
     {
-        if (!$user instanceof PasswordResetInterface) {
+        if (!$user instanceof PasswordReset) {
             throw new InterfaceNotImplemented('The user doesn\'t implement PasswordResetInterface');
         }
 
