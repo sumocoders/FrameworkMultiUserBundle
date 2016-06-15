@@ -152,8 +152,10 @@ services:
   your_bundle.listener.on_password_reset_token_created:
     class: Your_Event_Listener_Class
     arguments:
+      - "@event_dispatcher"
       - "@mailer"
       - "@translator"
+      - "@templating"
       - "%mailer_default_sender_email%"
     tags:
       - { name: "kernel.event_listener", event: "multi_user.event.password_reset_token_created", method: "onPasswordResetTokenCreated" }
