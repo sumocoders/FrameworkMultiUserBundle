@@ -59,6 +59,8 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
         $user = $this->userRepositoryCollection
             ->findRepositoryByClassName(User::class)
             ->findByUsername('reset');
+        $password = $user->getPassword();
+        $token = $user->getPasswordResetToken();
 
         $handler->handle($event);
 
@@ -67,8 +69,8 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
             ->findByUsername('reset');
 
         $this->assertEquals($user->getUsername(), $updatedUser->getUsername());
-        $this->assertNotEquals($user->getPassword(), $updatedUser->getPassword());
-        $this->assertNotNull($user->getPasswordResetToken());
+        $this->assertNotEquals($password, $updatedUser->getPassword());
+        $this->assertNotNull($token);
         $this->assertNull($updatedUser->getPasswordResetToken());
     }
 }
