@@ -140,7 +140,7 @@ services:
 The password reset service needs two services
 
 * the `@multi_user.user_repository.collection` service
-* a event listener for PasswordResetTokenCreated
+* an event listener for PasswordResetTokenCreated
 
 ```yaml
 services:
