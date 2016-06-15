@@ -12,6 +12,11 @@ class PasswordResetHandler
      */
     private $userRepositoryCollection;
 
+    /**
+     * PasswordResetHandler constructor.
+     *
+     * @param UserRepositoryCollection $userRepositoryCollection
+     */
     public function __construct(UserRepositoryCollection $userRepositoryCollection)
     {
         $this->userRepositoryCollection = $userRepositoryCollection;

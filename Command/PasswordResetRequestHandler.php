@@ -31,6 +31,14 @@ class PasswordResetRequestHandler
      */
     private $router;
 
+    /**
+     * PasswordResetRequestHandler constructor.
+     *
+     * @param UserRepositoryCollection $userRepositoryCollection
+     * @param Swift_Mailer $mailer
+     * @param TranslatorInterface $translator
+     * @param RouterInterface $router
+     */
     public function __construct(UserRepositoryCollection $userRepositoryCollection, Swift_Mailer $mailer, TranslatorInterface $translator, RouterInterface $router)
     {
         $this->userRepositoryCollection = $userRepositoryCollection;

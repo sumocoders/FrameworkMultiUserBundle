@@ -10,6 +10,9 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     /** @var array */
     private $users = [];
 
+    /**
+     * InMemoryUserRepository constructor.
+     */
     public function __construct()
     {
         $user = new User(

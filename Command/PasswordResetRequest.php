@@ -13,6 +13,13 @@ class PasswordResetRequest
      */
     private $user;
 
+    /**
+     * PasswordResetRequest constructor.
+     *
+     * @param UserInterface $user
+     *
+     * @throws InterfaceNotImplemented
+     */
     public function __construct(UserInterface $user)
     {
         if (!$user instanceof UserPasswordReset) {
@@ -22,6 +29,9 @@ class PasswordResetRequest
         $this->user = $user;
     }
 
+    /**
+     * @return UserPasswordReset|UserInterface
+     */
     public function getUser()
     {
         return $this->user;

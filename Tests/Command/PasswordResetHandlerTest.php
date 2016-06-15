@@ -29,6 +29,8 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test if PasswordResetHandler throws error.
+     *
+     * @throws InvalidPasswordConfirmationException
      */
     public function testPasswordResetThrowsError()
     {
@@ -42,6 +44,11 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
         $handler->handle($event);
     }
 
+    /**
+     * Test if PAsswordResetHandler gets handled.
+     *
+     * @throws InvalidPasswordConfirmationException
+     */
     public function testPasswordResetGetsHandled()
     {
         $handler = new PasswordResetHandler($this->userRepositoryCollection);

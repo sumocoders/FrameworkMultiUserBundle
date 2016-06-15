@@ -88,6 +88,9 @@ class UserRepositoryCollection
         return;
     }
 
+    /**
+     * @param $username
+     */
     public function findUserByUserName($username)
     {
         foreach ($this->userRepositories as $repository) {
