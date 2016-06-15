@@ -4,7 +4,6 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequestHandler;
-use SumoCoders\FrameworkMultiUserBundle\Event\OnPasswordResetTokenCreated;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -32,10 +31,6 @@ class PasswordResetRequestHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPasswordResetRequestGetsHandled()
     {
-        $listener = $this->getMockBuilder(OnPasswordResetTokenCreated::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $dispatcherMock = $this->getMockBuilder(EventDispatcherInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -43,8 +38,7 @@ class PasswordResetRequestHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler = new PasswordResetRequestHandler(
             $this->userRepositoryCollection,
-            $dispatcherMock,
-            $listener
+            $dispatcherMock
         );
 
         $user = $this->userRepository->findByUsername('wouter');

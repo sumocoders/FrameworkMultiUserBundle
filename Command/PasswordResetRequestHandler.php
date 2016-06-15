@@ -2,7 +2,6 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\Event\OnPasswordResetTokenCreated;
 use SumoCoders\FrameworkMultiUserBundle\Event\PasswordResetTokenCreated;
 use SumoCoders\FrameworkMultiUserBundle\User\PasswordReset as UserPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
@@ -17,11 +16,6 @@ class PasswordResetRequestHandler
     private $userRepositoryCollection;
 
     /**
-     * @var Swift_Mailer
-     */
-    private $listener;
-
-    /**
      * @var EventDispatcher
      */
     private $dispatcher;
@@ -31,16 +25,13 @@ class PasswordResetRequestHandler
      *
      * @param UserRepositoryCollection $userRepositoryCollection
      * @param EventDispatcherInterface $dispatcher
-     * @param OnPasswordResetTokenCreated $listener
      */
     public function __construct(
         UserRepositoryCollection $userRepositoryCollection,
-        EventDispatcherInterface $dispatcher,
-        OnPasswordResetTokenCreated $listener
+        EventDispatcherInterface $dispatcher
     ) {
         $this->userRepositoryCollection = $userRepositoryCollection;
         $this->dispatcher = $dispatcher;
-        $this->listener = $listener;
     }
 
     /**
@@ -70,7 +61,6 @@ class PasswordResetRequestHandler
     private function sendPasswordResetToken(UserPasswordReset $user)
     {
         $event = new PasswordResetTokenCreated($user);
-        $this->dispatcher->addListener(PasswordResetTokenCreated::NAME, [$this->listener, 'onPasswordResetTokenCreated']);
         $this->dispatcher->dispatch('multi_user.event.password_reset_token_created', $event);
     }
 }

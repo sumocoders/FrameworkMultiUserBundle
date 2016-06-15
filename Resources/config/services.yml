@@ -17,7 +17,6 @@ services:
       arguments:
         - "@multi_user.user_repository.collection"
         - "@event_dispatcher"
-        - "@multi_user.listener.on_password_reset_token_created"
 
   multi_user.handler.reset_password:
       class: SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetHandler

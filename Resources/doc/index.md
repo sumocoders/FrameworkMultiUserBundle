@@ -140,7 +140,7 @@ services:
 The password reset service needs two services
 
 * the `@multi_user.user_repository.collection` service
-* the `@multi_user.listener.on_password_reset_token_created` service
+* a event listener for PasswordResetTokenCreated
 
 ```yaml
 services:
@@ -149,7 +149,7 @@ services:
     arguments:
       - ["@user_repository1", "@user_repository2"]
 
-  multi_user.listener.on_password_reset_token_created:
+  your_bundle.listener.on_password_reset_token_created:
     class: Your_Event_Listener_Class
     arguments:
       - "@mailer"
