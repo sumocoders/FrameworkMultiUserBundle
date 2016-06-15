@@ -149,13 +149,13 @@ services:
     arguments:
       - ["@user_repository1", "@user_repository2"]
 
-  your_bundle.listener.on_password_reset_token_created:
-    class: Your_Event_Listener_Class
+  your_bundle.subscriber.on_password_reset_token_created:
+    class: Your_Event_Subscriber_Class
     arguments:
       - "@mailer"
       - "@translator"
       - "@templating"
       - "%mailer_default_sender_email%"
     tags:
-      - { name: "kernel.event_listener", event: "multi_user.event.password_reset_token_created", method: "onPasswordResetTokenCreated" }
+      - { name: "kernel.event_subscriber" }
 ```

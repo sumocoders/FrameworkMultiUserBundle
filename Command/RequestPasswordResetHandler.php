@@ -61,6 +61,6 @@ class RequestPasswordResetHandler
     private function sendPasswordResetToken(UserPasswordReset $user)
     {
         $event = new PasswordResetTokenCreated($user);
-        $this->dispatcher->dispatch('multi_user.event.password_reset_token_created', $event);
+        $this->dispatcher->dispatch(PasswordResetTokenCreated::NAME, $event);
     }
 }

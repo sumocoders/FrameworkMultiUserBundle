@@ -2,14 +2,22 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Event;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class OnPasswordResetTokenCreated
+class OnPasswordResetTokenCreated implements EventSubscriberInterface
 {
+    public static function getSubscribedEvents()
+    {
+        return [
+            PasswordResetTokenCreated::NAME => [
+                ['onPasswordResetTokenCreated', 0],
+            ],
+        ];
+    }
     /**
      * @var Swift_Mailer
      */
@@ -47,7 +55,7 @@ class OnPasswordResetTokenCreated
         $this->mailer = $mailer;
         $this->translator = $translator;
         $this->emailFrom = $emailFrom;
-        $this->$engine = $engine;
+        $this->engine = $engine;
     }
 
     /**
