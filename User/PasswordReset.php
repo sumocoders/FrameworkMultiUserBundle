@@ -25,11 +25,6 @@ interface PasswordReset
     public function getEmail();
 
     /**
-     * @return self
-     */
-    public function setEmail($email);
-
-    /**
      * @param $password
      *
      * @return self

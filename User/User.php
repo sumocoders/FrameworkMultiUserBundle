@@ -134,18 +134,6 @@ class User implements UserInterface, PasswordReset
     }
 
     /**
-     * @param $email
-     *
-     * @return self
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
      * @param $password
      *
      * @return self
