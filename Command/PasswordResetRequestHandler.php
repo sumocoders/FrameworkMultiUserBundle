@@ -2,12 +2,12 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
+use SumoCoders\FrameworkMultiUserBundle\Event\OnPasswordResetTokenCreated;
+use SumoCoders\FrameworkMultiUserBundle\Event\PasswordResetTokenCreated;
 use SumoCoders\FrameworkMultiUserBundle\User\PasswordReset as UserPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Swift_Mailer;
-use Swift_Message;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PasswordResetRequestHandler
 {
@@ -19,36 +19,28 @@ class PasswordResetRequestHandler
     /**
      * @var Swift_Mailer
      */
-    private $mailer;
+    private $listener;
 
     /**
-     * @var TranslatorInterface
+     * @var EventDispatcher
      */
-    private $translator;
-
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $router;
+    private $dispatcher;
 
     /**
      * PasswordResetRequestHandler constructor.
      *
      * @param UserRepositoryCollection $userRepositoryCollection
-     * @param Swift_Mailer $mailer
-     * @param TranslatorInterface $translator
-     * @param UrlGeneratorInterface $router
+     * @param EventDispatcherInterface $dispatcher
+     * @param OnPasswordResetTokenCreated $listener
      */
     public function __construct(
         UserRepositoryCollection $userRepositoryCollection,
-        Swift_Mailer $mailer,
-        TranslatorInterface $translator,
-        UrlGeneratorInterface $router
+        EventDispatcherInterface $dispatcher,
+        OnPasswordResetTokenCreated $listener
     ) {
         $this->userRepositoryCollection = $userRepositoryCollection;
-        $this->mailer = $mailer;
-        $this->translator = $translator;
-        $this->router = $router;
+        $this->dispatcher = $dispatcher;
+        $this->listener = $listener;
     }
 
     /**
@@ -65,7 +57,7 @@ class PasswordResetRequestHandler
         $repository = $this->userRepositoryCollection->findRepositoryByClassName(get_class($user));
         $repository->save($user);
 
-        return $this->sendPasswordResetToken($user);
+        $this->sendPasswordResetToken($user);
     }
 
     /**
@@ -77,29 +69,8 @@ class PasswordResetRequestHandler
      */
     private function sendPasswordResetToken(UserPasswordReset $user)
     {
-        $messageBody = $this->getPasswordResetMessage($user);
-
-        $message = Swift_Message::newInstance()
-            ->setSubject('Password reset requested')
-            ->setFrom('send@example.com')
-            ->setTo($user->getEmail())
-            ->setBody($messageBody, 'text/plain');
-
-        return $this->mailer->send($message);
-    }
-
-    /**
-     * Creates the password reset message.
-     *
-     * @param UserPasswordReset $user
-     *
-     * @return string
-     */
-    private function getPasswordResetMessage(UserPasswordReset $user)
-    {
-        $token = $user->getPasswordResetToken();
-        $url = $this->router->generate('multi_user_reset_password', ['token' => $token], true);
-
-        return $this->translator->trans('sumocoders.multiuserbundle.mail.request_password', ['%link%' => $url]);
+        $event = new PasswordResetTokenCreated($user);
+        $this->dispatcher->addListener(PasswordResetTokenCreated::NAME, [$this->listener, 'onPasswordResetTokenCreated']);
+        $this->dispatcher->dispatch('multi_user.event.password_reset_token_created', $event);
     }
 }

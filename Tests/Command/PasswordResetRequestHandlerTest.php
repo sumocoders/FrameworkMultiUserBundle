@@ -4,11 +4,10 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\Command\PasswordResetRequestHandler;
+use SumoCoders\FrameworkMultiUserBundle\Event\OnPasswordResetTokenCreated;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use Swift_Mailer;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PasswordResetRequestHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,22 +32,24 @@ class PasswordResetRequestHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPasswordResetRequestGetsHandled()
     {
-        $mailerMock = $this->getMockBuilder(Swift_Mailer::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mailerMock->method('send')->willReturn(1);
-
-        $translatorMock = $this->getMockBuilder(TranslatorInterface::class)->getMock();
-
-        $routerMock = $this->getMockBuilder(UrlGeneratorInterface::class)
+        $listener = $this->getMockBuilder(OnPasswordResetTokenCreated::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $handler = new PasswordResetRequestHandler($this->userRepositoryCollection, $mailerMock, $translatorMock, $routerMock);
+        $dispatcherMock = $this->getMockBuilder(EventDispatcherInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $dispatcherMock->method('addListener');
+
+        $handler = new PasswordResetRequestHandler(
+            $this->userRepositoryCollection,
+            $dispatcherMock,
+            $listener
+        );
 
         $user = $this->userRepository->findByUsername('wouter');
         $event = new RequestPasswordReset($user);
 
-        $this->assertEquals(1, $handler->handle($event));
+        $this->assertNull($handler->handle($event));
     }
 }
