@@ -29,14 +29,14 @@ final class UpdateUserHandler extends UserHandler
     {
         $user = $command->getUser();
 
-        $username = $command->getUsername();
-        $password = $command->getPassword();
-        $displayname = $command->getDisplayName();
-        $email = $command->getEmail();
-        $token = $user->getPasswordResetToken();
-        $id = $user->getId();
-
-        $user = new User($username, $password, $displayname, $email, $id, $token);
+        $user = new User(
+            $command->getUsername(),
+            $command->getPassword(),
+            $command->getDisplayName(),
+            $command->getEmail(),
+            $user->getId(),
+            $user->getPasswordResetToken()
+        );
         $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $user);
         $repository->update($user);
     }
