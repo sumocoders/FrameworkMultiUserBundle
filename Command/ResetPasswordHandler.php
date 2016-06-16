@@ -38,7 +38,5 @@ class ResetPasswordHandler
         $user->clearPasswordResetToken();
         $repository = $this->userRepositoryCollection->findRepositoryByClassName(get_class($user));
         $repository->update($user, $user);
-
-        return;
     }
 }
