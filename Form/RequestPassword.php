@@ -36,7 +36,7 @@ class RequestPassword
     }
 
     /**
-     * @param $userName
+     * @param string $userName
      */
     public function setUser($userName)
     {
