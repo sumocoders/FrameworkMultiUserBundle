@@ -44,7 +44,7 @@ class OnPasswordResetTokenCreated implements EventSubscriberInterface
      * @param Swift_Mailer $mailer
      * @param TranslatorInterface $translator
      * @param EngineInterface $engine
-     * @param $emailFrom
+     * @param string $emailFrom
      */
     public function __construct(
         Swift_Mailer $mailer,
@@ -54,8 +54,8 @@ class OnPasswordResetTokenCreated implements EventSubscriberInterface
     ) {
         $this->mailer = $mailer;
         $this->translator = $translator;
-        $this->emailFrom = $emailFrom;
         $this->engine = $engine;
+        $this->emailFrom = $emailFrom;
     }
 
     /**
