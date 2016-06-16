@@ -32,7 +32,7 @@ class PasswordResetToken
 
     /**
      * @param UserInterface $user
-     * @param $token
+     * @param PasswordResetToken $token
      *
      * @throws InvalidPasswordResetTokenException
      *
