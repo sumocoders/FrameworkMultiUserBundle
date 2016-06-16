@@ -6,19 +6,29 @@ use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 
 class User implements UserInterface, PasswordReset
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $username;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $password;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $displayName;
 
-    /** @var PasswordResetToken */
+    /**
+     * @var PasswordResetToken
+     */
     private $passwordResetToken;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $email;
 
     /**
