@@ -38,6 +38,7 @@ final class UpdateUser
      * @param $username
      * @param $password
      * @param $displayName
+     * @param $email
      */
     public function __construct(UserInterface $user, $username, $password, $displayName, $email)
     {
