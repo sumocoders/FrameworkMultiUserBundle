@@ -38,8 +38,6 @@ class RequestPasswordResetHandler
      * Creates a password reset token and sends an email to the user.
      *
      * @param RequestPasswordReset $command
-     *
-     * @return int
      */
     public function handle(RequestPasswordReset $command)
     {
@@ -55,8 +53,6 @@ class RequestPasswordResetHandler
      * Sends the password reset token to the user.
      *
      * @param UserPasswordReset $user
-     *
-     * @return int
      */
     private function sendPasswordResetToken(UserPasswordReset $user)
     {
