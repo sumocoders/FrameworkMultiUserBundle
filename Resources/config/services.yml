@@ -14,6 +14,16 @@ services:
       - "@sumocoders.form_authenticator"
       - "@security.token_storage"
 
+  multi_user_form_user:
+      class: SumoCoders\FrameworkMultiUserBundle\Form\UserType
+      tags:
+          - { name: form.type }
+
+  multi_user_form_add_user:
+      class: SumoCoders\FrameworkMultiUserBundle\Form\AddUserType
+      tags:
+          - { name: form.type }
+
   multi_user.handler.request_password:
       class: SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler
       arguments:
