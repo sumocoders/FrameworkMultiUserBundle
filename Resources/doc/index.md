@@ -137,6 +137,17 @@ services:
         -  { name: "console.command" }
 ```
 
+## User impersonation
+
+Add a `switch_user` to the firewall to enable user impersonation
+
+```yaml
+security:
+    firewalls:
+        main:
+          switch_user: { role: ROLE_ALLOWED_TO_SWITCH, parameter: _switch_user }
+```
+
 ## Password reset
 
 The password reset service needs two services
