@@ -62,7 +62,7 @@ class User implements UserInterface, PasswordReset
      */
     public function getRoles()
     {
-        return [ 'ROLE_USER' ];
+        return [ 'ROLE_USER', 'ROLE_ALLOWED_TO_SWITCH' ];
     }
 
     /**

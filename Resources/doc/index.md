@@ -46,19 +46,21 @@ security:
 
 To create a user provider, you need two services:
 
-* A UserRepository implementing our
+* A UserRepositoryCollection with UserRepositories implementing our
 SumoCoders\FrameworkMultiUserBundle\User\UserRepository interface.
 * An instance of the ObjectProvider getting the repository as argument
 
 ```yaml
 # app/config/confing.yml
 services:
-  sumocoders.in_memory_user_repository:
-    class: SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository
+  multi_user.user_repository.collection:
+    class: SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection
+    arguments:
+      - ["@user_repository1", "@user_repository2"]
   sumocoders.in_memory_user_provider:
     class: SumoCoders\FrameworkMultiUserBundle\Security\ObjectUserProvider
     arguments:
-      - "@sumocoders.in_memory_user_repository"
+      - "@multi_user.user_repository.collection"
 ```
 
 To use it, you have to define it and couple it to a firewall in your security.yml:
