@@ -8,6 +8,7 @@ use SumoCoders\FrameworkMultiUserBundle\Security\FormCredentials;
 use SumoCoders\FrameworkMultiUserBundle\Security\ObjectUserProvider;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\User;
+use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -36,7 +37,8 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     public function testFormAuthenticatorGetUser()
     {
-        $provider = new ObjectUserProvider(new InMemoryUserRepository());
+        $userRepositoryCollection = new UserRepositoryCollection([new InMemoryUserRepository()]);
+        $provider = new ObjectUserProvider($userRepositoryCollection);
         $user = $this->formAuthenticator->getUser($this->getCredentials(), $provider);
 
         $this->assertEquals($this->getUser(), $user);
