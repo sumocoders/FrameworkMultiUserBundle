@@ -34,12 +34,8 @@ class ObjectUserProvider implements UserProviderInterface
             $user = $repository->findByUsername($username);
 
             if ($user instanceof User) {
-                break;
+                return $user;
             }
-        }
-
-        if ($user) {
-            return $user;
         }
 
         throw new UsernameNotFoundException(
