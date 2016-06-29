@@ -103,7 +103,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         return new RedirectResponse($targetPath);
     }
 
-    protected function getSuccessRedirectUrl(TokenInterface $token)
+    public function getSuccessRedirectUrl(TokenInterface $token)
     {
         foreach ($this->redirectRoutes as $class => $route) {
             if (get_class($token->getUser()) === $class) {
