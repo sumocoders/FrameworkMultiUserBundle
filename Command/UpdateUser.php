@@ -35,10 +35,10 @@ final class UpdateUser
      * UpdateUser constructor.
      *
      * @param UserInterface $user
-     * @param $username
-     * @param $password
-     * @param $displayName
-     * @param $email
+     * @param string $username
+     * @param string $password
+     * @param string $displayName
+     * @param string $email
      */
     public function __construct(UserInterface $user, $username, $password, $displayName, $email)
     {
