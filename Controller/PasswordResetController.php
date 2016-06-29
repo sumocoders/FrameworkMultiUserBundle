@@ -37,7 +37,7 @@ class PasswordResetController extends Controller
             $handler->handle($command);
         }
 
-        return [ 'form' => $form->createView(), ];
+        return [ 'form' => $form->createView() ];
     }
 
     /**
