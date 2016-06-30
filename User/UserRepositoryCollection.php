@@ -84,6 +84,8 @@ class UserRepositoryCollection
                 return true;
             }
         }
+
+        return false;
     }
 
     /**
