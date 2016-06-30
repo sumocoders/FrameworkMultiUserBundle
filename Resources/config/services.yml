@@ -15,22 +15,52 @@ services:
       - "@security.token_storage"
 
   multi_user_form_user:
-      class: SumoCoders\FrameworkMultiUserBundle\Form\UserType
-      tags:
-          - { name: form.type }
+    class: SumoCoders\FrameworkMultiUserBundle\Form\UserType
+    tags:
+      - { name: form.type }
 
   multi_user_form_add_user:
-      class: SumoCoders\FrameworkMultiUserBundle\Form\AddUserType
-      tags:
-          - { name: form.type }
+    class: SumoCoders\FrameworkMultiUserBundle\Form\AddUserType
+    tags:
+      - { name: form.type }
 
   multi_user.handler.request_password:
-      class: SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler
-      arguments:
-        - "@multi_user.user_repository.collection"
-        - "@event_dispatcher"
+    class: SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler
+    arguments:
+      - "@multi_user.user_repository.collection"
+      - "@event_dispatcher"
 
   multi_user.handler.reset_password:
-      class: SumoCoders\FrameworkMultiUserBundle\Command\ResetPasswordHandler
-      arguments:
-        - "@multi_user.user_repository.collection"
+    class: SumoCoders\FrameworkMultiUserBundle\Command\ResetPasswordHandler
+    arguments:
+      - "@multi_user.user_repository.collection"
+
+  multi_user.handler.create_user:
+    class: SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler
+    arguments:
+      - "@multi_user.user_repository.collection"
+
+  multi_user.handler.update_user:
+    class: SumoCoders\FrameworkMultiUserBundle\Command\UpdateUserHandler
+    arguments:
+      - "@multi_user.user_repository.collection"
+
+  multi_user.handler.delete_user:
+    class: SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserHandler
+    arguments:
+      - "@multi_user.user_repository.collection"
+
+  multi_user.command.create_user:
+    class: SumoCoders\FrameworkMultiUserBundle\Console\CreateUserCommand
+    arguments:
+      - "@multi_user.handler.create_user"
+    tags:
+      -  { name: "console.command" }
+
+  multi_user.command.delete_user:
+    class: SumoCoders\FrameworkMultiUserBundle\Console\DeleteUserCommand
+    arguments:
+      - "@multi_user.user.repository"
+      - "@multi_user.handler.delete_user"
+    tags:
+      -  { name: "console.command" }
