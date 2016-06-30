@@ -51,7 +51,7 @@ SumoCoders\FrameworkMultiUserBundle\User\UserRepository interface.
 * An instance of the ObjectProvider getting the repository as argument
 
 ```yaml
-# app/config/confing.yml
+# app/config/config.yml
 services:
   multi_user.user_repository.collection:
     class: SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection
