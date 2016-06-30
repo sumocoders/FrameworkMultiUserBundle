@@ -27,19 +27,26 @@ final class UpdateUser
     private $displayName;
 
     /**
+     * @var string
+     */
+    private $email;
+
+    /**
      * UpdateUser constructor.
      *
      * @param UserInterface $user
-     * @param $username
-     * @param $password
-     * @param $displayName
+     * @param string $username
+     * @param string $password
+     * @param string $displayName
+     * @param string $email
      */
-    public function __construct(UserInterface $user, $username, $password, $displayName)
+    public function __construct(UserInterface $user, $username, $password, $displayName, $email)
     {
         $this->user = $user;
         $this->username = $username;
         $this->password = $password;
         $this->displayName = $displayName;
+        $this->email = $email;
     }
 
     /**
@@ -80,5 +87,15 @@ final class UpdateUser
     public function getDisplayName()
     {
         return $this->displayName;
+    }
+
+    /**
+     * Get the email.
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

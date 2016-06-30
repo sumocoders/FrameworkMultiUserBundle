@@ -2,25 +2,45 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
+use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+
 /**
  * Class InMemoryUserRepository
  */
-class InMemoryUserRepository implements UserRepository
+class InMemoryUserRepository implements UserRepository, PasswordResetRepository
 {
     /** @var array */
     private $users = [];
 
+    /**
+     * InMemoryUserRepository constructor.
+     */
     public function __construct()
     {
-        $this->users[] = new User(
+        $user = new User(
             'wouter',
             'test',
-            'Wouter Sioen'
+            'Wouter Sioen',
+            'wouter@example.dev',
+            1
         );
+
+        $this->users[] = $user;
+
+        $passwordResetUser = new User(
+            'reset',
+            'reset',
+            'reset',
+            'test@example.dev',
+            2,
+            PasswordResetToken::generate()
+        );
+        
+        $this->users[] = $passwordResetUser;
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function findByUsername($username)
     {
@@ -32,11 +52,21 @@ class InMemoryUserRepository implements UserRepository
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function supportsClass($class)
     {
         return $class === User::class;
+    }
+
+    /**
+     * @param string $token
+     *
+     * @return UserInterface|null
+     */
+    public function findByPasswordResetToken($token)
+    {
+        return $this->findByUsername('reset');
     }
 
     /**
@@ -54,7 +84,7 @@ class InMemoryUserRepository implements UserRepository
     {
         $this->users[] = $user;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -65,10 +95,10 @@ class InMemoryUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function update(UserInterface $userToUpdate, UserInterface $user)
+    public function update(UserInterface $user)
     {
         foreach ($this->users as $key => $row) {
-            if ($row->getUserName() === $user->getUserName()) {
+            if ($row->getId() === $user->getId()) {
                 $this->users[$key] = $user;
                 break;
             }

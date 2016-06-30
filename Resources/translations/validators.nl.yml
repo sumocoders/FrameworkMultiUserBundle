@@ -1,0 +1,4 @@
+sumocoders:
+  multiuserbundle:
+    form:
+      length: een wachtwoord moet minstens 6 tekens lang zijn.

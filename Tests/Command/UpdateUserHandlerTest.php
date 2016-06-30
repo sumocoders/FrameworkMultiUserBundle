@@ -35,7 +35,7 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
 
         $updatingUser = $this->userRepository->findByUsername('wouter');
 
-        $command = new UpdateUser($updatingUser, 'wouter', 'randomPassword', 'sumocoders');
+        $command = new UpdateUser($updatingUser, 'wouter', 'randomPassword', 'sumocoders', 'wouter@example.dev');
 
         $handler->handle($command);
 

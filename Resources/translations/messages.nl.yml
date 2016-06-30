@@ -1,0 +1,10 @@
+sumocoders:
+  multiuserbundle:
+    form:
+      password: wachtwoord
+      repeat_password: herhaal wachtwoord
+      change_password: update wachtwoord
+      user: gebruikersnaam
+      request_password: wachtwoord aanpassen
+    mail:
+      request_password: pas je wachtwoord <a href="%link%">hier</a> aan

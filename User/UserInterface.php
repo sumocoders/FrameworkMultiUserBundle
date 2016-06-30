@@ -15,4 +15,9 @@ interface UserInterface extends BaseUserInterface
      * @return string
      */
     public function getDisplayName();
+    
+    /**
+     * @return int
+     */
+    public function getId();
 }

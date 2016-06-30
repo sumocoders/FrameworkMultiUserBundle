@@ -1,0 +1,10 @@
+sumocoders:
+  multiuserbundle:
+    form:
+      password: password
+      repeat_password: repeat password
+      change_password: change password
+      user: username
+      request_password: request recovery
+    mail:
+      request_password: you can reset your password <a href="%link%">here</a>

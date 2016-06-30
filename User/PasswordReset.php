@@ -1,0 +1,33 @@
+<?php
+
+namespace SumoCoders\FrameworkMultiUserBundle\User;
+
+interface PasswordReset
+{
+    /**
+     * @return self
+     */
+    public function clearPasswordResetToken();
+
+    /**
+     * @return self
+     */
+    public function generatePasswordResetToken();
+
+    /**
+     * @return string
+     */
+    public function getPasswordResetToken();
+
+    /**
+     * @return string
+     */
+    public function getEmail();
+
+    /**
+     * @param $password
+     *
+     * @return self
+     */
+    public function setPassword($password);
+}

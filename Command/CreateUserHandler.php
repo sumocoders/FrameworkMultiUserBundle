@@ -29,7 +29,8 @@ final class CreateUserHandler extends UserHandler
         $user = new $class(
             $command->getUsername(),
             $command->getPassword(),
-            $command->getDisplayName()
+            $command->getDisplayName(),
+            $command->getEmail()
         );
         $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $user);
         $repository->add($user);

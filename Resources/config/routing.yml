@@ -4,3 +4,11 @@ multi_user_login:
 
 multi_user_logout:
     path: /logout
+
+multi_user_reset_password:
+    defaults: { _controller: SumoCodersFrameworkMultiUserBundle:PasswordReset:reset }
+    path:   /reset-password/{token}
+
+multi_user_request_password:
+    defaults: { _controller: SumoCodersFrameworkMultiUserBundle:PasswordReset:request }
+    path:   /request-password-reset

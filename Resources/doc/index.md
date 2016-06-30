@@ -134,3 +134,28 @@ services:
       tags:
         -  { name: "console.command" }
 ```
+
+## Password reset
+
+The password reset service needs two services
+
+* the `@multi_user.user_repository.collection` service
+* an event listener for PasswordResetTokenCreated
+
+```yaml
+services:
+  multi_user.user_repository.collection:
+    class: SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection
+    arguments:
+      - ["@user_repository1", "@user_repository2"]
+
+  your_bundle.subscriber.on_password_reset_token_created:
+    class: Your_Event_Subscriber_Class
+    arguments:
+      - "@mailer"
+      - "@translator"
+      - "@templating"
+      - "%mailer_default_sender_email%"
+    tags:
+      - { name: "kernel.event_subscriber" }
+```

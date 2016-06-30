@@ -27,13 +27,17 @@ final class UpdateUserHandler extends UserHandler
      */
     public function handle(UpdateUser $command)
     {
-        $updatingUser = $command->getUser();
+        $user = $command->getUser();
+
         $user = new User(
             $command->getUsername(),
             $command->getPassword(),
-            $command->getDisplayName()
+            $command->getDisplayName(),
+            $command->getEmail(),
+            $user->getId(),
+            $user->getPasswordResetToken()
         );
-        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $updatingUser);
-        $repository->update($updatingUser, $user);
+        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $user);
+        $repository->update($user);
     }
 }

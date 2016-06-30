@@ -33,7 +33,7 @@ class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = new CreateUserHandler($this->userRepositoryCollection);
 
-        $user = new CreateUser('sumo', 'randomPassword', 'sumocoders');
+        $user = new CreateUser('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
 
         $handler->handle($user, User::class);
 
@@ -48,6 +48,10 @@ class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             'randomPassword',
             $this->userRepository->findByUsername('sumo')->getPassword()
+        );
+        $this->assertEquals(
+            'sumo@example.dev',
+            $this->userRepository->findByUsername('sumo')->getEmail()
         );
     }
 }
