@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function baseAction(Request $request, $id = null)
     {
-        $form = $this->getFormForId($id);
+        $form = $this->getFormForId((int) $id);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
