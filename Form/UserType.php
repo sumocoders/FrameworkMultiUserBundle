@@ -14,7 +14,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'SumoCoders\FrameworkMultiUserBundle\Form\User'
+            'data_class' => $this->getDataTransferObjectClass(),
         ]);
     }
 
@@ -25,18 +25,25 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'username',
+            'userName',
             'text',
             [
                 'required' => 'required',
-                'label' => 'sumocoders.multiuserbundle.form.userName'
+                'label' => 'sumocoders.multiuserbundle.form.userName',
             ]
         )->add(
             'displayName',
             'text',
             [
                 'required' => 'required',
-                'label' => 'sumocoders.multiuserbundle.form.displayName'
+                'label' => 'sumocoders.multiuserbundle.form.displayName',
+            ]
+        )->add(
+            'email',
+            'email',
+            [
+                'required' => 'required',
+                'label' => 'sumocoders.multiuserbundle.form.email',
             ]
         );
     }
@@ -44,5 +51,13 @@ class UserType extends AbstractType
     public function getName()
     {
         return 'multi_user_form_user';
+    }
+
+    /**
+     * @return string
+     */
+    public function getDataTransferObjectClass()
+    {
+        return 'SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser';
     }
 }

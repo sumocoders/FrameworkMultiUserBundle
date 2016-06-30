@@ -23,7 +23,7 @@ class AddUserType extends UserType
                 ],
                 'second_options' => [
                     'label' => 'sumocoders.multiuserbundle.form.repeated_password',
-                ]
+                ],
             ]
         );
     }
@@ -31,5 +31,13 @@ class AddUserType extends UserType
     public function getName()
     {
         return 'multi_user_form_add_user';
+    }
+
+    /**
+     * @return string
+     */
+    public function getDataTransferObjectClass()
+    {
+        return 'SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser';
     }
 }
