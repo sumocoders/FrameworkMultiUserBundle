@@ -60,12 +60,6 @@ class ObjectUserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        try {
-            $this->userRepositoryCollection->findRepositoryByClassName($class);
-
-            return true;
-        } catch (RepositoryNotRegisteredException $exception) {
-            return false;
-        }
+        return $this->userRepositoryCollection->supportsClass($class);
     }
 }
