@@ -2,8 +2,8 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\Command\UpdateUser;
 use SumoCoders\FrameworkMultiUserBundle\Command\UpdateUserHandler;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
@@ -33,18 +33,21 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = new UpdateUserHandler($this->userRepositoryCollection);
 
-        $updatingUser = $this->userRepository->findByUsername('wouter');
+        $user = $this->userRepository->findByUsername('wouter');
 
-        $command = new UpdateUser($updatingUser, 'wouter', 'randomPassword', 'sumocoders', 'wouter@example.dev');
+        $dataTransferObject= BaseUser::fromUser($user);
+        $dataTransferObject->displayName = 'test';
+        $dataTransferObject->password = 'randomPassword';
+        $dataTransferObject->email = 'test@test.be';
 
-        $handler->handle($command);
+        $handler->handle($dataTransferObject);
 
-        $this->assertEquals(
-            'wouter',
+        $this->assertNotEquals(
+            'test',
             $this->userRepository->findByUsername('wouter')->getUsername()
         );
         $this->assertEquals(
-            'sumocoders',
+            'test',
             $this->userRepository->findByUsername('wouter')->getDisplayName()
         );
         $this->assertEquals(
@@ -52,11 +55,11 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
             $this->userRepository->findByUsername('wouter')->getPassword()
         );
         $this->assertNotEquals(
-            $updatingUser->getDisplayName(),
+            $user->getDisplayName(),
             $this->userRepository->findByUsername('wouter')->getDisplayName()
         );
         $this->assertNotEquals(
-            $updatingUser->getPassword(),
+            $user->getPassword(),
             $this->userRepository->findByUsername('wouter')->getPassword()
         );
     }
