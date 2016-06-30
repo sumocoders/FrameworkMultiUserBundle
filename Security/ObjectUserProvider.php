@@ -28,8 +28,6 @@ class ObjectUserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        $user = null;
-
         foreach ($this->userRepositoryCollection->all() as $repository) {
             $user = $repository->findByUsername($username);
 
