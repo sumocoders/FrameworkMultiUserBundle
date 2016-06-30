@@ -4,7 +4,12 @@ sumocoders:
       password: password
       repeat_password: repeat password
       change_password: change password
-      user: username
+      user: user
+      userName: username
+      displayName: displayname
+      email: email
+      repeated_password: repeat password
       request_password: request recovery
+      submit: submit
     mail:
       request_password: you can reset your password <a href="%link%">here</a>

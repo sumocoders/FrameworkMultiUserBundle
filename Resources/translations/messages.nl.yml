@@ -4,7 +4,12 @@ sumocoders:
       password: wachtwoord
       repeat_password: herhaal wachtwoord
       change_password: update wachtwoord
-      user: gebruikersnaam
+      user: gebruiker
+      userName: gebruikersnaam
+      displayName: schermnaam
+      email: email
+      repeated_password: wachtwoord herhalen
       request_password: wachtwoord aanpassen
+      submit: submit
     mail:
       request_password: pas je wachtwoord <a href="%link%">hier</a> aan
