@@ -4,6 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\ResetPassword;
 use SumoCoders\FrameworkMultiUserBundle\Command\ResetPasswordHandler;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\ChangePassword;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\User;
@@ -28,23 +29,6 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test if PasswordResetHandler throws error.
-     *
-     * @throws InvalidPasswordConfirmationException
-     */
-    public function testPasswordResetThrowsError()
-    {
-        $handler = new ResetPasswordHandler($this->userRepositoryCollection);
-
-        $user = $this->userRepository->findByUsername('wouter');
-        $event = new ResetPassword($user, 'password', 'wrong_confirmation');
-
-        $this->setExpectedException(InvalidPasswordConfirmationException::class);
-
-        $handler->handle($event);
-    }
-
-    /**
      * Test if PAsswordResetHandler gets handled.
      *
      * @throws InvalidPasswordConfirmationException
@@ -54,7 +38,9 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
         $handler = new ResetPasswordHandler($this->userRepositoryCollection);
 
         $user = $this->userRepository->findByUsername('reset');
-        $event = new ResetPassword($user, 'password', 'password');
+        
+        $dataTransferObject = ChangePassword::forUser($user);
+        $dataTransferObject->newPassword = 'changedPassword';
 
         $user = $this->userRepositoryCollection
             ->findRepositoryByClassName(User::class)
@@ -62,7 +48,7 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
         $password = $user->getPassword();
         $token = $user->getPasswordResetToken();
 
-        $handler->handle($event);
+        $handler->handle($dataTransferObject);
 
         $updatedUser = $this->userRepositoryCollection
             ->findRepositoryByClassName(User::class)
