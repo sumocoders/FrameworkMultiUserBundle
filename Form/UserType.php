@@ -48,6 +48,9 @@ class UserType extends AbstractType
         );
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'multi_user_form_user';

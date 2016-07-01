@@ -28,6 +28,9 @@ class AddUserType extends UserType
         );
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'multi_user_form_add_user';
