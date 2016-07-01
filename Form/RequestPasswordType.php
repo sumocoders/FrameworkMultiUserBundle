@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Form;
 
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\RequestPassword;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -16,7 +17,7 @@ class RequestPasswordType extends AbstractType
     {
         $builder
             ->add(
-                'user',
+                'userName',
                 'text',
                 [
                     'label' => 'sumocoders.multiuserbundle.form.user',

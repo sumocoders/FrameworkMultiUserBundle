@@ -11,5 +11,6 @@ sumocoders:
       repeated_password: wachtwoord herhalen
       request_password: wachtwoord aanpassen
       submit: submit
+      user_not_found: geen gebruiker gevonden met gebruikersnaam %username%
     mail:
       request_password: pas je wachtwoord <a href="%link%">hier</a> aan
