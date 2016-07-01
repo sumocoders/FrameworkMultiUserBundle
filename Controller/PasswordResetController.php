@@ -30,7 +30,6 @@ class PasswordResetController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $handler = $this->container->get('multi_user.handler.request_password');
-
             try {
                 $handler->handle($form->getData());
 
@@ -42,7 +41,7 @@ class PasswordResetController extends Controller
                 );
                 $form->addError(new FormError($errorMessage));
 
-                return ['form' => $form->createView()];
+                return [ 'form' => $form->createView() ];
             }
         }
 
