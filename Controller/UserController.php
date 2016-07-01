@@ -68,7 +68,7 @@ class UserController extends Controller
      */
     public function baseAction(Request $request, $id = null)
     {
-        $form = $this->getFormForId((int) $id);
+        $form = $this->getFormForId($id);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -94,7 +94,7 @@ class UserController extends Controller
             return $this->createForm($this->form);
         }
 
-        $user = $this->userRepository->find($id);
+        $user = $this->userRepository->find((int) $id);
         $dataTransferObjectClass = $this->form->getDataTransferObjectClass();
         $dataTransferObject = $dataTransferObjectClass::fromUser($user);
 
