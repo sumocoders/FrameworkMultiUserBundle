@@ -29,7 +29,7 @@ final class UpdateUserHandler extends UserHandler
     {
         $class = $user->getClass();
 
-        $newUser = new $class(
+        $userEntity = new $class(
             $user->userName,
             $user->password,
             $user->displayName,
@@ -37,7 +37,7 @@ final class UpdateUserHandler extends UserHandler
             $user->id
         );
 
-        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $newUser);
-        $repository->update($newUser);
+        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $userEntity);
+        $repository->update($userEntity);
     }
 }

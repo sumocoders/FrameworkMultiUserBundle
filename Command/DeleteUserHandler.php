@@ -29,7 +29,7 @@ final class DeleteUserHandler extends UserHandler
     {
         $class = $user->getClass();
 
-        $newUser = new $class(
+        $userEntity = new $class(
             $user->userName,
             $user->password,
             $user->displayName,
@@ -37,7 +37,7 @@ final class DeleteUserHandler extends UserHandler
             $user->id
         );
 
-        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $newUser);
-        $repository->delete($newUser);
+        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $userEntity);
+        $repository->delete($userEntity);
     }
 }
