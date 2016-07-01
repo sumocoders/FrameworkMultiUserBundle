@@ -38,8 +38,8 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->userRepository->findByUsername('reset');
 
-        $dataTransferObject = ChangePassword::forUser($user);
-        $dataTransferObject->newPassword = 'changedPassword';
+        $changePasswordTransferObject = ChangePassword::forUser($user);
+        $changePasswordTransferObject->newPassword = 'changedPassword';
 
         $user = $this->userRepositoryCollection
             ->findRepositoryByClassName(User::class)
@@ -47,7 +47,7 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
         $password = $user->getPassword();
         $token = $user->getPasswordResetToken();
 
-        $handler->handle($dataTransferObject);
+        $handler->handle($changePasswordTransferObject);
 
         $updatedUser = $this->userRepositoryCollection
             ->findRepositoryByClassName(User::class)

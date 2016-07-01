@@ -66,8 +66,8 @@ class PasswordResetController extends Controller
             return $this->redirectToRoute('multi_user_login');
         }
 
-        $dataTransferObject = ChangePassword::forUser($user);
-        $form = $this->createForm(ChangePasswordType::class, $dataTransferObject);
+        $changePasswordTransferObject = ChangePassword::forUser($user);
+        $form = $this->createForm(ChangePasswordType::class, $changePasswordTransferObject);
 
         $form->handleRequest($request);
 

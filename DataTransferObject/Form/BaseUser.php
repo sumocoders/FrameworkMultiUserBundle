@@ -18,13 +18,13 @@ class BaseUser extends User
      */
     public static function fromUser(UserEntity $user)
     {
-        $dataTransferObject = new self();
-        $dataTransferObject->id = $user->getId();
-        $dataTransferObject->userName = $user->getUsername();
-        $dataTransferObject->displayName = $user->getDisplayName();
-        $dataTransferObject->email = $user->getEmail();
-        $dataTransferObject->password = $user->getPassword();
+        $baseUserTransferObject = new self();
+        $baseUserTransferObject->id = $user->getId();
+        $baseUserTransferObject->userName = $user->getUsername();
+        $baseUserTransferObject->displayName = $user->getDisplayName();
+        $baseUserTransferObject->email = $user->getEmail();
+        $baseUserTransferObject->password = $user->getPassword();
 
-        return $dataTransferObject;
+        return $baseUserTransferObject;
     }
 }

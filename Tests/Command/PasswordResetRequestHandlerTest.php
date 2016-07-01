@@ -41,9 +41,9 @@ class PasswordResetRequestHandlerTest extends \PHPUnit_Framework_TestCase
             $dispatcherMock
         );
 
-        $dataTransferObject = new RequestPassword();
-        $dataTransferObject->userName = 'wouter';
+        $requestPasswordTransferObject = new RequestPassword();
+        $requestPasswordTransferObject->userName = 'wouter';
 
-        $this->assertNull($handler->handle($dataTransferObject));
+        $this->assertNull($handler->handle($requestPasswordTransferObject));
     }
 }

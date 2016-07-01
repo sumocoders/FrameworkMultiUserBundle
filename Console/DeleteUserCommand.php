@@ -59,9 +59,9 @@ final class DeleteUserCommand extends Command
             return;
         }
 
-        $dataTransferObject = BaseUser::fromUser($user);
+        $baseUserTransferObject = BaseUser::fromUser($user);
 
-        $this->handler->handle($dataTransferObject);
+        $this->handler->handle($baseUserTransferObject);
 
         $output->writeln($username . ' has been deleted');
     }

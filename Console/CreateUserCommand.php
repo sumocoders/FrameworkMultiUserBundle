@@ -57,14 +57,14 @@ final class CreateUserCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $dataTransferObject = new BaseUser();
-        $dataTransferObject->userName = $input->getArgument('username');
-        $dataTransferObject->password = $input->getArgument('password');
-        $dataTransferObject->displayName = $input->getArgument('displayName');
-        $dataTransferObject->email = $input->getArgument('email');
+        $baseUserTransferObject = new BaseUser();
+        $baseUserTransferObject->userName = $input->getArgument('username');
+        $baseUserTransferObject->password = $input->getArgument('password');
+        $baseUserTransferObject->displayName = $input->getArgument('displayName');
+        $baseUserTransferObject->email = $input->getArgument('email');
 
-        $this->handler->handle($dataTransferObject);
+        $this->handler->handle($baseUserTransferObject);
 
-        $output->writeln($dataTransferObject->userName . ' has been created');
+        $output->writeln($baseUserTransferObject->userName . ' has been created');
     }
 }

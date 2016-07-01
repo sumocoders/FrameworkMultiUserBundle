@@ -24,9 +24,9 @@ class ChangePassword
 
     public static function forUser(UserEntityInterface $user)
     {
-        $dataTransferObject = new self();
-        $dataTransferObject->user = $user;
+        $changePasswordTransferObject = new self();
+        $changePasswordTransferObject->user = $user;
 
-        return $dataTransferObject;
+        return $changePasswordTransferObject;
     }
 }

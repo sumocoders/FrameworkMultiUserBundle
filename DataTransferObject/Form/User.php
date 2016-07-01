@@ -33,13 +33,13 @@ class User implements UserInterface
      */
     public static function fromUser(UserEntity $user)
     {
-        $dataTransferObject = new self();
-        $dataTransferObject->id = $user->getId();
-        $dataTransferObject->userName = $user->getUsername();
-        $dataTransferObject->displayName = $user->getDisplayName();
-        $dataTransferObject->email = $user->getEmail();
+        $userTransferObject = new self();
+        $userTransferObject->id = $user->getId();
+        $userTransferObject->userName = $user->getUsername();
+        $userTransferObject->displayName = $user->getDisplayName();
+        $userTransferObject->email = $user->getEmail();
 
-        return $dataTransferObject;
+        return $userTransferObject;
     }
 
     /**

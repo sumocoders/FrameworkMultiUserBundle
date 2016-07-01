@@ -35,12 +35,12 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->userRepository->findByUsername('wouter');
 
-        $dataTransferObject = BaseUser::fromUser($user);
-        $dataTransferObject->displayName = 'test';
-        $dataTransferObject->password = 'randomPassword';
-        $dataTransferObject->email = 'test@test.be';
+        $baseUserTransferObject = BaseUser::fromUser($user);
+        $baseUserTransferObject->displayName = 'test';
+        $baseUserTransferObject->password = 'randomPassword';
+        $baseUserTransferObject->email = 'test@test.be';
 
-        $handler->handle($dataTransferObject);
+        $handler->handle($baseUserTransferObject);
 
         $this->assertNotEquals(
             'test',
