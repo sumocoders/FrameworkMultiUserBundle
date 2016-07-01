@@ -2,7 +2,6 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\Command\CreateUser;
 use SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
@@ -34,8 +33,6 @@ class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = new CreateUserHandler($this->userRepositoryCollection);
 
-        
-        
         $user = new User('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
 
         $handler->handle(BaseUser::fromUser($user));

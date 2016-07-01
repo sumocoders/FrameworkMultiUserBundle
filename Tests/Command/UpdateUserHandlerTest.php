@@ -35,7 +35,7 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->userRepository->findByUsername('wouter');
 
-        $dataTransferObject= BaseUser::fromUser($user);
+        $dataTransferObject = BaseUser::fromUser($user);
         $dataTransferObject->displayName = 'test';
         $dataTransferObject->password = 'randomPassword';
         $dataTransferObject->email = 'test@test.be';

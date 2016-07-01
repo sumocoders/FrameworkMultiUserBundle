@@ -2,7 +2,6 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\Command\DeleteUser;
 use SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserHandler;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;

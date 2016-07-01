@@ -2,7 +2,6 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\RequestPassword;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;

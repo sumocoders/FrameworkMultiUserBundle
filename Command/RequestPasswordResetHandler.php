@@ -45,7 +45,7 @@ class RequestPasswordResetHandler
     public function handle(RequestPassword $dataTransferObject)
     {
         $user = $this->userRepositoryCollection->findUserByUserName($dataTransferObject->userName);
-        
+
         if ($user === null) {
             throw new EntityNotFoundException();
         }

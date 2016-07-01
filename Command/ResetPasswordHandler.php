@@ -25,8 +25,8 @@ class ResetPasswordHandler
 
     /**
      * @param ChangePassword $dataTransferObject
-     * @throws InvalidPasswordConfirmationException
      *
+     * @throws InvalidPasswordConfirmationException
      */
     public function handle(ChangePassword $dataTransferObject)
     {

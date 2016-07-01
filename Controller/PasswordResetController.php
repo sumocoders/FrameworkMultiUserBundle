@@ -62,11 +62,11 @@ class PasswordResetController extends Controller
     {
         $userReposioryCollection = $this->container->get('multi_user.user_repository.collection');
         $user = $userReposioryCollection->findUserByToken($token);
-        
+
         if ($user === null) {
             return $this->redirectToRoute('multi_user_login');
         }
-        
+
         $dataTransferObject = ChangePassword::forUser($user);
         $form = $this->createForm(ChangePasswordType::class, $dataTransferObject);
 

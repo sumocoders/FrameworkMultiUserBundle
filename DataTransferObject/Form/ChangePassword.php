@@ -21,12 +21,12 @@ class ChangePassword
      * @var UserInterface
      */
     public $user;
-    
+
     public static function forUser(UserEntityInterface $user)
     {
         $dataTransferObject = new self();
         $dataTransferObject->user = $user;
-        
+
         return $dataTransferObject;
     }
 }

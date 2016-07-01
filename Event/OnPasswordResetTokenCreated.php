@@ -61,9 +61,9 @@ class OnPasswordResetTokenCreated implements EventSubscriberInterface
     /**
      * @param PasswordResetTokenCreated $event
      *
-     * @return int
-     *
      * @throws \Twig_Error
+     *
+     * @return int
      */
     public function onPasswordResetTokenCreated(PasswordResetTokenCreated $event)
     {
