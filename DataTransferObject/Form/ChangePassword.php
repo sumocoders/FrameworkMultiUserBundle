@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form;
 
-use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\UserInterface as UserEntityInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ChangePassword
@@ -22,7 +22,7 @@ class ChangePassword
      */
     public $user;
     
-    public static function forUser(UserInterface $user)
+    public static function forUser(UserEntityInterface $user)
     {
         $dataTransferObject = new self();
         $dataTransferObject->user = $user;
