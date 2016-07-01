@@ -38,13 +38,11 @@ class UserController extends Controller
     private $redirectRoute;
 
     /**
-     * UserController constructor.
-     *
      * @param ContainerInterface $container
      * @param FormTypeInterface $form
      * @param Handler $handler
      * @param UserRepository $userRepository
-     * @param string $redirectRoute
+     * @param string $redirectRoute = null
      */
     public function __construct(
         ContainerInterface $container,
