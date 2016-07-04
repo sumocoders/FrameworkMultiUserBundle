@@ -71,6 +71,24 @@ class UserRepositoryCollection
     }
 
     /**
+     * Check if the UserRepositoryCollection supports a User class.
+     *
+     * @param $className
+     *
+     * @return bool
+     */
+    public function supportsClass($className)
+    {
+        foreach ($this->userRepositories as $repository) {
+            if ($repository->supportsClass($className)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param $token
      *
      * @return UserInterface|null

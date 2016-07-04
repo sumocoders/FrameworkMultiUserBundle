@@ -2,23 +2,25 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Security;
 
+use SumoCoders\FrameworkMultiUserBundle\Exception\RepositoryNotRegisteredException;
+use SumoCoders\FrameworkMultiUserBundle\User\User;
+use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class ObjectUserProvider implements UserProviderInterface
 {
-    /** @var UserRepository */
-    private $userRepository;
+    /** @var UserRepositoryCollection */
+    private $userRepositoryCollection;
 
     /**
-     * @param UserRepository $userRepository
+     * @param UserRepositoryCollection $userRepositoryCollection
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryCollection $userRepositoryCollection)
     {
-        $this->userRepository = $userRepository;
+        $this->userRepositoryCollection = $userRepositoryCollection;
     }
 
     /**
@@ -26,10 +28,12 @@ class ObjectUserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->userRepository->findByUsername($username);
+        foreach ($this->userRepositoryCollection->all() as $repository) {
+            $user = $repository->findByUsername($username);
 
-        if ($user) {
-            return $user;
+            if ($user instanceof User) {
+                return $user;
+            }
         }
 
         throw new UsernameNotFoundException(
@@ -56,6 +60,6 @@ class ObjectUserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return $this->userRepository->supportsClass($class);
+        return $this->userRepositoryCollection->supportsClass($class);
     }
 }
