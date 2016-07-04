@@ -27,6 +27,13 @@ interface UserRepository
     public function getSupportedClass();
 
     /**
+     * @param $id
+     *
+     * @return UserInterface
+     */
+    public function find($id);
+
+    /**
      * Saves the given user.
      *
      * @param UserInterface $user

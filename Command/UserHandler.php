@@ -5,7 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Command;
 use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
-abstract class UserHandler
+abstract class UserHandler implements Handler
 {
     protected function getUserRepositoryForUser(UserRepositoryCollection $userRepositoryCollection, UserInterface $user)
     {

@@ -101,37 +101,30 @@ sumo_coders_framework_multi_user:
 
 ## User commands
 
-The sumocoders:multiuser:xxx require the `multi_user.user_repository.collection` service
+To use the CLI commands the `@multi_user.user.repository` should be set.
+The sumocoders:multiuser commands can create and delete a User Entity
+
+The `sumocoders:mulituser:create` command requires
+* username
+* password
+* displayname
+* email
+
+The `sumocoders:mulituser:delete` command requires a username
 
 ```yaml
 services:
-  multi_user.user_repository.collection:
-    class: SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection
-    arguments:
-      - ["@user_repository1", "@user_repository2"]
-
-  multi_user.handler.create_user:
-      class: SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler
-      arguments:
-        - "@multi_user.user_repository.collection"
-
-  multi_user.handler.delete_user:
-        class: SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserHandler
-        arguments:
-          - "@multi_user.user_repository.collection"
-
   multi_user.command.create_user:
-    class: SumoCoders\FrameworkMultiUserBundle\Command\CreateUserCommand
+    class: SumoCoders\FrameworkMultiUserBundle\Console\CreateUserCommand
     arguments:
-      - "@multi_user.user_repository.collection"
       - "@multi_user.handler.create_user"
     tags:
       -  { name: "console.command" }
 
   multi_user.command.delete_user:
-      class: SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserCommand
+      class: SumoCoders\FrameworkMultiUserBundle\Console\DeleteUserCommand
       arguments:
-        - "@multi_user.user_repository.collection"
+        - "@multi_user.user.repository"
         - "@multi_user.handler.delete_user"
       tags:
         -  { name: "console.command" }
@@ -146,6 +139,35 @@ security:
     firewalls:
         main:
           switch_user: { role: ROLE_ALLOWED_TO_SWITCH, parameter: _switch_user }
+```
+
+## User CRUD
+
+For each CRUD action a controller service and route must be defined`
+
+The services expects the following:
+* a ContainerInterface
+* a FormTypeInterface
+* a Handler
+* a UserRepository
+* an optional redirect route
+
+```yaml
+services:
+  multi_user.user.controller.create:
+    class: SumoCoders\FrameworkMultiUserBundle\Controller\UserController
+    arguments:
+      - "@service_container"
+      - "@multi_user_form_add_user"
+      - "@multi_user.handler.create_user"
+      - "@multi_user.user.repository"
+      - "/nl"
+```
+```yaml
+#routing.yml
+  multi_user_controller:
+    defaults: { _controller: multi_user.user.controller.create:baseAction}
+    path:     /user/create
 ```
 
 ## Password reset

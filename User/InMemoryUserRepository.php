@@ -54,6 +54,18 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     /**
      * {@inheritDoc}
      */
+    public function find($id)
+    {
+        foreach ($this->users as $user) {
+            if ($user->getId() === $id) {
+                return $user;
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function supportsClass($class)
     {
         return $class === User::class;

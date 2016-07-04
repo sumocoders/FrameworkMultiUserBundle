@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\UserInterface;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
 final class CreateUserHandler extends UserHandler
@@ -22,17 +23,20 @@ final class CreateUserHandler extends UserHandler
     }
 
     /**
-     * @param CreateUser $command
+     * @param UserInterface $user
      */
-    public function handle(CreateUser $command, $class)
+    public function handle(UserInterface $user)
     {
-        $user = new $class(
-            $command->getUsername(),
-            $command->getPassword(),
-            $command->getDisplayName(),
-            $command->getEmail()
+        $class = $user->getClass();
+
+        $newUser = new $class(
+            $user->userName,
+            $user->password,
+            $user->displayName,
+            $user->email
         );
-        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $user);
-        $repository->add($user);
+
+        $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $newUser);
+        $repository->add($newUser);
     }
 }

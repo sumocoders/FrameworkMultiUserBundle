@@ -2,10 +2,11 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
+use Doctrine\ORM\EntityNotFoundException;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\RequestPassword;
 use SumoCoders\FrameworkMultiUserBundle\Event\PasswordResetTokenCreated;
 use SumoCoders\FrameworkMultiUserBundle\User\PasswordReset as UserPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use Swift_Mailer;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RequestPasswordResetHandler
@@ -16,7 +17,7 @@ class RequestPasswordResetHandler
     private $userRepositoryCollection;
 
     /**
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      */
     private $dispatcher;
 
@@ -37,11 +38,18 @@ class RequestPasswordResetHandler
     /**
      * Creates a password reset token and sends an email to the user.
      *
-     * @param RequestPasswordReset $command
+     * @param RequestPassword $dataTransferObject
+     *
+     * @throws EntityNotFoundException
      */
-    public function handle(RequestPasswordReset $command)
+    public function handle(RequestPassword $dataTransferObject)
     {
-        $user = $command->getUser();
+        $user = $this->userRepositoryCollection->findUserByUserName($dataTransferObject->userName);
+
+        if ($user === null) {
+            throw new EntityNotFoundException();
+        }
+
         $user->generatePasswordResetToken();
         $repository = $this->userRepositoryCollection->findRepositoryByClassName(get_class($user));
         $repository->save($user);
