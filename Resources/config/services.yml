@@ -11,6 +11,8 @@ services:
     arguments:
       - "@templating"
       - "@security.authentication_utils"
+      - "@sumocoders.form_authenticator"
+      - "@security.token_storage"
 
   multi_user.handler.request_password:
       class: SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler
