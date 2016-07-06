@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Console;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\UserWithPasswordDataTransferObject;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -57,14 +57,15 @@ final class CreateUserCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $baseUserTransferObject = new BaseUser();
-        $baseUserTransferObject->userName = $input->getArgument('username');
-        $baseUserTransferObject->password = $input->getArgument('password');
-        $baseUserTransferObject->displayName = $input->getArgument('displayName');
-        $baseUserTransferObject->email = $input->getArgument('email');
+        $userWithPasswordTransferObject = new UserWithPasswordDataTransferObject();
+        $userWithPasswordTransferObject->userName = $input->getArgument('username');
+        $userWithPasswordTransferObject->password = $input->getArgument('password');
+        $userWithPasswordTransferObject->displayName = $input->getArgument('displayName');
+        $userWithPasswordTransferObject->email = $input->getArgument('email');
+        $userWithPasswordTransferObject->password = $input->getArgument('password');
 
-        $this->handler->handle($baseUserTransferObject);
+        $this->handler->handle($userWithPasswordTransferObject);
 
-        $output->writeln($baseUserTransferObject->userName . ' has been created');
+        $output->writeln($userWithPasswordTransferObject->userName . ' has been created');
     }
 }
