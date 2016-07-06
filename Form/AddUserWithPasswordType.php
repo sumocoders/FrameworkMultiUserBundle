@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class AddUserWithPasswordType extends AbstractType
 {
     /**
      * @param OptionsResolver $resolver
@@ -45,6 +45,18 @@ class UserType extends AbstractType
                 'required' => 'required',
                 'label' => 'sumocoders.multiuserbundle.form.email',
             ]
+        )->add(
+            'password',
+            'repeated',
+            [
+                'required' => 'required',
+                'first_options' => [
+                    'label' => 'sumocoders.multiuserbundle.form.password',
+                ],
+                'second_options' => [
+                    'label' => 'sumocoders.multiuserbundle.form.repeated_password',
+                ],
+            ]
         );
     }
 
@@ -53,7 +65,7 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'multi_user_form_user';
+        return 'multi_user_form_add_user';
     }
 
     /**
@@ -61,6 +73,6 @@ class UserType extends AbstractType
      */
     public function getDataTransferObjectClass()
     {
-        return 'SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser';
+        return 'SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject';
     }
 }
