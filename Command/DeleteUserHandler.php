@@ -2,10 +2,10 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
-final class DeleteUserHandler extends UserHandler
+final class DeleteUserHandler extends AbstractUserHandler
 {
     /**
      * @var UserRepositoryCollection
@@ -23,19 +23,11 @@ final class DeleteUserHandler extends UserHandler
     }
 
     /**
-     * @param UserInterface $user
+     * @param UserDataTransferObject $user
      */
-    public function handle(UserInterface $user)
+    public function handle(UserDataTransferObject $user)
     {
-        $class = $user->getClass();
-
-        $userEntity = new $class(
-            $user->userName,
-            $user->password,
-            $user->displayName,
-            $user->email,
-            $user->id
-        );
+        $userEntity = $user->getEntity();
 
         $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $userEntity);
         $repository->delete($userEntity);
