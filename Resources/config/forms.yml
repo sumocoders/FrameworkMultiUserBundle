@@ -1,0 +1,10 @@
+services:
+  multi_user_form_add_user:
+    class: SumoCoders\FrameworkMultiUserBundle\Form\AddBaseUserType
+    tags:
+      - { name: form.type }
+
+  multi_user_form_add_user_with_password:
+    class: SumoCoders\FrameworkMultiUserBundle\Form\AddUserWithPasswordType
+    tags:
+      - { name: form.type }
