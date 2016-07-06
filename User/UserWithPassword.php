@@ -1,0 +1,177 @@
+<?php
+
+namespace SumoCoders\FrameworkMultiUserBundle\User;
+
+use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+
+class UserWithPassword implements User, PasswordReset
+{
+    /**
+     * @var string
+     */
+    protected $username;
+
+    /**
+     * @var string
+     */
+    protected $password;
+
+    /**
+     * @var string
+     */
+    protected $displayName;
+
+    /**
+     * @var PasswordResetToken
+     */
+    protected $passwordResetToken;
+
+    /**
+     * @var string
+     */
+    protected $email;
+
+    /**
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @param string $username
+     * @param string $password
+     * @param string $displayName
+     * @param string $email
+     * @param int $id
+     * @param PasswordResetToken $token
+     */
+    public function __construct(
+        $username,
+        $password,
+        $displayName,
+        $email,
+        $id = null,
+        PasswordResetToken $token = null
+    ) {
+        $this->username = $username;
+        $this->password = $password;
+        $this->displayName = $displayName;
+        $this->email = $email;
+        $this->id = $id;
+
+        if ($token) {
+            $this->passwordResetToken = $token;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRoles()
+    {
+        return [ 'ROLE_USER' ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSalt()
+    {
+        return;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function eraseCredentials()
+    {
+        return;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString()
+    {
+        return $this->getDisplayName();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function clearPasswordResetToken()
+    {
+        $this->passwordResetToken = null;
+
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function generatePasswordResetToken()
+    {
+        $this->passwordResetToken = PasswordResetToken::generate();
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPasswordResetToken()
+    {
+        return $this->passwordResetToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param $password
+     *
+     * @return self
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

@@ -10,7 +10,7 @@ interface UserRepository
     /**
      * @param string $username
      *
-     * @return UserInterface|null
+     * @return User|null
      */
     public function findByUsername($username);
 
@@ -29,35 +29,35 @@ interface UserRepository
     /**
      * @param $id
      *
-     * @return UserInterface
+     * @return User
      */
     public function find($id);
 
     /**
      * Saves the given user.
      *
-     * @param UserInterface $user
+     * @param User $user
      */
-    public function add(UserInterface $user);
+    public function add(User $user);
 
     /**
      * Saves the given user.
      *
-     * @param UserInterface $user
+     * @param User $user
      */
-    public function save(UserInterface $user);
+    public function save(User $user);
 
     /**
      * Update an existing user.
      *
-     * @param UserInterface $user
+     * @param User $user
      */
-    public function update(UserInterface $user);
+    public function update(User $user);
 
     /**
      * Delete an existing user.
      *
-     * @param UserInterface $user
+     * @param User $user
      */
-    public function delete(UserInterface $user);
+    public function delete(User $user);
 }

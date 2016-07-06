@@ -17,7 +17,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
      */
     public function __construct()
     {
-        $user = new User(
+        $user = new UserWithPassword(
             'wouter',
             'test',
             'Wouter Sioen',
@@ -27,7 +27,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
 
         $this->users[] = $user;
 
-        $passwordResetUser = new User(
+        $passwordResetUser = new UserWithPassword(
             'reset',
             'reset',
             'reset',
@@ -35,7 +35,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
             2,
             PasswordResetToken::generate()
         );
-        
+
         $this->users[] = $passwordResetUser;
     }
 
@@ -92,7 +92,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     /**
      * {@inheritdoc}
      */
-    public function add(UserInterface $user)
+    public function add(User $user)
     {
         $this->users[] = $user;
     }
@@ -100,14 +100,14 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     /**
      * {@inheritdoc}
      */
-    public function save(UserInterface $user)
+    public function save(User $user)
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function update(UserInterface $user)
+    public function update(User $user)
     {
         foreach ($this->users as $key => $row) {
             if ($row->getId() === $user->getId()) {
@@ -120,7 +120,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     /**
      * {@inheritdoc}
      */
-    public function delete(UserInterface $user)
+    public function delete(User $user)
     {
         foreach ($this->users as $key => $row) {
             if ($row->getUserName() === $user->getUserName()) {
