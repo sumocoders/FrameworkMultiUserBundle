@@ -1,6 +1,6 @@
 <?php
 
-namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form;
+namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
 class RequestPassword
 {
