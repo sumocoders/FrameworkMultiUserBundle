@@ -59,12 +59,7 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
      */
     public function getEntity()
     {
-        $this->user->change(
-            $this->userName,
-            $this->plainPassword,
-            $this->displayName,
-            $this->email
-        );
+        $this->user->change($this);
 
         return $this->user;
     }

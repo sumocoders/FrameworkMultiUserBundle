@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
@@ -204,20 +205,14 @@ class UserWithPassword implements User, PasswordReset
     }
 
     /**
-     * @param string $username
-     * @param string $plainPassword
-     * @param string $displayName
-     * @param string $email
+     * @param UserDataTransferObject $data
      */
     public function change(
-        $username,
-        $plainPassword,
-        $displayName,
-        $email
+        UserDataTransferObject $data
     ) {
-        $this->username = $username;
-        $this->plainPassword = $plainPassword;
-        $this->displayName = $displayName;
-        $this->email = $email;
+        $this->username = $data->userName;
+        $this->plainPassword = $data->plainPassword;
+        $this->displayName = $data->displayName;
+        $this->email = $data->email;
     }
 }
