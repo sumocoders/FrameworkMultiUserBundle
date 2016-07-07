@@ -99,6 +99,8 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
 
     /**
      * {@inheritdoc}
+     *
+     * This does nothing here since the objects get updated by reference when changing them in the tests
      */
     public function save(User $user)
     {
