@@ -49,6 +49,7 @@ class AddUserWithPasswordType extends AbstractType
             'password',
             'repeated',
             [
+                'type' => 'password',
                 'required' => 'required',
                 'first_options' => [
                     'label' => 'sumocoders.multiuserbundle.form.password',
