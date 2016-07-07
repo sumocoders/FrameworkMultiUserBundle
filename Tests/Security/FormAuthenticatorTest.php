@@ -7,8 +7,8 @@ use SumoCoders\FrameworkMultiUserBundle\Security\FormAuthenticator;
 use SumoCoders\FrameworkMultiUserBundle\Security\FormCredentials;
 use SumoCoders\FrameworkMultiUserBundle\Security\ObjectUserProvider;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\User;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -89,6 +89,6 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen', $email = 'wouter@example.dev', $id = 1)
     {
-        return new User($username, $password, $displayName, $email, $id);
+        return new UserWithPassword($username, $password, $displayName, $email, $id);
     }
 }

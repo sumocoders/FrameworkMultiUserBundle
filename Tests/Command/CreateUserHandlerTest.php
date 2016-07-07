@@ -3,10 +3,10 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\User;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
 
 class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,9 +33,9 @@ class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = new CreateUserHandler($this->userRepositoryCollection);
 
-        $user = new User('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
+        $user = new UserWithPassword('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
 
-        $handler->handle(BaseUser::fromUser($user));
+        $handler->handle(UserWithPasswordDataTransferObject::fromUser($user));
 
         $this->assertEquals(
             'sumo',

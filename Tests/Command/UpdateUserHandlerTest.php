@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\UpdateUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
@@ -35,7 +35,7 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->userRepository->findByUsername('wouter');
 
-        $baseUserTransferObject = BaseUser::fromUser($user);
+        $baseUserTransferObject = UserWithPasswordDataTransferObject::fromUser($user);
         $baseUserTransferObject->displayName = 'test';
         $baseUserTransferObject->password = 'randomPassword';
         $baseUserTransferObject->email = 'test@test.be';

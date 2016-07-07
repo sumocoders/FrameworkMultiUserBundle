@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
@@ -34,7 +34,7 @@ class DeleteUserHandlerTest extends \PHPUnit_Framework_TestCase
 
         $deletingUser = $this->userRepository->findByUsername('wouter');
 
-        $handler->handle(BaseUser::fromUser($deletingUser));
+        $handler->handle(UserWithPasswordDataTransferObject::fromUser($deletingUser));
 
         $this->assertNotNull($deletingUser);
         $this->assertNull(

@@ -68,7 +68,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
      */
     public function supportsClass($class)
     {
-        return $class === User::class;
+        return $class === UserWithPassword::class;
     }
 
     /**

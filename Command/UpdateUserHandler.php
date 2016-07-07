@@ -2,10 +2,10 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
-final class UpdateUserHandler extends UserHandler
+final class UpdateUserHandler extends AbstractUserHandler
 {
     /**
      * @var UserRepositoryCollection
@@ -23,19 +23,11 @@ final class UpdateUserHandler extends UserHandler
     }
 
     /**
-     * @param UserInterface $user
+     * @param UserDataTransferObject $userDataTransferObject
      */
-    public function handle(UserInterface $user)
+    public function handle(UserDataTransferObject $userDataTransferObject)
     {
-        $class = $user->getClass();
-
-        $userEntity = new $class(
-            $user->userName,
-            $user->password,
-            $user->displayName,
-            $user->email,
-            $user->id
-        );
+        $userEntity = $userDataTransferObject->getEntity();
 
         $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $userEntity);
         $repository->update($userEntity);
