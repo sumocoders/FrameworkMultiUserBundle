@@ -14,6 +14,7 @@ services:
   multi_user.handler.create_user:
     class: SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler
     arguments:
+      - "@security.encoder_factory.generic"
       - "@multi_user.user_repository.collection"
 
   multi_user.handler.update_user:

@@ -3,6 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 class UserWithPassword implements User, PasswordReset
 {
@@ -95,6 +96,23 @@ class UserWithPassword implements User, PasswordReset
     public function getSalt()
     {
         return $this->salt;
+    }
+
+    /**
+     * @param PasswordEncoderInterface $encoder
+     */
+    public function encodePassword(PasswordEncoderInterface $encoder)
+    {
+        if (empty($this->plainPassword)) {
+            return;
+        }
+
+        if (empty($this->salt)) {
+            $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        }
+
+        $this->password = $encoder->encodePassword($this->plainPassword, $this->salt);
+        $this->eraseCredentials();
     }
 
     /**
