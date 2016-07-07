@@ -156,7 +156,7 @@ class UserWithPassword implements User, PasswordReset
     }
 
     /**
-     * @param $password
+     * @param string $password
      *
      * @return self
      */
