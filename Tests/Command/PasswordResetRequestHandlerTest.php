@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\RequestPassword;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\RequestPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -41,7 +41,7 @@ class PasswordResetRequestHandlerTest extends \PHPUnit_Framework_TestCase
             $dispatcherMock
         );
 
-        $requestPasswordTransferObject = new RequestPassword();
+        $requestPasswordTransferObject = new RequestPasswordDataTransferObject();
         $requestPasswordTransferObject->userName = 'wouter';
 
         $this->assertNull($handler->handle($requestPasswordTransferObject));

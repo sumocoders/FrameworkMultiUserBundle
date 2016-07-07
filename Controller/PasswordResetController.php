@@ -4,7 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\ChangePassword;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\Form\ChangePasswordType;
 use SumoCoders\FrameworkMultiUserBundle\Form\RequestPasswordType;
@@ -66,7 +66,7 @@ class PasswordResetController extends Controller
             return $this->redirectToRoute('multi_user_login');
         }
 
-        $changePasswordTransferObject = ChangePassword::forUser($user);
+        $changePasswordTransferObject = ChangePasswordDataTransferObject::forUser($user);
         $form = $this->createForm(ChangePasswordType::class, $changePasswordTransferObject);
 
         $form->handleRequest($request);

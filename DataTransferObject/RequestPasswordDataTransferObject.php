@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
-class RequestPassword
+class RequestPasswordDataTransferObject
 {
     /**
      * @var string

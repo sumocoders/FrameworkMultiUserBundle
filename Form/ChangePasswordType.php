@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Form;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\ChangePassword;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTransferObject;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -36,7 +36,7 @@ class ChangePasswordType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ChangePassword::class,
+            'data_class' => ChangePasswordDataTransferObject::class,
         ]);
     }
 

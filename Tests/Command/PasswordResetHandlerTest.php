@@ -3,11 +3,11 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\ResetPasswordHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\ChangePassword;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\User;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
 
 class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,11 +38,11 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
 
         $user = $this->userRepository->findByUsername('reset');
 
-        $changePasswordTransferObject = ChangePassword::forUser($user);
+        $changePasswordTransferObject = ChangePasswordDataTransferObject::forUser($user);
         $changePasswordTransferObject->newPassword = 'changedPassword';
 
         $user = $this->userRepositoryCollection
-            ->findRepositoryByClassName(User::class)
+            ->findRepositoryByClassName(UserWithPassword::class)
             ->findByUsername('reset');
         $password = $user->getPassword();
         $token = $user->getPasswordResetToken();
