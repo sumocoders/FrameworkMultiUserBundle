@@ -19,8 +19,7 @@ final class CreateUserHandler extends AbstractUserHandler
     private $encoderFactory;
 
     /**
-     * CreateUserHandler constructor.
-     *
+     * @param EncoderFactoryInterface $encoderFactory
      * @param UserRepositoryCollection $userRepositoryCollection
      */
     public function __construct(
