@@ -30,7 +30,7 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
     /**
      * @var string
      */
-    public $password = '';
+    public $plainPassword;
 
     /**
      * @param User $user
@@ -44,7 +44,6 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
         $baseUserTransferObject->userName = $user->getUsername();
         $baseUserTransferObject->displayName = $user->getDisplayName();
         $baseUserTransferObject->email = $user->getEmail();
-        $baseUserTransferObject->password = $user->getPassword();
 
         return $baseUserTransferObject;
     }
@@ -56,7 +55,7 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
     {
         return new UserWithPassword(
             $this->userName,
-            $this->password,
+            $this->plainPassword,
             $this->displayName,
             $this->email,
             $this->id

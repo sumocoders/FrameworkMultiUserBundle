@@ -46,7 +46,7 @@ class AddUserWithPasswordType extends AbstractType
                 'label' => 'sumocoders.multiuserbundle.form.email',
             ]
         )->add(
-            'password',
+            'plainPassword',
             'repeated',
             [
                 'type' => 'password',

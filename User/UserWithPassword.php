@@ -14,6 +14,16 @@ class UserWithPassword implements User, PasswordReset
     /**
      * @var string
      */
+    protected $salt;
+
+    /**
+     * @var string
+     */
+    protected $plainPassword;
+
+    /**
+     * @var string
+     */
     protected $password;
 
     /**
@@ -38,7 +48,7 @@ class UserWithPassword implements User, PasswordReset
 
     /**
      * @param string $username
-     * @param string $password
+     * @param string $plainPassword
      * @param string $displayName
      * @param string $email
      * @param int $id
@@ -46,14 +56,14 @@ class UserWithPassword implements User, PasswordReset
      */
     public function __construct(
         $username,
-        $password,
+        $plainPassword,
         $displayName,
         $email,
         $id = null,
         PasswordResetToken $token = null
     ) {
         $this->username = $username;
-        $this->password = $password;
+        $this->plainPassword = $plainPassword;
         $this->displayName = $displayName;
         $this->email = $email;
         $this->id = $id;
@@ -84,7 +94,7 @@ class UserWithPassword implements User, PasswordReset
      */
     public function getSalt()
     {
-        return;
+        return $this->salt;
     }
 
     /**
@@ -100,7 +110,7 @@ class UserWithPassword implements User, PasswordReset
      */
     public function eraseCredentials()
     {
-        return;
+        $this->plainPassword = null;
     }
 
     /**
