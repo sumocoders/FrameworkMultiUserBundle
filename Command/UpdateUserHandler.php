@@ -38,7 +38,6 @@ final class UpdateUserHandler extends AbstractUserHandler
         $userEntity = $userDataTransferObject->getEntity();
 
         $userEntity->encodePassword($this->encoderFactory->getEncoder($userEntity));
-
         $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $userEntity);
         $repository->update($userEntity);
     }

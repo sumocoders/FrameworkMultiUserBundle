@@ -7,6 +7,9 @@ use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataT
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,13 +34,17 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testUpdateUserGetsHandled()
     {
-        $handler = new UpdateUserHandler($this->userRepositoryCollection);
+        $handler = new UpdateUserHandler(
+            new EncoderFactory([UserWithPassword::class => new PlaintextPasswordEncoder()]),
+            $this->userRepositoryCollection
+        );
 
         $user = $this->userRepository->findByUsername('wouter');
+        $originalUser = clone $user;
 
         $baseUserTransferObject = UserWithPasswordDataTransferObject::fromUser($user);
         $baseUserTransferObject->displayName = 'test';
-        $baseUserTransferObject->password = 'randomPassword';
+        $baseUserTransferObject->plainPassword = 'randomPassword';
         $baseUserTransferObject->email = 'test@test.be';
 
         $handler->handle($baseUserTransferObject);
@@ -51,15 +58,15 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
             $this->userRepository->findByUsername('wouter')->getDisplayName()
         );
         $this->assertEquals(
-            'randomPassword',
+            'randomPassword{' . $this->userRepository->findByUsername('wouter')->getSalt() . '}',
             $this->userRepository->findByUsername('wouter')->getPassword()
         );
         $this->assertNotEquals(
-            $user->getDisplayName(),
+            $originalUser->getDisplayName(),
             $this->userRepository->findByUsername('wouter')->getDisplayName()
         );
         $this->assertNotEquals(
-            $user->getPassword(),
+            $originalUser->getPassword(),
             $this->userRepository->findByUsername('wouter')->getPassword()
         );
     }

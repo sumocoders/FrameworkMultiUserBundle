@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
 class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
@@ -46,8 +47,10 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     public function testCheckCredentials()
     {
+        $user = $this->getUser();
+        $user->encodePassword(new PlaintextPasswordEncoder());
         $this->assertTrue(
-            $this->formAuthenticator->checkCredentials($this->getCredentials(), $this->getUser())
+            $this->formAuthenticator->checkCredentials($this->getCredentials($user->getSalt()), $user)
         );
     }
 
@@ -78,9 +81,9 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $this->formAuthenticator->onAuthenticationSuccess($request, $token, $providerKey);
     }
 
-    private function getCredentials($username = 'wouter', $password = 'test')
+    private function getCredentials($salt = 'zout', $username = 'wouter', $password = 'test')
     {
-        $mock = $this->getMock(FormCredentials::class, [], [$username, $password]);
+        $mock = $this->getMock(FormCredentials::class, [], [$username, $password . '{' . $salt . '}']);
         $mock->method('getUserName')->willReturn($username);
         $mock->method('getPlainPassword')->willReturn($password);
 

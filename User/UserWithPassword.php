@@ -202,4 +202,22 @@ class UserWithPassword implements User, PasswordReset
     {
         return $this->id;
     }
+
+    /**
+     * @param string $username
+     * @param string $plainPassword
+     * @param string $displayName
+     * @param string $email
+     */
+    public function change(
+        $username,
+        $plainPassword,
+        $displayName,
+        $email
+    ) {
+        $this->username = $username;
+        $this->plainPassword = $plainPassword;
+        $this->displayName = $displayName;
+        $this->email = $email;
+    }
 }

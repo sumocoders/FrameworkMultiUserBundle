@@ -33,6 +33,11 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
     public $plainPassword;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * @param User $user
      *
      * @return User
@@ -40,6 +45,7 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
     public static function fromUser(User $user)
     {
         $baseUserTransferObject = new self();
+        $baseUserTransferObject->user = $user;
         $baseUserTransferObject->id = $user->getId();
         $baseUserTransferObject->userName = $user->getUsername();
         $baseUserTransferObject->displayName = $user->getDisplayName();
@@ -53,12 +59,13 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
      */
     public function getEntity()
     {
-        return new UserWithPassword(
+        $this->user->change(
             $this->userName,
             $this->plainPassword,
             $this->displayName,
-            $this->email,
-            $this->id
+            $this->email
         );
+
+        return $this->user;
     }
 }
