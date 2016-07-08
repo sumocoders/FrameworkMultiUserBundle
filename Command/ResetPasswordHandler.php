@@ -34,6 +34,6 @@ class ResetPasswordHandler
         $user->setPassword($dataTransferObject->newPassword);
         $user->clearPasswordResetToken();
         $repository = $this->userRepositoryCollection->findRepositoryByClassName(get_class($user));
-        $repository->update($user, $user);
+        $repository->save($user);
     }
 }
