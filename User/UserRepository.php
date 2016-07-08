@@ -22,11 +22,6 @@ interface UserRepository
     public function supportsClass($class);
 
     /**
-     * @return string
-     */
-    public function getSupportedClass();
-
-    /**
      * @param $id
      *
      * @return User
@@ -46,13 +41,6 @@ interface UserRepository
      * @param User $user
      */
     public function save(User $user);
-
-    /**
-     * Update an existing user.
-     *
-     * @param User $user
-     */
-    public function update(User $user);
 
     /**
      * Delete an existing user.

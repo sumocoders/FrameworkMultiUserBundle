@@ -84,14 +84,6 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     /**
      * {@inheritdoc}
      */
-    public function getSupportedClass()
-    {
-        return User::class;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function add(User $user)
     {
         $this->users[] = $user;
@@ -104,19 +96,6 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
      */
     public function save(User $user)
     {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function update(User $user)
-    {
-        foreach ($this->users as $key => $row) {
-            if ($row->getId() === $user->getId()) {
-                $this->users[$key] = $user;
-                break;
-            }
-        }
     }
 
     /**
