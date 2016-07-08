@@ -50,6 +50,9 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
         $baseUserTransferObject->userName = $user->getUsername();
         $baseUserTransferObject->displayName = $user->getDisplayName();
         $baseUserTransferObject->email = $user->getEmail();
+        if ($user->hasPlainPassword()) {
+            $baseUserTransferObject->plainPassword = $user->getPlainPassword();
+        }
 
         return $baseUserTransferObject;
     }
@@ -59,8 +62,17 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
      */
     public function getEntity()
     {
-        $this->user->change($this);
+        if ($this->user) {
+            $this->user->change($this);
 
-        return $this->user;
+            return $this->user;
+        }
+
+        return new UserWithPassword(
+            $this->userName,
+            $this->plainPassword,
+            $this->displayName,
+            $this->email
+        );
     }
 }
