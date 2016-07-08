@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 interface User extends UserInterface
@@ -25,4 +26,19 @@ interface User extends UserInterface
      * @return int
      */
     public function getId();
+
+    /**
+     * @param UserDataTransferObject $data
+     */
+    public function change(UserDataTransferObject $data);
+
+    /**
+     * @return bool
+     */
+    public function hasPlainPassword();
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword();
 }
