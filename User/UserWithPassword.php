@@ -205,6 +205,22 @@ class UserWithPassword implements User, PasswordReset
     }
 
     /**
+     * @return bool
+     */
+    public function hasPlainPassword()
+    {
+        return !empty($this->plainPassword);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
      * @param UserDataTransferObject $data
      */
     public function change(
