@@ -1,0 +1,3 @@
+services:
+  multi_user.user.repository:
+    class: SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository

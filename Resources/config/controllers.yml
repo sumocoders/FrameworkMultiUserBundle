@@ -1,0 +1,8 @@
+services:
+  multi_user.login.controller:
+    class: SumoCoders\FrameworkMultiUserBundle\Controller\LoginController
+    arguments:
+      - "@templating"
+      - "@security.authentication_utils"
+      - "@sumocoders.form_authenticator"
+      - "@security.token_storage"

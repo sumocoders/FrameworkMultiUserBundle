@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use Doctrine\ORM\EntityNotFoundException;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\RequestPassword;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\RequestPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Event\PasswordResetTokenCreated;
 use SumoCoders\FrameworkMultiUserBundle\User\PasswordReset as UserPasswordReset;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
@@ -38,11 +38,11 @@ class RequestPasswordResetHandler
     /**
      * Creates a password reset token and sends an email to the user.
      *
-     * @param RequestPassword $dataTransferObject
+     * @param RequestPasswordDataTransferObject $dataTransferObject
      *
      * @throws EntityNotFoundException
      */
-    public function handle(RequestPassword $dataTransferObject)
+    public function handle(RequestPasswordDataTransferObject $dataTransferObject)
     {
         $user = $this->userRepositoryCollection->findUserByUserName($dataTransferObject->userName);
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form;
+namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
-use SumoCoders\FrameworkMultiUserBundle\User\UserInterface as UserEntityInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ChangePassword
+class ChangePasswordDataTransferObject
 {
     /**
      * @var string
@@ -18,11 +18,11 @@ class ChangePassword
     public $newPassword;
 
     /**
-     * @var UserInterface
+     * @var User
      */
     public $user;
 
-    public static function forUser(UserEntityInterface $user)
+    public static function forUser(User $user)
     {
         $changePasswordTransferObject = new self();
         $changePasswordTransferObject->user = $user;

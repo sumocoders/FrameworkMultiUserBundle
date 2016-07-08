@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class EditUserWithPasswordType extends AbstractType
 {
     /**
      * @param OptionsResolver $resolver
@@ -53,7 +53,7 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'multi_user_form_user';
+        return 'multi_user_form_edit_user';
     }
 
     /**
@@ -61,6 +61,6 @@ class UserType extends AbstractType
      */
     public function getDataTransferObjectClass()
     {
-        return 'SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser';
+        return 'SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject';
     }
 }

@@ -2,10 +2,11 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
-final class CreateUserHandler extends UserHandler
+final class CreateUserHandler extends AbstractUserHandler
 {
     /**
      * @var UserRepositoryCollection
@@ -13,28 +14,30 @@ final class CreateUserHandler extends UserHandler
     private $userRepositoryCollection;
 
     /**
-     * CreateUserHandler constructor.
-     *
+     * @var EncoderFactoryInterface
+     */
+    private $encoderFactory;
+
+    /**
+     * @param EncoderFactoryInterface $encoderFactory
      * @param UserRepositoryCollection $userRepositoryCollection
      */
-    public function __construct(UserRepositoryCollection $userRepositoryCollection)
-    {
+    public function __construct(
+        EncoderFactoryInterface $encoderFactory,
+        UserRepositoryCollection $userRepositoryCollection
+    ) {
         $this->userRepositoryCollection = $userRepositoryCollection;
+        $this->encoderFactory = $encoderFactory;
     }
 
     /**
-     * @param UserInterface $user
-     */
-    public function handle(UserInterface $user)
+    * @param UserDataTransferObject $userDataTransferObject
+    */
+    public function handle(UserDataTransferObject $userDataTransferObject)
     {
-        $class = $user->getClass();
+        $newUser = $userDataTransferObject->getEntity();
 
-        $newUser = new $class(
-            $user->userName,
-            $user->password,
-            $user->displayName,
-            $user->email
-        );
+        $newUser->encodePassword($this->encoderFactory->getEncoder($newUser));
 
         $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $newUser);
         $repository->add($newUser);

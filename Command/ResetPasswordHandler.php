@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\ChangePassword;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
@@ -24,16 +24,16 @@ class ResetPasswordHandler
     }
 
     /**
-     * @param ChangePassword $dataTransferObject
+     * @param ChangePasswordDataTransferObject $dataTransferObject
      *
      * @throws InvalidPasswordConfirmationException
      */
-    public function handle(ChangePassword $dataTransferObject)
+    public function handle(ChangePasswordDataTransferObject $dataTransferObject)
     {
         $user = $dataTransferObject->user;
         $user->setPassword($dataTransferObject->newPassword);
         $user->clearPasswordResetToken();
         $repository = $this->userRepositoryCollection->findRepositoryByClassName(get_class($user));
-        $repository->update($user, $user);
+        $repository->save($user);
     }
 }

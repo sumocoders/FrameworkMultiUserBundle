@@ -3,10 +3,14 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\User;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 
 class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,11 +35,17 @@ class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateUserGetsHandled()
     {
-        $handler = new CreateUserHandler($this->userRepositoryCollection);
+        $handler = new CreateUserHandler(
+            new EncoderFactory([UserWithPassword::class => new PlaintextPasswordEncoder()]),
+            $this->userRepositoryCollection
+        );
 
-        $user = new User('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
+        $user = new UserWithPassword('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
 
-        $handler->handle(BaseUser::fromUser($user));
+        $userDataTransferObject = UserWithPasswordDataTransferObject::fromUser($user);
+        $userDataTransferObject->plainPassword = 'randomPassword';
+
+        $handler->handle($userDataTransferObject);
 
         $this->assertEquals(
             'sumo',
@@ -46,7 +56,7 @@ class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
             $this->userRepository->findByUsername('sumo')->getDisplayName()
         );
         $this->assertEquals(
-            'randomPassword',
+            'randomPassword{' . $this->userRepository->findByUsername('sumo')->getSalt() . '}',
             $this->userRepository->findByUsername('sumo')->getPassword()
         );
         $this->assertEquals(

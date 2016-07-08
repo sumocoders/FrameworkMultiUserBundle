@@ -17,7 +17,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
      */
     public function __construct()
     {
-        $user = new User(
+        $user = new UserWithPassword(
             'wouter',
             'test',
             'Wouter Sioen',
@@ -27,7 +27,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
 
         $this->users[] = $user;
 
-        $passwordResetUser = new User(
+        $passwordResetUser = new UserWithPassword(
             'reset',
             'reset',
             'reset',
@@ -35,7 +35,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
             2,
             PasswordResetToken::generate()
         );
-        
+
         $this->users[] = $passwordResetUser;
     }
 
@@ -68,7 +68,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
      */
     public function supportsClass($class)
     {
-        return $class === User::class;
+        return $class === UserWithPassword::class;
     }
 
     /**
@@ -84,43 +84,24 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     /**
      * {@inheritdoc}
      */
-    public function getSupportedClass()
-    {
-        return User::class;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function add(UserInterface $user)
+    public function add(User $user)
     {
         $this->users[] = $user;
     }
 
     /**
      * {@inheritdoc}
+     *
+     * This does nothing here since the objects get updated by reference when changing them in the tests
      */
-    public function save(UserInterface $user)
+    public function save(User $user)
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function update(UserInterface $user)
-    {
-        foreach ($this->users as $key => $row) {
-            if ($row->getId() === $user->getId()) {
-                $this->users[$key] = $user;
-                break;
-            }
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function delete(UserInterface $user)
+    public function delete(User $user)
     {
         foreach ($this->users as $key => $row) {
             if ($row->getUserName() === $user->getUserName()) {

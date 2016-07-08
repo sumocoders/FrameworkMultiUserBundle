@@ -2,9 +2,9 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 
 interface Handler
 {
-    public function handle(UserInterface $user);
+    public function handle(UserDataTransferObject $user);
 }

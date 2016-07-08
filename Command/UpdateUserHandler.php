@@ -2,10 +2,11 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
-final class UpdateUserHandler extends UserHandler
+final class UpdateUserHandler extends AbstractUserHandler
 {
     /**
      * @var UserRepositoryCollection
@@ -13,31 +14,31 @@ final class UpdateUserHandler extends UserHandler
     private $userRepositoryCollection;
 
     /**
-     * CreateUserHandler constructor.
-     *
+     * @var EncoderFactoryInterface
+     */
+    private $encoderFactory;
+
+    /**
+     * @param EncoderFactoryInterface $encoderFactory
      * @param UserRepositoryCollection $userRepositoryCollection
      */
-    public function __construct(UserRepositoryCollection $userRepositoryCollection)
-    {
+    public function __construct(
+        EncoderFactoryInterface $encoderFactory,
+        UserRepositoryCollection $userRepositoryCollection
+    ) {
         $this->userRepositoryCollection = $userRepositoryCollection;
+        $this->encoderFactory = $encoderFactory;
     }
 
     /**
-     * @param UserInterface $user
+     * @param UserDataTransferObject $userDataTransferObject
      */
-    public function handle(UserInterface $user)
+    public function handle(UserDataTransferObject $userDataTransferObject)
     {
-        $class = $user->getClass();
+        $userEntity = $userDataTransferObject->getEntity();
 
-        $userEntity = new $class(
-            $user->userName,
-            $user->password,
-            $user->displayName,
-            $user->email,
-            $user->id
-        );
-
+        $userEntity->encodePassword($this->encoderFactory->getEncoder($userEntity));
         $repository = $this->getUserRepositoryForUser($this->userRepositoryCollection, $userEntity);
-        $repository->update($userEntity);
+        $repository->save($userEntity);
     }
 }
