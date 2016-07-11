@@ -8,8 +8,11 @@ use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Router;
 
 /**
  * This class handles all the user actions.
@@ -17,6 +20,16 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class UserController extends Controller
 {
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    /**
+     * @var Router
+     */
+    private $router;
+
     /**
      * @var Handler
      */
@@ -38,24 +51,27 @@ class UserController extends Controller
     private $redirectRoute;
 
     /**
-     * @param ContainerInterface $container
+     * @param FormFactoryInterface $formFactory
+     * @param Router $router
      * @param FormTypeInterface $form
      * @param Handler $handler
      * @param UserRepository $userRepository
      * @param string $redirectRoute = null
      */
     public function __construct(
-        ContainerInterface $container,
+        FormFactoryInterface $formFactory,
+        Router $router,
         FormTypeInterface $form,
         Handler $handler,
         UserRepository $userRepository,
         $redirectRoute = null
     ) {
+        $this->formFactory = $formFactory;
+        $this->router = $router;
         $this->form = $form;
         $this->handler = $handler;
         $this->userRepository = $userRepository;
         $this->redirectRoute = $redirectRoute;
-        $this->setContainer($container);
     }
 
     /**
@@ -76,7 +92,7 @@ class UserController extends Controller
             $this->handler->handle($command);
 
             if ($this->redirectRoute !== null) {
-                return $this->redirect($this->redirectRoute);
+                return new RedirectResponse($this->router->generate($this->redirectRoute));
             }
         }
 
@@ -91,13 +107,13 @@ class UserController extends Controller
     private function getFormForId($id = null)
     {
         if ($id === null) {
-            return $this->createForm($this->form);
+            return $this->formFactory->create($this->form);
         }
 
         $user = $this->userRepository->find((int) $id);
         $dataTransferObjectClass = $this->form->getDataTransferObjectClass();
         $dataTransferObject = $dataTransferObjectClass::fromUser($user);
 
-        return $this->createForm($this->form, $dataTransferObject);
+        return $this->formFactory->create($this->form, $dataTransferObject);
     }
 }
