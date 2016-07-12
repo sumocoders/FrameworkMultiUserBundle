@@ -5,7 +5,6 @@ namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SumoCoders\FrameworkMultiUserBundle\Command\Handler;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -17,7 +16,7 @@ use Symfony\Component\Routing\Router;
  * This class handles all the user actions.
  * Register a service for each action.
  */
-class UserController extends Controller
+class UserController
 {
     /**
      * @var FormFactoryInterface
