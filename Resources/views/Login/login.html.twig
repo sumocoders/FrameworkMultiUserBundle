@@ -1,15 +1,56 @@
-{% extends '::empty.html.twig' %}
+{% extends "SumoCodersFrameworkMultiUserBundle::empty_layout.html.twig" %}
 
-{% block main %}
-
-{{ error }}
-
-<form action="{{ path('multi_user_login') }}" method="POST">
-  <label for="_username">Username</label>
-  <input type="text" name="_username" class="form-control" id="_username" placeholder="Username">
-  <label for="_password">Password</label>
-  <input type="password" name="_password" class="form-control" id="_password" placeholder="Password">
-  <button type="submit">Login</button>
-</form>
-
+{% block header_title %}
+  <h2>
+    {{ 'user.header.title.login'|trans({},'messages')|capitalize }}
+  </h2>
 {% endblock %}
+
+{% block sumocoders_multi_user_content %}
+  <form action="{{ path("multi_user_login") }}" method="post">
+    {% if error %}
+      <div class="alert alert-info">
+        {{ error }}
+      </div>
+    {% endif %}
+
+    <fieldset>
+      <div class="form-group">
+        <label class="control-label" for="username">
+          {{ 'sumocoders.multiuserbundle.form.user'|trans|capitalize }}<abbr title="{{ 'forms.labels.required'|trans|capitalize }}">*</abbr>
+        </label>
+
+        <div class="input-group">
+          <div class="input-group-addon username icon icon-user"></div>
+          <input id="username" name="_username" type="text" class="form-control input-lg" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="password">
+          {{ 'sumocoders.multiuserbundle.form.password'|trans|capitalize }}<abbr title="{{ 'forms.labels.required'|trans|capitalize }}">*</abbr>
+        </label>
+
+        <div class="input-group">
+          <div class="input-group-addon password icon icon-lock"></div>
+          <input type="password" value="" id="password" name="_password" class="form-control input-lg" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="forgotPassword">
+            <small>
+              <a href="{{ path('multi_user_request_password') }}">{{ 'sumocoders.multiuserbundle.form.forgot_password'|trans|capitalize }}</a>
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-success pull-right" type="submit" id="submit" name="_submit">
+            {{ 'sumocoders.multiuserbundle.form.submit'|trans }}<i class="icon iconArrowWhiteRight"></i>
+          </button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+{% endblock sumocoders_multi_user_content %}
