@@ -1,0 +1,25 @@
+{% extends '::empty.html.twig' %}
+
+{% block main -%}
+  <div class="container">
+    <section id="users" class="login">
+      <div class="row">
+        <div class="col-xs-12">
+          <header class="header hide">
+            {% block header_title %}
+            {% endblock %}
+          </header>
+
+          <a href="/" class="logo">
+            <img class="img-responsive" src="/assets/images/logo-application.svg" alt="{{ fallbacks.get('site_title') }}">
+          </a>
+
+          {{ include('SumoCodersFrameworkCoreBundle::notifications.html.twig') }}
+
+          {% block sumocoders_multi_user_content %}
+          {% endblock sumocoders_multi_user_content %}
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock %}
