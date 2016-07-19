@@ -11,6 +11,8 @@ sumocoders:
       repeated_password: repeat password
       request_password: request recovery
       submit: submit
+      login: log in
       user_not_found: no user found with username %username%
+      forgot_password: forgot password?
     mail:
       request_password: you can reset your password <a href="%link%">here</a>
