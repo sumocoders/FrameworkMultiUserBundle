@@ -22,14 +22,18 @@ class RequestPasswordType extends AbstractType
                 'userName',
                 TextType::class,
                 [
-                    'label' => 'sumocoders.multiuserbundle.form.user',
-                    'required' => true,
+                    'attr' => [
+                        'class' => 'input-lg'
+                    ]
                 ]
             )->add(
                 'submit',
                 SubmitType::class,
                 [
-                    'label' => 'sumocoders.multiuserbundle.form.request_password',
+                    'label_format' => 'request.password.submit',
+                    'attr' => [
+                        'class' => 'btn-info pull-right',
+                    ]
                 ]
             );
     }

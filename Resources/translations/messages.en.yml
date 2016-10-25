@@ -16,3 +16,8 @@ sumocoders:
       forgot_password: forgot password?
     mail:
       request_password: you can reset your password <a href="%link%">here</a>
+
+request:
+  password:
+    userName: displayname
+    submit: Reset password

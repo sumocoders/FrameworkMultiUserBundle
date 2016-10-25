@@ -16,3 +16,8 @@ sumocoders:
       forgot_password: wachtwoord vergeten?
     mail:
       request_password: pas je wachtwoord <a href="%link%">hier</a> aan
+
+request:
+  password:
+    userName: gebruikersnaam
+    submit: Reset wachtwoord
