@@ -25,9 +25,13 @@ class ChangePasswordType extends AbstractType
                     'first_options' => ['label' => 'sumocoders.multiuserbundle.form.password'],
                     'second_options' => ['label' => 'sumocoders.multiuserbundle.form.repeat_password'],
                 ]
-            )->add('submit', 'submit', [
-                'label' => 'sumocoders.multiuserbundle.form.change_password',
-            ]);
+            )->add(
+                'submit',
+                'submit',
+                [
+                    'label' => 'sumocoders.multiuserbundle.form.change_password',
+                ]
+            );
     }
 
     /**

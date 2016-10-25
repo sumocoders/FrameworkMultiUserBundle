@@ -13,9 +13,11 @@ class EditUserWithPasswordType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => $this->getDataTransferObjectClass(),
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => $this->getDataTransferObjectClass(),
+            ]
+        );
     }
 
     /**

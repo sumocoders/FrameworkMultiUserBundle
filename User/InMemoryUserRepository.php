@@ -5,7 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 
 /**
- * Class InMemoryUserRepository
+ * Class InMemoryUserRepository.
  */
 class InMemoryUserRepository implements UserRepository, PasswordResetRepository
 {
@@ -40,7 +40,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findByUsername($username)
     {
@@ -52,7 +52,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function find($id)
     {
@@ -64,7 +64,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function supportsClass($class)
     {

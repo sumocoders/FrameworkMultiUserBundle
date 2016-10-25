@@ -76,15 +76,15 @@ class UserWithPassword implements User, PasswordReset
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getRoles()
     {
-        return [ 'ROLE_USER' ];
+        return ['ROLE_USER'];
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getPassword()
     {
@@ -92,7 +92,7 @@ class UserWithPassword implements User, PasswordReset
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getSalt()
     {
@@ -117,7 +117,7 @@ class UserWithPassword implements User, PasswordReset
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getUsername()
     {
@@ -125,7 +125,7 @@ class UserWithPassword implements User, PasswordReset
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function eraseCredentials()
     {
@@ -133,7 +133,7 @@ class UserWithPassword implements User, PasswordReset
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getDisplayName()
     {
@@ -141,7 +141,7 @@ class UserWithPassword implements User, PasswordReset
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function __toString()
     {

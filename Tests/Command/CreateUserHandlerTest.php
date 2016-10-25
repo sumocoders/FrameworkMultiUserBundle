@@ -9,8 +9,6 @@ use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
-use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 
 class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
 {

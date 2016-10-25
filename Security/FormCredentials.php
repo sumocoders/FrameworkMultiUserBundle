@@ -21,7 +21,7 @@ class FormCredentials
     }
 
     /**
-     * Returns the username
+     * Returns the username.
      *
      * @return string
      */
@@ -31,7 +31,7 @@ class FormCredentials
     }
 
     /**
-     * Returns the plain password
+     * Returns the plain password.
      *
      * @return string
      */

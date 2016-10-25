@@ -3,7 +3,6 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Console;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUser;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
 use Symfony\Component\Console\Command\Command;

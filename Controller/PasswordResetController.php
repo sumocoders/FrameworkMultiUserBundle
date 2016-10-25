@@ -41,7 +41,7 @@ class PasswordResetController extends Controller
                 );
                 $form->addError(new FormError($errorMessage));
 
-                return [ 'form' => $form->createView() ];
+                return ['form' => $form->createView()];
             }
         }
 

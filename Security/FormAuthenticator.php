@@ -39,7 +39,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return FormCredentials
      */
@@ -57,7 +57,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
@@ -65,7 +65,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
@@ -80,7 +80,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function getLoginUrl()
     {
@@ -88,7 +88,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {

@@ -31,8 +31,8 @@ final class CreateUserHandler extends AbstractUserHandler
     }
 
     /**
-    * @param UserDataTransferObject $userDataTransferObject
-    */
+     * @param UserDataTransferObject $userDataTransferObject
+     */
     public function handle(UserDataTransferObject $userDataTransferObject)
     {
         $newUser = $userDataTransferObject->getEntity();

@@ -48,7 +48,7 @@ class PasswordResetToken
     }
 
     /**
-     * Generates a PasswordToken
+     * Generates a PasswordToken.
      *
      * @return PasswordResetToken
      */

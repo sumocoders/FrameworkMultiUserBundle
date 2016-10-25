@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
 /**
- * Interface UserRepository
+ * Interface UserRepository.
  */
 interface UserRepository
 {
