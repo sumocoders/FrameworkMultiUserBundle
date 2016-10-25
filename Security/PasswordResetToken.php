@@ -70,4 +70,12 @@ class PasswordResetToken
     {
         return $token->token === $this->token;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getToken();
+    }
 }
