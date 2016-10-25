@@ -9,6 +9,7 @@
 {% block sumocoders_multi_user_content %}
 
   {{ form_start(form) }}
+  {{ form_errors(form) }}
   <div class="form-group">
     <label class="control-label" for="username">
       {{ form_label(form.userName) }}

@@ -35,10 +35,10 @@ class PasswordResetController extends Controller
 
                 return $this->redirectToRoute('multi_user_login');
             } catch (EntityNotFoundException $exception) {
-                $errorMessage = $this->get('translator')->trans(
+                $errorMessage = ucfirst($this->get('translator')->trans(
                     'sumocoders.multiuserbundle.form.user_not_found',
                     ['%username%' => $form->getData()->userName]
-                );
+                ));
                 $form->addError(new FormError($errorMessage));
 
                 return ['form' => $form->createView()];
