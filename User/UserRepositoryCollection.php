@@ -8,7 +8,7 @@ use SumoCoders\FrameworkMultiUserBundle\Exception\RepositoryNotRegisteredExcepti
 class UserRepositoryCollection
 {
     /**
-     * @var array
+     * @var UserRepository[]
      */
     private $userRepositories = [];
 
@@ -91,7 +91,7 @@ class UserRepositoryCollection
     /**
      * @param $token
      *
-     * @return UserInterface|null
+     * @return null|User|void
      */
     public function findUserByToken($token)
     {
@@ -108,6 +108,7 @@ class UserRepositoryCollection
 
     /**
      * @param $username
+     * @return null|User|void
      */
     public function findUserByUserName($username)
     {
