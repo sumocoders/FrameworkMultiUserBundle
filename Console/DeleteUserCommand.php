@@ -3,8 +3,8 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Console;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\BaseUserDataTransferObject;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserWithPasswordDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -59,7 +59,7 @@ final class DeleteUserCommand extends Command
             return;
         }
 
-        $baseUserTransferObject = BaseUserDataTransferObject::fromUser($user);
+        $baseUserTransferObject = UserWithPasswordDataTransferObject::fromUser($user);
 
         $this->handler->handle($baseUserTransferObject);
 

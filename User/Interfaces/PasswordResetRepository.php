@@ -1,13 +1,13 @@
 <?php
 
-namespace SumoCoders\FrameworkMultiUserBundle\User;
+namespace SumoCoders\FrameworkMultiUserBundle\User\Interfaces;
 
 interface PasswordResetRepository
 {
     /**
      * @param string $token
      *
-     * @return UserInterface|null
+     * @return PasswordReset|null
      */
     public function findByPasswordResetToken($token);
 }

@@ -23,8 +23,8 @@ class RequestPasswordType extends AbstractType
                 TextType::class,
                 [
                     'attr' => [
-                        'class' => 'input-lg'
-                    ]
+                        'class' => 'input-lg',
+                    ],
                 ]
             )->add(
                 'submit',
@@ -33,7 +33,7 @@ class RequestPasswordType extends AbstractType
                     'label_format' => 'request.password.submit',
                     'attr' => [
                         'class' => 'btn-info pull-right',
-                    ]
+                    ],
                 ]
             );
     }

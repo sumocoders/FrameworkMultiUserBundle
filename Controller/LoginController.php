@@ -3,6 +3,8 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
 use SumoCoders\FrameworkMultiUserBundle\Security\FormAuthenticator;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,7 +12,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 final class LoginController
 {
-    /** @var EntineInterface */
+    /** @var EngineInterface */
     private $templating;
 
     /**

@@ -2,9 +2,9 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserWithPasswordDataTransferObject;
 
 interface Handler
 {
-    public function handle(UserDataTransferObject $user);
+    public function handle(UserWithPasswordDataTransferObject $user);
 }

@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Console;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\UserWithPasswordDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -59,10 +59,9 @@ final class CreateUserCommand extends Command
     {
         $userWithPasswordTransferObject = new UserWithPasswordDataTransferObject();
         $userWithPasswordTransferObject->userName = $input->getArgument('username');
-        $userWithPasswordTransferObject->password = $input->getArgument('password');
+        $userWithPasswordTransferObject->plainPassword = $input->getArgument('password');
         $userWithPasswordTransferObject->displayName = $input->getArgument('displayName');
         $userWithPasswordTransferObject->email = $input->getArgument('email');
-        $userWithPasswordTransferObject->password = $input->getArgument('password');
 
         $this->handler->handle($userWithPasswordTransferObject);
 

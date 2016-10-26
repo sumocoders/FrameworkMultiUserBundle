@@ -2,10 +2,12 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
-use SumoCoders\FrameworkMultiUserBundle\User\User;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPassword as UserWithPasswordInterface;
 use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserWithPasswordDataTransferObject
+    as UserWithPasswordDataTransferObjectInterface;
 
-class UserWithPasswordDataTransferObject implements UserDataTransferObject
+class UserWithPasswordDataTransferObject implements UserWithPasswordDataTransferObjectInterface
 {
     /**
      * @var int
@@ -33,16 +35,16 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
     public $plainPassword;
 
     /**
-     * @var User
+     * @var UserWithPassword
      */
     private $user;
 
     /**
-     * @param User $user
+     * @param UserWithPasswordInterface $user
      *
-     * @return User
+     * @return UserWithPasswordDataTransferObjectInterface
      */
-    public static function fromUser(User $user)
+    public static function fromUser(UserWithPasswordInterface $user)
     {
         $baseUserTransferObject = new self();
         $baseUserTransferObject->user = $user;
@@ -74,5 +76,45 @@ class UserWithPasswordDataTransferObject implements UserDataTransferObject
             $this->displayName,
             $this->email
         );
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
     }
 }

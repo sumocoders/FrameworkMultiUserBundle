@@ -2,11 +2,13 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Form;
 
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddUserWithPasswordType extends AbstractType
+class AddUserWithPasswordType extends AbstractType implements FormWithDataTransferObject
 {
     /**
      * @param OptionsResolver $resolver
@@ -74,6 +76,6 @@ class AddUserWithPasswordType extends AbstractType
      */
     public function getDataTransferObjectClass()
     {
-        return 'SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject';
+        return UserWithPasswordDataTransferObject::class;
     }
 }

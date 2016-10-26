@@ -5,6 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 use SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;

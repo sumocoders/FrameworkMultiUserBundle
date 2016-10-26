@@ -2,43 +2,76 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
-use Symfony\Component\Security\Core\User\UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
 
-interface User extends UserInterface
+class User implements UserInterface
 {
-    /**
-     * @return string
-     */
-    public function __toString();
+    /** @var string */
+    protected $username;
+
+    /** @var string */
+    protected $displayName;
+
+    /** @var string */
+    protected $email;
+
+    /** @var int */
+    protected $id;
 
     /**
-     * @return string
+     * @param string $username
+     * @param string $displayName
+     * @param string $email
+     * @param int $id
      */
-    public function getDisplayName();
+    public function __construct(
+        $username,
+        $displayName,
+        $email,
+        $id = null
+    ) {
+        $this->username = $username;
+        $this->displayName = $displayName;
+        $this->email = $email;
+        $this->id = $id;
+    }
 
-    /**
-     * @return string
-     */
-    public function getEmail();
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
 
-    /**
-     * @return int
-     */
-    public function getId();
+    public function getUsername()
+    {
+        return $this->username;
+    }
 
-    /**
-     * @param UserDataTransferObject $data
-     */
-    public function change(UserDataTransferObject $data);
+    public function __toString()
+    {
+        return $this->getDisplayName();
+    }
 
-    /**
-     * @return bool
-     */
-    public function hasPlainPassword();
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
 
-    /**
-     * @return string
-     */
-    public function getPlainPassword();
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function change(
+        UserDataTransferObject $data
+    ) {
+        $this->username = $data->getUserName();
+        $this->displayName = $data->getDisplayName();
+        $this->email = $data->getEmail();
+    }
 }

@@ -2,50 +2,35 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserWithPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPassword as UserWithPasswordInterface;
 
-class UserWithPassword implements User, PasswordReset
+class UserWithPassword implements UserWithPasswordInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $username;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $salt;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $plainPassword;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $password;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $displayName;
 
-    /**
-     * @var PasswordResetToken
-     */
+    /** @var PasswordResetToken */
     protected $passwordResetToken;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $email;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $id;
 
     /**
@@ -75,33 +60,21 @@ class UserWithPassword implements User, PasswordReset
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRoles()
     {
         return ['ROLE_USER'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSalt()
     {
         return $this->salt;
     }
 
-    /**
-     * @param PasswordEncoderInterface $encoder
-     */
     public function encodePassword(PasswordEncoderInterface $encoder)
     {
         if (empty($this->plainPassword)) {
@@ -116,41 +89,26 @@ class UserWithPassword implements User, PasswordReset
         $this->eraseCredentials();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getUsername()
     {
         return $this->username;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function eraseCredentials()
     {
         $this->plainPassword = null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDisplayName()
     {
         return $this->displayName;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __toString()
     {
         return $this->getDisplayName();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function clearPasswordResetToken()
     {
         $this->passwordResetToken = null;
@@ -158,9 +116,6 @@ class UserWithPassword implements User, PasswordReset
         return $this;
     }
 
-    /**
-     * @return self
-     */
     public function generatePasswordResetToken()
     {
         $this->passwordResetToken = PasswordResetToken::generate();
@@ -168,9 +123,6 @@ class UserWithPassword implements User, PasswordReset
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getPasswordResetToken()
     {
         return $this->passwordResetToken;
@@ -184,11 +136,6 @@ class UserWithPassword implements User, PasswordReset
         return $this->email;
     }
 
-    /**
-     * @param string $password
-     *
-     * @return self
-     */
     public function setPassword($password)
     {
         $this->password = $password;
@@ -196,39 +143,27 @@ class UserWithPassword implements User, PasswordReset
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @return bool
-     */
     public function hasPlainPassword()
     {
         return !empty($this->plainPassword);
     }
 
-    /**
-     * @return string
-     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
-    /**
-     * @param UserDataTransferObject $data
-     */
     public function change(
-        UserDataTransferObject $data
+        UserWithPasswordDataTransferObject $data
     ) {
-        $this->username = $data->userName;
-        $this->plainPassword = $data->plainPassword;
-        $this->displayName = $data->displayName;
-        $this->email = $data->email;
+        $this->username = $data->getUserName();
+        $this->plainPassword = $data->getPlainPassword();
+        $this->displayName = $data->getDisplayName();
+        $this->email = $data->getEmail();
     }
 }

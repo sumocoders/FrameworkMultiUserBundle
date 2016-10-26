@@ -4,11 +4,17 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 
 use SumoCoders\FrameworkMultiUserBundle\Exception\NoRepositoriesRegisteredException;
 use SumoCoders\FrameworkMultiUserBundle\Exception\RepositoryNotRegisteredException;
+use SumoCoders\FrameworkMultiUserBundle\Exception\UserNotFound;
+use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPassword as UserWithPasswordInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPasswordRepository;
 
 class UserRepositoryCollection
 {
     /**
-     * @var UserRepository[]
+     * @var UserRepository[]|UserWithPasswordRepository[]|mixed[]
      */
     private $userRepositories = [];
 
@@ -27,7 +33,7 @@ class UserRepositoryCollection
     /**
      * Registers the UserRepository to the UserRepositoryCollection.
      *
-     * @param UserRepository $userRepository
+     * @param UserRepository|UserWithPasswordRepository $userRepository
      */
     public function addUserRepository(UserRepository $userRepository)
     {
@@ -39,7 +45,7 @@ class UserRepositoryCollection
      *
      * @throws NoRepositoriesRegisteredException
      *
-     * @return array
+     * @return UserRepository[]|UserWithPasswordRepository[]|mixed[]
      */
     public function all()
     {
@@ -53,11 +59,11 @@ class UserRepositoryCollection
     /**
      * Find the UserRepository for a given User Class.
      *
-     * @param $className
+     * @param string $className
      *
      * @throws RepositoryNotRegisteredException
      *
-     * @return UserRepository
+     * @return UserRepository|UserWithPasswordRepository
      */
     public function findRepositoryByClassName($className)
     {
@@ -73,7 +79,7 @@ class UserRepositoryCollection
     /**
      * Check if the UserRepositoryCollection supports a User class.
      *
-     * @param $className
+     * @param string $className
      *
      * @return bool
      */
@@ -89,11 +95,13 @@ class UserRepositoryCollection
     }
 
     /**
-     * @param $token
+     * @param PasswordResetToken $token
      *
-     * @return null|User|void
+     * @throws UserNotFound
+     *
+     * @return UserInterface|UserWithPasswordInterface
      */
-    public function findUserByToken($token)
+    public function findUserByToken(PasswordResetToken $token)
     {
         foreach ($this->userRepositories as $repository) {
             $user = $repository->findByPasswordResetToken($token);
@@ -103,12 +111,15 @@ class UserRepositoryCollection
             }
         }
 
-        return;
+        throw UserNotFound::withToken($token);
     }
 
     /**
-     * @param $username
-     * @return null|User|void
+     * @param string $username
+     *
+     * @throws UserNotFound
+     *
+     * @return UserInterface|UserWithPasswordInterface
      */
     public function findUserByUserName($username)
     {
@@ -120,6 +131,6 @@ class UserRepositoryCollection
             }
         }
 
-        return;
+        throw UserNotFound::withUsername($username);
     }
 }

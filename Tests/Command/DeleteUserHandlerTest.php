@@ -5,6 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 use SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserHandler;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
 class DeleteUserHandlerTest extends \PHPUnit_Framework_TestCase

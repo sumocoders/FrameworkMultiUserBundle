@@ -1,6 +1,6 @@
 <?php
 
-namespace SumoCoders\FrameworkMultiUserBundle\User;
+namespace SumoCoders\FrameworkMultiUserBundle\User\Interfaces;
 
 /**
  * Interface UserRepository.

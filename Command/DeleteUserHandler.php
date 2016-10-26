@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserWithPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
 final class DeleteUserHandler extends AbstractUserHandler
@@ -23,9 +23,9 @@ final class DeleteUserHandler extends AbstractUserHandler
     }
 
     /**
-     * @param UserDataTransferObject $user
+     * @param UserWithPasswordDataTransferObject $user
      */
-    public function handle(UserDataTransferObject $user)
+    public function handle(UserWithPasswordDataTransferObject $user)
     {
         $userEntity = $user->getEntity();
 
