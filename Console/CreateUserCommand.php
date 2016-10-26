@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Console;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Form\UserWithPasswordDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
