@@ -9,7 +9,7 @@
 {% block sumocoders_multi_user_content %}
   <form action="{{ path("multi_user_login") }}" method="post">
     {% if error %}
-      <div class="alert alert-info">
+      <div class="alert alert-danger">
         {{ error }}
       </div>
     {% endif %}
