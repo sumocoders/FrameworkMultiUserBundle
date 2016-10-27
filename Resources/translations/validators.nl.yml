@@ -2,3 +2,8 @@ sumocoders:
   multiuserbundle:
     form:
       length: een wachtwoord moet minstens 6 tekens lang zijn.
+    login:
+      bad_credentials: Incorrecte gebruiker/wachtwoord combinatie.
+      unsupported_user: Dit type gebruiker wordt niet ondersteund.
+      username_not_found: Incorrecte gebruiker/wachtwoord combinatie.
+    something_went_wrong: Er liep iets mis.

@@ -6,3 +6,4 @@ services:
       - "@security.authentication_utils"
       - "@sumocoders.form_authenticator"
       - "@security.token_storage"
+      - "@translator.default"
