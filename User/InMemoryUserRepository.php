@@ -3,18 +3,17 @@
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPassword as UserWithPasswordInterface;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPasswordRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 
-class InMemoryUserRepository implements UserWithPasswordRepository
+class InMemoryUserRepository implements UserRepository
 {
-    /** @var User[]|UserWithPasswordInterface[]|mixed[] */
+    /** @var User[] */
     private $users = [];
 
     public function __construct()
     {
-        $user = new UserWithPassword(
+        $user = new User(
             'wouter',
             'test',
             'Wouter Sioen',
@@ -24,7 +23,7 @@ class InMemoryUserRepository implements UserWithPasswordRepository
 
         $this->users[] = $user;
 
-        $passwordResetUser = new UserWithPassword(
+        $passwordResetUser = new User(
             'reset',
             'reset',
             'reset',
@@ -56,20 +55,20 @@ class InMemoryUserRepository implements UserWithPasswordRepository
 
     public function supportsClass($class)
     {
-        return $class === UserWithPassword::class;
+        return $class === User::class;
     }
 
     /**
-     * @param string $token
+     * @param PasswordResetToken $token
      *
-     * @return User|UserWithPasswordInterface|null
+     * @return UserInterface|null
      */
-    public function findByPasswordResetToken($token)
+    public function findByPasswordResetToken(PasswordResetToken $token)
     {
         return $this->findByUsername('reset');
     }
 
-    public function add(UserWithPasswordInterface $user)
+    public function add(UserInterface $user)
     {
         $this->users[] = $user;
     }
@@ -79,11 +78,11 @@ class InMemoryUserRepository implements UserWithPasswordRepository
      *
      * This does nothing here since the objects get updated by reference when changing them in the tests
      */
-    public function save(UserWithPasswordInterface $user)
+    public function save(UserInterface $user)
     {
     }
 
-    public function delete(UserWithPasswordInterface $user)
+    public function delete(UserInterface $user)
     {
         foreach ($this->users as $key => $row) {
             if ($row->getUserName() === $user->getUserName()) {

@@ -5,6 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\RequestPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

@@ -3,21 +3,20 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPasswordRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use Symfony\Component\Security\Core\User\UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 
 abstract class AbstractUserHandler implements Handler
 {
     /**
      * @param UserRepositoryCollection $userRepositoryCollection
-     * @param UserInterface $user
+     * @param User $user
      *
-     * @return UserRepository|UserWithPasswordRepository
+     * @return UserRepository
      */
     protected function getUserRepositoryForUser(
         UserRepositoryCollection $userRepositoryCollection,
-        UserInterface $user
+        User $user
     ) {
         return $userRepositoryCollection->findRepositoryByClassName(get_class($user));
     }

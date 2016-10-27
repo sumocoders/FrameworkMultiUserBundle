@@ -7,7 +7,7 @@ use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTra
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
+use SumoCoders\FrameworkMultiUserBundle\User\User;
 
 class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,7 +42,7 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
         $changePasswordTransferObject->newPassword = 'changedPassword';
 
         $user = $this->userRepositoryCollection
-            ->findRepositoryByClassName(UserWithPassword::class)
+            ->findRepositoryByClassName(User::class)
             ->findByUsername('reset');
         $password = $user->getPassword();
         $token = $user->getPasswordResetToken();
@@ -50,7 +50,7 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
         $handler->handle($changePasswordTransferObject);
 
         $updatedUser = $this->userRepositoryCollection
-            ->findRepositoryByClassName(UserWithPassword::class)
+            ->findRepositoryByClassName(User::class)
             ->findByUsername('reset');
 
         $this->assertEquals($user->getUsername(), $updatedUser->getUsername());

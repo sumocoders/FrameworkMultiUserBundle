@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Event;
 
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPassword;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use Symfony\Component\EventDispatcher\Event;
 
 class PasswordResetTokenCreated extends Event
@@ -10,22 +10,22 @@ class PasswordResetTokenCreated extends Event
     const NAME = 'multi_user.event.password_reset_token_created';
 
     /**
-     * @var UserWithPassword
+     * @var User
      */
     private $user;
 
     /**
      * PasswordResetTokenCreated constructor.
      *
-     * @param UserWithPassword $user
+     * @param User $user
      */
-    public function __construct(UserWithPassword $user)
+    public function __construct(User $user)
     {
         $this->user = $user;
     }
 
     /**
-     * @return UserWithPassword
+     * @return User
      */
     public function getUser()
     {

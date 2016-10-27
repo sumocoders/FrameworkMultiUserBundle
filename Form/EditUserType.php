@@ -2,22 +2,24 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Form;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddUserWithPasswordType extends AbstractType implements FormWithDataTransferObject
+class EditUserType extends AbstractType implements FormWithDataTransferObject
 {
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => $this->getDataTransferObjectClass(),
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => $this->getDataTransferObjectClass(),
+            ]
+        );
     }
 
     /**
@@ -47,19 +49,6 @@ class AddUserWithPasswordType extends AbstractType implements FormWithDataTransf
                 'required' => 'required',
                 'label' => 'sumocoders.multiuserbundle.form.email',
             ]
-        )->add(
-            'plainPassword',
-            'repeated',
-            [
-                'type' => 'password',
-                'required' => 'required',
-                'first_options' => [
-                    'label' => 'sumocoders.multiuserbundle.form.password',
-                ],
-                'second_options' => [
-                    'label' => 'sumocoders.multiuserbundle.form.repeated_password',
-                ],
-            ]
         );
     }
 
@@ -68,7 +57,7 @@ class AddUserWithPasswordType extends AbstractType implements FormWithDataTransf
      */
     public function getName()
     {
-        return 'multi_user_form_add_user';
+        return 'multi_user_form_edit_user';
     }
 
     /**
@@ -76,6 +65,6 @@ class AddUserWithPasswordType extends AbstractType implements FormWithDataTransf
      */
     public function getDataTransferObjectClass()
     {
-        return UserWithPasswordDataTransferObject::class;
+        return UserDataTransferObject::class;
     }
 }

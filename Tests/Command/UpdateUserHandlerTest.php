@@ -3,11 +3,11 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\UpdateUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
+use SumoCoders\FrameworkMultiUserBundle\User\User;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
@@ -35,14 +35,14 @@ class UpdateUserHandlerTest extends \PHPUnit_Framework_TestCase
     public function testUpdateUserGetsHandled()
     {
         $handler = new UpdateUserHandler(
-            new EncoderFactory([UserWithPassword::class => new PlaintextPasswordEncoder()]),
+            new EncoderFactory([User::class => new PlaintextPasswordEncoder()]),
             $this->userRepositoryCollection
         );
 
         $user = $this->userRepository->findByUsername('wouter');
         $originalUser = clone $user;
 
-        $baseUserTransferObject = UserWithPasswordDataTransferObject::fromUser($user);
+        $baseUserTransferObject = UserDataTransferObject::fromUser($user);
         $baseUserTransferObject->displayName = 'test';
         $baseUserTransferObject->plainPassword = 'randomPassword';
         $baseUserTransferObject->email = 'test@test.be';

@@ -3,23 +3,15 @@
 namespace SumoCoders\FrameworkMultiUserBundle\User\Interfaces;
 
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-interface User
+interface User extends UserInterface, PasswordReset
 {
-    /**
-     * @return int
-     */
-    public function getId();
-
-    /**
-     * @return string[]
-     */
-    public function getRoles();
-
     /**
      * @return string
      */
-    public function getUsername();
+    public function __toString();
 
     /**
      * @return string
@@ -27,9 +19,9 @@ interface User
     public function getDisplayName();
 
     /**
-     * @return string
+     * @return int
      */
-    public function getEmail();
+    public function getId();
 
     /**
      * @param UserDataTransferObject $data
@@ -37,7 +29,17 @@ interface User
     public function change(UserDataTransferObject $data);
 
     /**
+     * @return bool
+     */
+    public function hasPlainPassword();
+
+    /**
      * @return string
      */
-    public function __toString();
+    public function getPlainPassword();
+
+    /**
+     * @param PasswordEncoderInterface $encoder
+     */
+    public function encodePassword(PasswordEncoderInterface $encoder);
 }

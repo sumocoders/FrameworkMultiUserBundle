@@ -30,7 +30,12 @@ class UserDataTransferObject implements UserDataTransferObjectInterface
     public $email;
 
     /**
-     * @var User
+     * @var string
+     */
+    public $plainPassword;
+
+    /**
+     * @var UserInterface
      */
     private $user;
 
@@ -47,6 +52,9 @@ class UserDataTransferObject implements UserDataTransferObjectInterface
         $baseUserTransferObject->userName = $user->getUsername();
         $baseUserTransferObject->displayName = $user->getDisplayName();
         $baseUserTransferObject->email = $user->getEmail();
+        if ($user->hasPlainPassword()) {
+            $baseUserTransferObject->plainPassword = $user->getPlainPassword();
+        }
 
         return $baseUserTransferObject;
     }
@@ -64,6 +72,7 @@ class UserDataTransferObject implements UserDataTransferObjectInterface
 
         return new User(
             $this->userName,
+            $this->plainPassword,
             $this->displayName,
             $this->email
         );
@@ -99,5 +108,13 @@ class UserDataTransferObject implements UserDataTransferObjectInterface
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
     }
 }

@@ -27,6 +27,11 @@ interface UserDataTransferObject
     public function getEmail();
 
     /**
+     * @return string
+     */
+    public function getPlainPassword();
+
+    /**
      * @param User $user
      *
      * @return self

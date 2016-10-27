@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Security;
 
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordResetTokenException;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPassword;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 
 class PasswordResetToken
 {
@@ -31,14 +31,14 @@ class PasswordResetToken
     }
 
     /**
-     * @param UserWithPassword $user
+     * @param User $user
      * @param PasswordResetToken $token
      *
      * @throws InvalidPasswordResetTokenException
      *
      * @return bool
      */
-    public static function validateToken(UserWithPassword $user, PasswordResetToken $token)
+    public static function validateToken(User $user, PasswordResetToken $token)
     {
         if ($user->getPasswordResetToken()->equals($token)) {
             return true;

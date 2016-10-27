@@ -5,7 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Command;
 use Doctrine\ORM\EntityNotFoundException;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\RequestPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Event\PasswordResetTokenCreated;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPassword;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -60,9 +60,9 @@ class RequestPasswordResetHandler
     /**
      * Sends the password reset token to the user.
      *
-     * @param UserWithPassword $user
+     * @param User $user
      */
-    private function sendPasswordResetToken(UserWithPassword $user)
+    private function sendPasswordResetToken(User $user)
     {
         $event = new PasswordResetTokenCreated($user);
         $this->dispatcher->dispatch(PasswordResetTokenCreated::NAME, $event);

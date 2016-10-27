@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserWithPassword;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ChangePasswordDataTransferObject
@@ -18,11 +18,11 @@ class ChangePasswordDataTransferObject
     public $newPassword;
 
     /**
-     * @var UserWithPassword
+     * @var User
      */
     public $user;
 
-    public static function forUser(UserWithPassword $user)
+    public static function forUser(User $user)
     {
         $changePasswordTransferObject = new self();
         $changePasswordTransferObject->user = $user;

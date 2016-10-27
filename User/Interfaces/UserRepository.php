@@ -2,10 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User\Interfaces;
 
-/**
- * Interface UserRepository.
- */
-interface UserRepository
+interface UserRepository extends PasswordResetRepository
 {
     /**
      * @param string $username
