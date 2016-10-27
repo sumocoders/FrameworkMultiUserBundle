@@ -4,6 +4,9 @@ namespace SumoCoders\FrameworkMultiUserBundle\Form;
 
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTransferObject;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -18,18 +21,18 @@ class ChangePasswordType extends AbstractType
         $builder
             ->add(
                 'newPassword',
-                'repeated',
+                RepeatedType::class,
                 [
-                    'type' => 'password',
-                    'required' => true,
-                    'first_options' => ['label' => 'sumocoders.multiuserbundle.form.password'],
-                    'second_options' => ['label' => 'sumocoders.multiuserbundle.form.repeat_password'],
+                    'type' => PasswordType::class,
                 ]
             )->add(
                 'submit',
-                'submit',
+                SubmitType::class,
                 [
-                    'label' => 'sumocoders.multiuserbundle.form.change_password',
+                    'label_format' => 'change.password.submit',
+                    'attr' => [
+                        'class' => 'btn-info pull-right',
+                    ],
                 ]
             );
     }

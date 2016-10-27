@@ -5,6 +5,10 @@ namespace SumoCoders\FrameworkMultiUserBundle\Form;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,37 +32,18 @@ class AddUserType extends AbstractType implements FormWithDataTransferObject
     {
         $builder->add(
             'userName',
-            'text',
-            [
-                'required' => 'required',
-                'label' => 'sumocoders.multiuserbundle.form.userName',
-            ]
+            TextType::class
         )->add(
             'displayName',
-            'text',
-            [
-                'required' => 'required',
-                'label' => 'sumocoders.multiuserbundle.form.displayName',
-            ]
+            TextType::class
         )->add(
             'email',
-            'email',
-            [
-                'required' => 'required',
-                'label' => 'sumocoders.multiuserbundle.form.email',
-            ]
+            EmailType::class
         )->add(
             'plainPassword',
-            'repeated',
+            RepeatedType::class,
             [
-                'type' => 'password',
-                'required' => 'required',
-                'first_options' => [
-                    'label' => 'sumocoders.multiuserbundle.form.password',
-                ],
-                'second_options' => [
-                    'label' => 'sumocoders.multiuserbundle.form.repeated_password',
-                ],
+                'type' => PasswordType::class,
             ]
         );
     }
