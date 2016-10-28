@@ -18,6 +18,7 @@ sumocoders:
       request_password: pas je wachtwoord <a href="%link%">hier</a> aan
     flash:
       password_reset_request_success: Aanvraag succesvol.
+      login_success: Welkom, %username%! Je bent succesvol ingelogd.
 request:
   password:
     userName: gebruikersnaam

@@ -2,7 +2,9 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Security;
 
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
@@ -20,21 +22,33 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     /** RouterInterface */
     private $router;
 
+    /** @var FlashBagInterface */
+    private $flashBag;
+
+    /** @var Translator */
+    private $translator;
+
     /** array */
     private $redirectRoutes = [];
 
     /**
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param RouterInterface $router
+     * @param FlashBagInterface $flashBag
+     * @param Translator $translator
      * @param array $redirectRoutes
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
         RouterInterface $router,
+        FlashBagInterface $flashBag,
+        Translator $translator,
         array $redirectRoutes = []
     ) {
         $this->passwordEncoder = $passwordEncoder;
         $this->router = $router;
+        $this->flashBag = $flashBag;
+        $this->translator = $translator;
         $this->redirectRoutes = $redirectRoutes;
     }
 
@@ -99,6 +113,16 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         if (!$targetPath) {
             $targetPath = $this->getSuccessRedirectUrl($token);
         }
+
+        $this->flashBag->add(
+            'success',
+            $this->translator->trans(
+                'sumocoders.multiuserbundle.flash.login_success',
+                [
+                    '%username%' => $token->getUsername(),
+                ]
+            )
+        );
 
         return new RedirectResponse($targetPath);
     }

@@ -4,4 +4,6 @@ services:
     arguments:
       - "@security.password_encoder"
       - "@router"
+      - "@session.flash_bag"
+      - "@translator.default"
       - "%sumo_coders_framework_multi_user.redirect_routes%"

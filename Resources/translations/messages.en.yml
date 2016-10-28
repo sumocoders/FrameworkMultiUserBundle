@@ -18,6 +18,7 @@ sumocoders:
       request_password: you can reset your password <a href="%link%">here</a>
     flash:
       password_reset_request_success: Request successful.
+      login_success: Welcome, %username%! You've successfully logged in.
 request:
   password:
     userName: displayname
