@@ -4,6 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
 use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler;
+use SumoCoders\FrameworkMultiUserBundle\Exception\UserNotFound;
 use SumoCoders\FrameworkMultiUserBundle\Form\RequestPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -70,7 +71,7 @@ final class RequestPasswordResetController
                 $this->requestPasswordResetHandler->handle($form->getData());
 
                 return new RedirectResponse($this->router->generate('multi_user_login'));
-            } catch (EntityNotFoundException $exception) {
+            } catch (UserNotFound $exception) {
                 $errorMessage = ucfirst($this->get('translator')->trans(
                     'sumocoders.multiuserbundle.form.user_not_found',
                     ['%username%' => $form->getData()->userName]

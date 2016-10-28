@@ -46,10 +46,6 @@ class RequestPasswordResetHandler
     {
         $user = $this->userRepositoryCollection->findUserByUserName($dataTransferObject->userName);
 
-        if ($user === null) {
-            throw new EntityNotFoundException();
-        }
-
         $user->generatePasswordResetToken();
         $repository = $this->userRepositoryCollection->findRepositoryByClassName(get_class($user));
         $repository->save($user);
