@@ -16,6 +16,7 @@ services:
       - "@multi_user.handler.request_password"
       - "@router"
       - "@translator.default"
+      - "@session.flash_bag"
 
   multi_user.password_reset.reset_controller:
     class: SumoCoders\FrameworkMultiUserBundle\Controller\PasswordResetController

@@ -14,8 +14,8 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 final class RequestPasswordResetController
 {
@@ -34,25 +34,31 @@ final class RequestPasswordResetController
     /** @var Translator */
     private $translator;
 
+    /** @var FlashBagInterface */
+    private $flashBag;
+
     /**
      * @param EngineInterface $templating
      * @param FormFactoryInterface $formFactory
      * @param RequestPasswordResetHandler $requestPasswordResetHandler
      * @param Router $router
      * @param Translator $translator
+     * @param FlashBagInterface $flashBag
      */
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
         RequestPasswordResetHandler $requestPasswordResetHandler,
         Router $router,
-        Translator $translator
+        Translator $translator,
+        FlashBagInterface $flashBag
     ) {
         $this->templating = $templating;
         $this->formFactory = $formFactory;
         $this->requestPasswordResetHandler = $requestPasswordResetHandler;
         $this->router = $router;
         $this->translator = $translator;
+        $this->flashBag = $flashBag;
     }
 
     /**
@@ -69,6 +75,13 @@ final class RequestPasswordResetController
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $this->requestPasswordResetHandler->handle($form->getData());
+
+                $this->flashBag->add(
+                    'success',
+                    $this->translator->trans(
+                        'sumocoders.multiuserbundle.flash.password_reset_request_success'
+                    )
+                );
 
                 return new RedirectResponse($this->router->generate('multi_user_login'));
             } catch (UserNotFound $exception) {
