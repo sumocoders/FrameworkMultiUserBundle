@@ -84,7 +84,7 @@ class PasswordResetController
         }
 
         return $this->templating->renderResponse(
-            'SumoCodersFrameworkMultiUserBundle:PasswordReset:request.html.twig',
+            'SumoCodersFrameworkMultiUserBundle:PasswordReset:reset.html.twig',
             [
                 'form' => $form->createView(),
             ]
