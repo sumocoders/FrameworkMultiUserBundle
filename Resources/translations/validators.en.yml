@@ -1,7 +1,7 @@
 sumocoders:
   multiuserbundle:
     form:
-      length: a password should be at least 6 characters long.
+      length: A password should be at least 6 characters long.
     login:
       bad_credentials: Incorrect username/password combination.
       unsupported_user: Unsupported user type.

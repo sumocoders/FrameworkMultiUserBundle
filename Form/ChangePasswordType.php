@@ -29,6 +29,7 @@ class ChangePasswordType extends AbstractType
                             'class' => 'input-lg',
                         ],
                     ],
+                    'error_bubbling' => true,
                 ]
             )->add(
                 'submit',
