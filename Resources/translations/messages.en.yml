@@ -23,3 +23,9 @@ request:
   password:
     userName: displayname
     submit: Reset password
+change:
+  password:
+    newPassword:
+      first: password
+      second: repeat password
+    submit: Set new password

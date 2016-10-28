@@ -23,3 +23,9 @@ request:
   password:
     userName: gebruikersnaam
     submit: Reset wachtwoord
+change:
+  password:
+    newPassword:
+      first: wachtwoord
+      second: herhaal wachtwoord
+    submit: Stel nieuw wachtwoord in

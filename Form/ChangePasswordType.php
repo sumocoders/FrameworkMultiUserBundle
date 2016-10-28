@@ -24,6 +24,11 @@ class ChangePasswordType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
+                    'options' => [
+                        'attr' => [
+                            'class' => 'input-lg',
+                        ],
+                    ],
                 ]
             )->add(
                 'submit',
