@@ -8,14 +8,14 @@ use SumoCoders\FrameworkMultiUserBundle\Exception\UserNotFound;
 use SumoCoders\FrameworkMultiUserBundle\Form\RequestPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Templating\EngineInterface;
-use Symfony\Component\Translation\Translator;
 
 final class RequestPasswordResetController
 {
