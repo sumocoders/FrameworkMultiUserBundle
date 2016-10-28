@@ -16,3 +16,12 @@ services:
       - "@multi_user.handler.request_password"
       - "@router"
       - "@translator.default"
+
+  multi_user.password_reset.reset_controller:
+    class: SumoCoders\FrameworkMultiUserBundle\Controller\PasswordResetController
+    arguments:
+      - "@multi_user.user_repository.collection"
+      - "@multi_user.handler.reset_password"
+      - "@router"
+      - "@form.factory"
+      - "@templating"

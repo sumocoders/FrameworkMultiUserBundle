@@ -2,17 +2,56 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use SumoCoders\FrameworkMultiUserBundle\Command\ResetPasswordHandler;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\Form\ChangePasswordType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\FormError;
+use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class PasswordResetController extends Controller
+class PasswordResetController
 {
+    /** @var UserRepositoryCollection */
+    private $userRepositoryCollection;
+
+    /** @var ResetPasswordHandler */
+    private $resetPasswordHandler;
+
+    /** @var Router */
+    private $router;
+
+    /** @var FormFactoryInterface */
+    private $formFactory;
+
+    /** @var EngineInterface */
+    private $templating;
+
+    /**
+     * @param UserRepositoryCollection $userRepositoryCollection
+     * @param ResetPasswordHandler $resetPasswordHandler
+     * @param Router $router
+     * @param FormFactoryInterface $formFactory
+     * @param EngineInterface $templating
+     */
+    public function __construct(
+        UserRepositoryCollection $userRepositoryCollection,
+        ResetPasswordHandler $resetPasswordHandler,
+        Router $router,
+        FormFactoryInterface $formFactory,
+        EngineInterface $templating
+    ) {
+        $this->userRepositoryCollection = $userRepositoryCollection;
+        $this->resetPasswordHandler = $resetPasswordHandler;
+        $this->router = $router;
+        $this->formFactory = $formFactory;
+        $this->templating = $templating;
+    }
+
     /**
      * @param Request $request
      *
@@ -20,32 +59,36 @@ class PasswordResetController extends Controller
      *
      * @throws InvalidPasswordConfirmationException
      *
-     * @return array|RedirectResponse
+     * @return RedirectResponse
      */
-    public function resetAction(Request $request, $token)
+    public function resetAction(Request $request, PasswordResetToken $token)
     {
-        $userReposioryCollection = $this->container->get('multi_user.user_repository.collection');
-        $user = $userReposioryCollection->findUserByToken($token);
+        $user = $this->userRepositoryCollection->findUserByToken($token);
 
         if ($user === null) {
-            return $this->redirectToRoute('multi_user_login');
+            return new RedirectResponse(
+                $this->router->generate('multi_user_login')
+            );
         }
 
         $changePasswordTransferObject = ChangePasswordDataTransferObject::forUser($user);
-        $form = $this->createForm(ChangePasswordType::class, $changePasswordTransferObject);
+        $form = $this->formFactory->create(ChangePasswordType::class, $changePasswordTransferObject);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $handler = $this->container->get('multi_user.handler.reset_password');
-            $handler->handle($form->getData());
+            $this->resetPasswordHandler->handle($form->getData());
 
-            return $this->redirectToRoute('multi_user_login');
+            return new RedirectResponse(
+                $this->router->generate('multi_user_login')
+            );
         }
 
-        return
+        return $this->templating->renderResponse(
+            'SumoCodersFrameworkMultiUserBundle:PasswordReset:request.html.twig',
             [
                 'form' => $form->createView(),
-            ];
+            ]
+        );
     }
 }
