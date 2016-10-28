@@ -72,10 +72,13 @@ final class RequestPasswordResetController
 
                 return new RedirectResponse($this->router->generate('multi_user_login'));
             } catch (UserNotFound $exception) {
-                $errorMessage = ucfirst($this->get('translator')->trans(
-                    'sumocoders.multiuserbundle.form.user_not_found',
-                    ['%username%' => $form->getData()->userName]
-                ));
+                $errorMessage = $this->translator->trans(
+                    'sumocoders.multiuserbundle.request_password_reset.username_not_found',
+                    [
+                        '%username%' => $form->getData()->userName
+                    ],
+                    'validators'
+                );
                 $form->addError(new FormError($errorMessage));
             }
         }

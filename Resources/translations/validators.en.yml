@@ -6,4 +6,6 @@ sumocoders:
       bad_credentials: Incorrect username/password combination.
       unsupported_user: Unsupported user type.
       username_not_found: Incorrect username/password combination.
+    request_password_reset:
+      username_not_found: User with username "%username%" not found.
     something_went_wrong: Something went wrong.
