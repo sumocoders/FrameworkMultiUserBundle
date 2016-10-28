@@ -54,8 +54,7 @@ class PasswordResetController
 
     /**
      * @param Request $request
-     *
-     * @Template()
+     * @param PasswordResetToken $token
      *
      * @throws InvalidPasswordConfirmationException
      *
