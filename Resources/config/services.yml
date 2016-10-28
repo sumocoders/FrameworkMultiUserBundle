@@ -7,3 +7,13 @@ services:
       - "@session.flash_bag"
       - "@translator.default"
       - "%sumo_coders_framework_multi_user.redirect_routes%"
+
+  password_reset_token_created_listener:
+    class: SumoCoders\FrameworkMultiUserBundle\Event\OnPasswordResetTokenCreated
+    arguments:
+      - "@swiftmailer.mailer"
+      - "@translator.default"
+      - "@templating"
+      - "%mailer_default_sender_email%"
+    tags:
+      - { name: kernel.event_listener, event: multi_user.event.password_reset_token_created, method: onPasswordResetTokenCreated }
