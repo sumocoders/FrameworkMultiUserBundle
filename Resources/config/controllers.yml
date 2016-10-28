@@ -7,3 +7,12 @@ services:
       - "@sumocoders.form_authenticator"
       - "@security.token_storage"
       - "@translator.default"
+
+  multi_user.password_reset.request_controller:
+    class: SumoCoders\FrameworkMultiUserBundle\Controller\RequestPasswordResetController
+    arguments:
+      - "@templating"
+      - "@form.factory"
+      - "@multi_user.handler.request_password"
+      - "@router"
+      - "@translator.default"
