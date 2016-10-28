@@ -17,3 +17,8 @@ services:
       - "%mailer_default_sender_email%"
     tags:
       - { name: kernel.event_listener, event: multi_user.event.password_reset_token_created, method: onPasswordResetTokenCreated }
+
+  password_request_token_param_converter:
+    class: SumoCoders\FrameworkMultiUserBundle\Request\PasswordRequestTokenConverter
+    tags:
+     - { name: request.param_converter, converter: token, priority: 1}
