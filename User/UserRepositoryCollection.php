@@ -6,7 +6,7 @@ use SumoCoders\FrameworkMultiUserBundle\Exception\NoRepositoriesRegisteredExcept
 use SumoCoders\FrameworkMultiUserBundle\Exception\RepositoryNotRegisteredException;
 use SumoCoders\FrameworkMultiUserBundle\Exception\UserNotFound;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 
 class UserRepositoryCollection
@@ -93,7 +93,7 @@ class UserRepositoryCollection
      *
      * @throws UserNotFound
      *
-     * @return User
+     * @return UserInterface
      */
     public function findUserByToken(PasswordResetToken $token)
     {
@@ -113,7 +113,7 @@ class UserRepositoryCollection
      *
      * @throws UserNotFound
      *
-     * @return User
+     * @return UserInterface
      */
     public function findUserByUserName($username)
     {
