@@ -12,6 +12,7 @@ sumocoders:
       request_password: wachtwoord aanpassen
       submit: submit
       login: inloggen
+      logout: afmelden
       user_not_found: geen gebruiker gevonden met gebruikersnaam %username%
       forgot_password: wachtwoord vergeten?
     mail:

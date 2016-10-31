@@ -12,6 +12,7 @@ sumocoders:
       request_password: request recovery
       submit: submit
       login: log in
+      logout: log out
       user_not_found: no user found with username %username%
       forgot_password: forgot password?
     mail:
