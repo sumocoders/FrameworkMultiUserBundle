@@ -18,7 +18,7 @@ sumocoders:
       request_password: pas je wachtwoord <a href="%link%">hier</a> aan
     flash:
       password_reset_success: Je wachtwoord is succesvol gewijzigd, je kan nu inloggen met je nieuwe gegevens
-      password_reset_request_success: Aanvraag succesvol.
+      password_reset_request_success: Aanvraag succesvol. Binnen de 10 minuten ontvangt u een email met een link waar u uw wachtwoord kan wijzigen.
       login_success: Welkom, %username%! Je bent succesvol ingelogd.
 request:
   password:
