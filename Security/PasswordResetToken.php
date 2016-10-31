@@ -7,14 +7,10 @@ use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 
 class PasswordResetToken
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $token;
 
     /**
-     * PasswordResetToken constructor.
-     *
      * @param string $token
      */
     public function __construct($token)

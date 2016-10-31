@@ -8,14 +8,10 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 final class UpdateUserHandler extends AbstractUserHandler
 {
-    /**
-     * @var UserRepositoryCollection
-     */
+    /** @var UserRepositoryCollection */
     private $userRepositoryCollection;
 
-    /**
-     * @var EncoderFactoryInterface
-     */
+    /** @var EncoderFactoryInterface */
     private $encoderFactory;
 
     /**
@@ -30,9 +26,6 @@ final class UpdateUserHandler extends AbstractUserHandler
         $this->encoderFactory = $encoderFactory;
     }
 
-    /**
-     * @param UserDataTransferObject $userDataTransferObject
-     */
     public function handle(UserDataTransferObject $userDataTransferObject)
     {
         $userEntity = $userDataTransferObject->getEntity();

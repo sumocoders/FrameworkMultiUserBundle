@@ -9,19 +9,13 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ResetPasswordHandler
 {
-    /**
-     * @var UserRepositoryCollection
-     */
+    /** @var UserRepositoryCollection */
     private $userRepositoryCollection;
 
-    /**
-     * @var EncoderFactoryInterface
-     */
+    /** @var EncoderFactoryInterface */
     private $encoderFactory;
 
     /**
-     * PasswordResetHandler constructor.
-     *
      * @param UserRepositoryCollection $userRepositoryCollection
      * @param EncoderFactoryInterface $encoderFactory
      */

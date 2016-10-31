@@ -12,9 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EditUserType extends AbstractType implements FormWithDataTransferObject
 {
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
@@ -24,10 +21,6 @@ class EditUserType extends AbstractType implements FormWithDataTransferObject
         );
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
@@ -42,17 +35,11 @@ class EditUserType extends AbstractType implements FormWithDataTransferObject
         );
     }
 
-    /**
-     * @return string
-     */
     public function getName()
     {
         return 'multi_user_form_edit_user';
     }
 
-    /**
-     * @return string
-     */
     public function getDataTransferObjectClass()
     {
         return UserDataTransferObject::class;

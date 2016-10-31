@@ -12,7 +12,6 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Templating\EngineInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 final class LoginController
@@ -20,19 +19,13 @@ final class LoginController
     /** @var EngineInterface */
     private $templating;
 
-    /**
-     * @var AuthenticationUtils
-     */
+    /** @var AuthenticationUtils */
     private $authenticationUtils;
 
-    /**
-     * @var FormAuthenticator
-     */
+    /** @var FormAuthenticator */
     private $formAuthenticator;
 
-    /**
-     * @var TokenStorage
-     */
+    /** @var TokenStorage */
     private $tokenStorage;
 
     /** @var Translator */

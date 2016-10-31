@@ -11,19 +11,13 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RequestPasswordResetHandler
 {
-    /**
-     * @var UserRepositoryCollection
-     */
+    /** @var UserRepositoryCollection */
     private $userRepositoryCollection;
 
-    /**
-     * @var EventDispatcherInterface
-     */
+    /** @var EventDispatcherInterface */
     private $dispatcher;
 
     /**
-     * PasswordResetRequestHandler constructor.
-     *
      * @param UserRepositoryCollection $userRepositoryCollection
      * @param EventDispatcherInterface $dispatcher
      */

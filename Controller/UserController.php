@@ -18,34 +18,22 @@ use Symfony\Component\Routing\Router;
  */
 class UserController
 {
-    /**
-     * @var FormFactoryInterface
-     */
+    /** @var FormFactoryInterface */
     private $formFactory;
 
-    /**
-     * @var Router
-     */
+    /** @var Router */
     private $router;
 
-    /**
-     * @var Handler
-     */
+    /** @var Handler */
     private $handler;
 
-    /**
-     * @var FormWithDataTransferObject
-     */
+    /** @var FormWithDataTransferObject */
     private $form;
 
-    /**
-     * @var UserRepository
-     */
+    /** @var UserRepository */
     private $userRepository;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $redirectRoute;
 
     /**

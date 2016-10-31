@@ -22,9 +22,6 @@ class ObjectUserProvider implements UserProviderInterface
         $this->userRepositoryCollection = $userRepositoryCollection;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function loadUserByUsername($username)
     {
         foreach ($this->userRepositoryCollection->all() as $repository) {
@@ -40,9 +37,6 @@ class ObjectUserProvider implements UserProviderInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function refreshUser(UserInterface $user)
     {
         if (!$this->supportsClass(get_class($user))) {
@@ -54,9 +48,6 @@ class ObjectUserProvider implements UserProviderInterface
         return $this->loadUserByUsername($user->getUsername());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsClass($class)
     {
         return $this->userRepositoryCollection->supportsClass($class);

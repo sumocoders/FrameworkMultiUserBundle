@@ -7,14 +7,10 @@ use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 
 final class DeleteUserHandler extends AbstractUserHandler
 {
-    /**
-     * @var UserRepositoryCollection
-     */
+    /** @var UserRepositoryCollection */
     private $userRepositoryCollection;
 
     /**
-     * DeleteUserHandler constructor.
-     *
      * @param UserRepositoryCollection $userRepositoryCollection
      */
     public function __construct(UserRepositoryCollection $userRepositoryCollection)
@@ -22,9 +18,6 @@ final class DeleteUserHandler extends AbstractUserHandler
         $this->userRepositoryCollection = $userRepositoryCollection;
     }
 
-    /**
-     * @param UserDataTransferObject $user
-     */
     public function handle(UserDataTransferObject $user)
     {
         $userEntity = $user->getEntity();

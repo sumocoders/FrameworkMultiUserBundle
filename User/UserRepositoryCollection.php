@@ -11,14 +11,10 @@ use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 
 class UserRepositoryCollection
 {
-    /**
-     * @var UserRepository[]
-     */
+    /** @var UserRepository[] */
     private $userRepositories = [];
 
     /**
-     * UserRepositoryCollection constructor.
-     *
      * @param UserRepository[] $userRepositories
      */
     public function __construct(array $userRepositories)

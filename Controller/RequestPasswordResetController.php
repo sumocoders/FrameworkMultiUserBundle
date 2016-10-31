@@ -2,11 +2,9 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
-use Doctrine\ORM\EntityNotFoundException;
 use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler;
 use SumoCoders\FrameworkMultiUserBundle\Exception\UserNotFound;
 use SumoCoders\FrameworkMultiUserBundle\Form\RequestPasswordType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;

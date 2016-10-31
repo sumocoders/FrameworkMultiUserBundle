@@ -11,14 +11,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CreateUserCommand extends Command
 {
-    /**
-     * @var CreateUserHandler
-     */
+    /** @var CreateUserHandler */
     private $handler;
 
     /**
-     * CreateUserCommand constructor.
-     *
      * @param CreateUserHandler $handler
      */
     public function __construct(CreateUserHandler $handler)

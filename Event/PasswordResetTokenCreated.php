@@ -9,14 +9,10 @@ class PasswordResetTokenCreated extends Event
 {
     const NAME = 'multi_user.event.password_reset_token_created';
 
-    /**
-     * @var User
-     */
+    /** @var User */
     private $user;
 
     /**
-     * PasswordResetTokenCreated constructor.
-     *
      * @param User $user
      */
     public function __construct(User $user)

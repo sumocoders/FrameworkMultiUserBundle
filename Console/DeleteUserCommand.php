@@ -12,19 +12,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class DeleteUserCommand extends Command
 {
-    /**
-     * @var UserRepository
-     */
+    /** @var UserRepository */
     private $userRepository;
 
-    /**
-     * @var DeleteUserHandler
-     */
+    /** @var DeleteUserHandler */
     private $handler;
 
     /**
-     * DeleteUserCommand constructor.
-     *
      * @param UserRepository $userRepository
      * @param DeleteUserHandler $handler
      */

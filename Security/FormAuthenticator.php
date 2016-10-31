@@ -52,11 +52,6 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         $this->redirectRoutes = $redirectRoutes;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return FormCredentials
-     */
     public function getCredentials(Request $request)
     {
         if ($request->getPathInfo() !== $this->getLoginUrl()
@@ -70,17 +65,11 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         return $userProvider->loadUserByUsername($credentials->getUsername());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function checkCredentials($credentials, UserInterface $user)
     {
         $plainPassword = $credentials->getPlainPassword();
@@ -93,17 +82,11 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getLoginUrl()
     {
         return $this->router->generate('multi_user_login');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         // if the user hit a secure page and start() was called, this was

@@ -58,11 +58,6 @@ class InMemoryUserRepository implements UserRepository
         return $class === User::class;
     }
 
-    /**
-     * @param PasswordResetToken $token
-     *
-     * @return UserInterface|null
-     */
     public function findByPasswordResetToken(PasswordResetToken $token)
     {
         return $this->findByUsername('reset');

@@ -9,41 +9,24 @@ use SumoCoders\FrameworkMultiUserBundle\User\User;
 
 class UserDataTransferObject implements UserDataTransferObjectInterface
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     public $id;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $userName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $displayName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $email;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $plainPassword;
 
-    /**
-     * @var UserInterface
-     */
+    /** @var UserInterface */
     private $user;
 
-    /**
-     * @param UserInterface $user
-     *
-     * @return self
-     */
     public static function fromUser(UserInterface $user)
     {
         $baseUserTransferObject = new self();
@@ -59,9 +42,6 @@ class UserDataTransferObject implements UserDataTransferObjectInterface
         return $baseUserTransferObject;
     }
 
-    /**
-     * @return UserInterface
-     */
     public function getEntity()
     {
         if ($this->user) {
@@ -78,41 +58,26 @@ class UserDataTransferObject implements UserDataTransferObjectInterface
         );
     }
 
-    /**
-     * @return int
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getUserName()
     {
         return $this->userName;
     }
 
-    /**
-     * @return string
-     */
     public function getDisplayName()
     {
         return $this->displayName;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail()
     {
         return $this->email;
     }
 
-    /**
-     * @return string
-     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
