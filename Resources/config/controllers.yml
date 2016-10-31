@@ -26,3 +26,5 @@ services:
       - "@router"
       - "@form.factory"
       - "@templating"
+      - "@translator.default"
+      - "@session.flash_bag"

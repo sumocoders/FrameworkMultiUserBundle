@@ -10,9 +10,11 @@ use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class PasswordResetController
 {
@@ -31,25 +33,37 @@ class PasswordResetController
     /** @var EngineInterface */
     private $templating;
 
+    /** @var Translator */
+    private $translator;
+
+    /** @var FlashBagInterface */
+    private $flashBag;
+
     /**
      * @param UserRepositoryCollection $userRepositoryCollection
      * @param ResetPasswordHandler $resetPasswordHandler
      * @param Router $router
      * @param FormFactoryInterface $formFactory
      * @param EngineInterface $templating
+     * @param Translator $translator
+     * @param FlashBagInterface $flashBag
      */
     public function __construct(
         UserRepositoryCollection $userRepositoryCollection,
         ResetPasswordHandler $resetPasswordHandler,
         Router $router,
         FormFactoryInterface $formFactory,
-        EngineInterface $templating
+        EngineInterface $templating,
+        Translator $translator,
+        FlashBagInterface $flashBag
     ) {
         $this->userRepositoryCollection = $userRepositoryCollection;
         $this->resetPasswordHandler = $resetPasswordHandler;
         $this->router = $router;
         $this->formFactory = $formFactory;
         $this->templating = $templating;
+        $this->translator = $translator;
+        $this->flashBag = $flashBag;
     }
 
     /**
@@ -77,6 +91,13 @@ class PasswordResetController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->resetPasswordHandler->handle($form->getData());
+
+            $this->flashBag->add(
+                'success',
+                $this->translator->trans(
+                    'sumocoders.multiuserbundle.flash.password_reset_success'
+                )
+            );
 
             return new RedirectResponse(
                 $this->router->generate('multi_user_login')
