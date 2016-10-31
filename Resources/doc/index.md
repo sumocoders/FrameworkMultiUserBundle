@@ -79,13 +79,15 @@ security:
       ...
 ```
 
-Don't forget to make the login url accessible by anonymous users
+Don't forget to make the login, request password and reset password urls accessible by anonymous users
 
 ```yaml
 # app/config/security.yml
 security:
   access_control:
     - { path: ^/\w\w/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/\w\w/request-password-reset, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/\w\w/reset-password, role: IS_AUTHENTICATED_ANONYMOUSLY }
 ```
 
 ## Configuring redirect url's
