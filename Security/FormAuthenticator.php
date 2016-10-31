@@ -2,7 +2,6 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Security;
 
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -13,19 +12,20 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class FormAuthenticator extends AbstractFormLoginAuthenticator
 {
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
-    /** RouterInterface */
+    /** @var RouterInterface */
     private $router;
 
     /** @var FlashBagInterface */
     private $flashBag;
 
-    /** @var Translator */
+    /** @var TranslatorInterface */
     private $translator;
 
     /** array */
@@ -35,14 +35,14 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param RouterInterface $router
      * @param FlashBagInterface $flashBag
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      * @param array $redirectRoutes
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
         RouterInterface $router,
         FlashBagInterface $flashBag,
-        Translator $translator,
+        TranslatorInterface $translator,
         array $redirectRoutes = []
     ) {
         $this->passwordEncoder = $passwordEncoder;

@@ -9,7 +9,6 @@ use SumoCoders\FrameworkMultiUserBundle\Security\ObjectUserProvider;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use SumoCoders\FrameworkMultiUserBundle\User\User;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -30,16 +29,22 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->router = $this->getMock(RouterInterface::class);
-        $this->flashBag = $this->getMock(FlashBagInterface::class);
-        $this->translator = $this->getMock(TranslatorInterface::class);
+        $this->router = $this->createMock(RouterInterface::class);
+        $this->flashBag = $this->createMock(FlashBagInterface::class);
+        $this->translator = $this->createMock(TranslatorInterface::class);
         $encoders['SumoCoders\FrameworkMultiUserBundle\User\User'] = [
             'class' => 'Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder',
             'arguments' => [12],
         ];
         $encoder = new UserPasswordEncoder(new EncoderFactory($encoders));
         $redirectRoutes = [];
-        $this->formAuthenticator = new FormAuthenticator($encoder, $this->router, $this->translator, $redirectRoutes);
+        $this->formAuthenticator = new FormAuthenticator(
+            $encoder,
+            $this->router,
+            $this->flashBag,
+            $this->translator,
+            $redirectRoutes
+        );
     }
 
     public function testFormAuthenticatorGetUser()
