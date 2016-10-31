@@ -33,8 +33,6 @@ class RequestPasswordResetHandler
      * Creates a password reset token and sends an email to the user.
      *
      * @param RequestPasswordDataTransferObject $dataTransferObject
-     *
-     * @throws EntityNotFoundException
      */
     public function handle(RequestPasswordDataTransferObject $dataTransferObject)
     {
