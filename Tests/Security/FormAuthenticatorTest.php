@@ -29,9 +29,9 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->router = $this->createMock(RouterInterface::class);
-        $this->flashBag = $this->createMock(FlashBagInterface::class);
-        $this->translator = $this->createMock(TranslatorInterface::class);
+        $this->router = $this->getMock(RouterInterface::class);
+        $this->flashBag = $this->getMock(FlashBagInterface::class);
+        $this->translator = $this->getMock(TranslatorInterface::class);
         $encoders['SumoCoders\FrameworkMultiUserBundle\User\User'] = [
             'class' => 'Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder',
             'arguments' => [12],
