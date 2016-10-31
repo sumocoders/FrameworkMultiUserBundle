@@ -54,7 +54,7 @@ class PasswordResetToken
      */
     public static function generate()
     {
-        $token = time() . base64_encode(random_bytes(10));
+        $token = md5(time() . random_bytes(10));
 
         return new self($token);
     }
