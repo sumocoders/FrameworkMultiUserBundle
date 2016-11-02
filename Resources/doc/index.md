@@ -1,4 +1,4 @@
-# Getting Started With FrameworkInMemoryBundle
+# Getting Started With FrameworkMultiUserBundle
 
 
 ## Installation
