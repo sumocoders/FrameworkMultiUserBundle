@@ -17,9 +17,10 @@
 
     <div class="input-group">
       <div class="input-group-addon username icon icon-user"></div>
-      {{ form_widget(form.userName) }}
+      {{ form_widget(form.userName, {attr: {class: 'input-lg'}}) }}
     </div>
   </div>
+  {{ form_widget(form.submit, {attr: {class: 'btn-info pull-right'}}) }}
   {{ form_rest(form) }}
   {{ form_end(form) }}
 

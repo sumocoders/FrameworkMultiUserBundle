@@ -20,11 +20,6 @@ class ChangePasswordType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
-                    'options' => [
-                        'attr' => [
-                            'class' => 'input-lg',
-                        ],
-                    ],
                     'error_bubbling' => true,
                 ]
             )->add(
@@ -32,9 +27,6 @@ class ChangePasswordType extends AbstractType
                 SubmitType::class,
                 [
                     'label_format' => 'change.password.submit',
-                    'attr' => [
-                        'class' => 'btn-info pull-right',
-                    ],
                 ]
             );
     }

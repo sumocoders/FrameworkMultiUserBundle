@@ -16,20 +16,12 @@ class RequestPasswordType extends AbstractType
         $builder
             ->add(
                 'userName',
-                TextType::class,
-                [
-                    'attr' => [
-                        'class' => 'input-lg',
-                    ],
-                ]
+                TextType::class
             )->add(
                 'submit',
                 SubmitType::class,
                 [
                     'label_format' => 'request.password.submit',
-                    'attr' => [
-                        'class' => 'btn-info pull-right',
-                    ],
                 ]
             );
     }
