@@ -50,9 +50,7 @@ class PasswordResetToken
      */
     public static function generate()
     {
-        $token = md5(time() . random_bytes(10));
-
-        return new self($token);
+        return new self(uniqid());
     }
 
     /**
