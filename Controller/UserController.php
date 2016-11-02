@@ -4,10 +4,10 @@ namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SumoCoders\FrameworkMultiUserBundle\Command\Handler;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepository;
+use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
@@ -18,40 +18,28 @@ use Symfony\Component\Routing\Router;
  */
 class UserController
 {
-    /**
-     * @var FormFactoryInterface
-     */
+    /** @var FormFactoryInterface */
     private $formFactory;
 
-    /**
-     * @var Router
-     */
+    /** @var Router */
     private $router;
 
-    /**
-     * @var Handler
-     */
+    /** @var Handler */
     private $handler;
 
-    /**
-     * @var FormTypeInterface
-     */
+    /** @var FormWithDataTransferObject */
     private $form;
 
-    /**
-     * @var UserRepository
-     */
+    /** @var UserRepository */
     private $userRepository;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $redirectRoute;
 
     /**
      * @param FormFactoryInterface $formFactory
      * @param Router $router
-     * @param FormTypeInterface $form
+     * @param FormWithDataTransferObject $form
      * @param Handler $handler
      * @param UserRepository $userRepository
      * @param string $redirectRoute = null
@@ -59,7 +47,7 @@ class UserController
     public function __construct(
         FormFactoryInterface $formFactory,
         Router $router,
-        FormTypeInterface $form,
+        FormWithDataTransferObject $form,
         Handler $handler,
         UserRepository $userRepository,
         $redirectRoute = null

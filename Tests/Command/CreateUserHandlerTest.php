@@ -2,26 +2,22 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
+use PHPUnit_Framework_TestCase;
 use SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserWithPasswordDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
+use SumoCoders\FrameworkMultiUserBundle\User\User;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
-use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 
-class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
+class CreateUserHandlerTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var UserRepository
-     */
+    /** @var UserRepository */
     private $userRepository;
 
-    /**
-     * @var UserRepositoryCollection
-     */
+    /** @var UserRepositoryCollection */
     private $userRepositoryCollection;
 
     public function setUp()
@@ -36,13 +32,13 @@ class CreateUserHandlerTest extends \PHPUnit_Framework_TestCase
     public function testCreateUserGetsHandled()
     {
         $handler = new CreateUserHandler(
-            new EncoderFactory([UserWithPassword::class => new PlaintextPasswordEncoder()]),
+            new EncoderFactory([User::class => new PlaintextPasswordEncoder()]),
             $this->userRepositoryCollection
         );
 
-        $user = new UserWithPassword('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
+        $user = new User('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
 
-        $userDataTransferObject = UserWithPasswordDataTransferObject::fromUser($user);
+        $userDataTransferObject = UserDataTransferObject::fromUser($user);
         $userDataTransferObject->plainPassword = 'randomPassword';
 
         $handler->handle($userDataTransferObject);

@@ -4,45 +4,42 @@ namespace SumoCoders\FrameworkMultiUserBundle\Form;
 
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTransferObject;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ChangePasswordType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 'newPassword',
-                'repeated',
+                RepeatedType::class,
                 [
-                    'type' => 'password',
-                    'required' => true,
-                    'first_options' => ['label' => 'sumocoders.multiuserbundle.form.password'],
-                    'second_options' => ['label' => 'sumocoders.multiuserbundle.form.repeat_password'],
+                    'type' => PasswordType::class,
+                    'error_bubbling' => true,
                 ]
-            )->add('submit', 'submit', [
-                'label' => 'sumocoders.multiuserbundle.form.change_password',
-            ]);
+            )->add(
+                'submit',
+                SubmitType::class,
+                [
+                    'label_format' => 'change.password.submit',
+                ]
+            );
     }
 
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => ChangePasswordDataTransferObject::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => ChangePasswordDataTransferObject::class,
+            ]
+        );
     }
 
-    /**
-     * @return string
-     */
     public function getName()
     {
         return 'change_password';

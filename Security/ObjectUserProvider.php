@@ -2,8 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Security;
 
-use SumoCoders\FrameworkMultiUserBundle\Exception\RepositoryNotRegisteredException;
-use SumoCoders\FrameworkMultiUserBundle\User\User;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,9 +22,6 @@ class ObjectUserProvider implements UserProviderInterface
         $this->userRepositoryCollection = $userRepositoryCollection;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function loadUserByUsername($username)
     {
         foreach ($this->userRepositoryCollection->all() as $repository) {
@@ -41,9 +37,6 @@ class ObjectUserProvider implements UserProviderInterface
         );
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function refreshUser(UserInterface $user)
     {
         if (!$this->supportsClass(get_class($user))) {
@@ -55,9 +48,6 @@ class ObjectUserProvider implements UserProviderInterface
         return $this->loadUserByUsername($user->getUsername());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supportsClass($class)
     {
         return $this->userRepositoryCollection->supportsClass($class);

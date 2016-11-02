@@ -10,6 +10,7 @@ services:
     class: SumoCoders\FrameworkMultiUserBundle\Command\ResetPasswordHandler
     arguments:
       - "@multi_user.user_repository.collection"
+      - "@security.encoder_factory"
 
   multi_user.handler.create_user:
     class: SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler

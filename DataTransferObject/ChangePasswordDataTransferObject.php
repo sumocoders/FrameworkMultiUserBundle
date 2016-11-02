@@ -2,7 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
-use SumoCoders\FrameworkMultiUserBundle\User\User;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ChangePasswordDataTransferObject

@@ -4,18 +4,18 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 
 use SumoCoders\FrameworkMultiUserBundle\Exception\NoRepositoriesRegisteredException;
 use SumoCoders\FrameworkMultiUserBundle\Exception\RepositoryNotRegisteredException;
+use SumoCoders\FrameworkMultiUserBundle\Exception\UserNotFound;
+use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 
 class UserRepositoryCollection
 {
-    /**
-     * @var array
-     */
+    /** @var UserRepository[] */
     private $userRepositories = [];
 
     /**
-     * UserRepositoryCollection constructor.
-     *
-     * @param array $userRepositories
+     * @param UserRepository[] $userRepositories
      */
     public function __construct(array $userRepositories)
     {
@@ -39,7 +39,7 @@ class UserRepositoryCollection
      *
      * @throws NoRepositoriesRegisteredException
      *
-     * @return array
+     * @return UserRepository[]
      */
     public function all()
     {
@@ -53,7 +53,7 @@ class UserRepositoryCollection
     /**
      * Find the UserRepository for a given User Class.
      *
-     * @param $className
+     * @param string $className
      *
      * @throws RepositoryNotRegisteredException
      *
@@ -73,7 +73,7 @@ class UserRepositoryCollection
     /**
      * Check if the UserRepositoryCollection supports a User class.
      *
-     * @param $className
+     * @param string $className
      *
      * @return bool
      */
@@ -89,11 +89,13 @@ class UserRepositoryCollection
     }
 
     /**
-     * @param $token
+     * @param PasswordResetToken $token
      *
-     * @return UserInterface|null
+     * @throws UserNotFound
+     *
+     * @return UserInterface
      */
-    public function findUserByToken($token)
+    public function findUserByToken(PasswordResetToken $token)
     {
         foreach ($this->userRepositories as $repository) {
             $user = $repository->findByPasswordResetToken($token);
@@ -103,11 +105,15 @@ class UserRepositoryCollection
             }
         }
 
-        return;
+        throw UserNotFound::withToken($token);
     }
 
     /**
-     * @param $username
+     * @param string $username
+     *
+     * @throws UserNotFound
+     *
+     * @return UserInterface
      */
     public function findUserByUserName($username)
     {
@@ -119,6 +125,6 @@ class UserRepositoryCollection
             }
         }
 
-        return;
+        throw UserNotFound::withUsername($username);
     }
 }

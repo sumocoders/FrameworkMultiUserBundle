@@ -2,23 +2,23 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
+use PHPUnit_Framework_TestCase;
 use SumoCoders\FrameworkMultiUserBundle\Command\ResetPasswordHandler;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use SumoCoders\FrameworkMultiUserBundle\User\UserWithPassword;
+use SumoCoders\FrameworkMultiUserBundle\User\User;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
-class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
+class PasswordResetHandlerTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var UserRepository
-     */
+    /** @var UserRepository */
     private $userRepository;
 
-    /**
-     * @var UserRepositoryCollection
-     */
+    /** @var UserRepositoryCollection */
     private $userRepositoryCollection;
 
     public function setUp()
@@ -34,7 +34,10 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPasswordResetGetsHandled()
     {
-        $handler = new ResetPasswordHandler($this->userRepositoryCollection);
+        $handler = new ResetPasswordHandler(
+            $this->userRepositoryCollection,
+            new EncoderFactory([User::class => new PlaintextPasswordEncoder()])
+        );
 
         $user = $this->userRepository->findByUsername('reset');
 
@@ -42,7 +45,7 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
         $changePasswordTransferObject->newPassword = 'changedPassword';
 
         $user = $this->userRepositoryCollection
-            ->findRepositoryByClassName(UserWithPassword::class)
+            ->findRepositoryByClassName(User::class)
             ->findByUsername('reset');
         $password = $user->getPassword();
         $token = $user->getPasswordResetToken();
@@ -50,7 +53,7 @@ class PasswordResetHandlerTest extends \PHPUnit_Framework_TestCase
         $handler->handle($changePasswordTransferObject);
 
         $updatedUser = $this->userRepositoryCollection
-            ->findRepositoryByClassName(UserWithPassword::class)
+            ->findRepositoryByClassName(User::class)
             ->findByUsername('reset');
 
         $this->assertEquals($user->getUsername(), $updatedUser->getUsername());

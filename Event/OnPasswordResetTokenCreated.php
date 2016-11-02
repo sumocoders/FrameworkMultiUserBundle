@@ -10,37 +10,19 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class OnPasswordResetTokenCreated implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
-    {
-        return [
-            PasswordResetTokenCreated::NAME => [
-                ['onPasswordResetTokenCreated', 0],
-            ],
-        ];
-    }
-    /**
-     * @var Swift_Mailer
-     */
+    /** @var Swift_Mailer */
     private $mailer;
 
-    /**
-     * @var TranslatorInterface
-     */
+    /** @var TranslatorInterface */
     private $translator;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $emailFrom;
 
-    /**
-     * @var EngineInterface
-     */
+    /** @var EngineInterface */
     private $engine;
 
     /**
-     * OnPasswordResetTokenCreated constructor.
-     *
      * @param Swift_Mailer $mailer
      * @param TranslatorInterface $translator
      * @param EngineInterface $engine
@@ -61,8 +43,6 @@ class OnPasswordResetTokenCreated implements EventSubscriberInterface
     /**
      * @param PasswordResetTokenCreated $event
      *
-     * @throws \Twig_Error
-     *
      * @return int
      */
     public function onPasswordResetTokenCreated(PasswordResetTokenCreated $event)
@@ -80,5 +60,14 @@ class OnPasswordResetTokenCreated implements EventSubscriberInterface
             );
 
         return $this->mailer->send($message);
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            PasswordResetTokenCreated::NAME => [
+                ['onPasswordResetTokenCreated', 0],
+            ],
+        ];
     }
 }

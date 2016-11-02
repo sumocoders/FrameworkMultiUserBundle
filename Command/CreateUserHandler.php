@@ -2,20 +2,16 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 final class CreateUserHandler extends AbstractUserHandler
 {
-    /**
-     * @var UserRepositoryCollection
-     */
+    /** @var UserRepositoryCollection */
     private $userRepositoryCollection;
 
-    /**
-     * @var EncoderFactoryInterface
-     */
+    /** @var EncoderFactoryInterface */
     private $encoderFactory;
 
     /**
@@ -30,9 +26,6 @@ final class CreateUserHandler extends AbstractUserHandler
         $this->encoderFactory = $encoderFactory;
     }
 
-    /**
-    * @param UserDataTransferObject $userDataTransferObject
-    */
     public function handle(UserDataTransferObject $userDataTransferObject)
     {
         $newUser = $userDataTransferObject->getEntity();

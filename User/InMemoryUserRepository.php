@@ -3,21 +3,17 @@
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 
-/**
- * Class InMemoryUserRepository
- */
-class InMemoryUserRepository implements UserRepository, PasswordResetRepository
+class InMemoryUserRepository implements UserRepository
 {
-    /** @var array */
+    /** @var User[] */
     private $users = [];
 
-    /**
-     * InMemoryUserRepository constructor.
-     */
     public function __construct()
     {
-        $user = new UserWithPassword(
+        $user = new User(
             'wouter',
             'test',
             'Wouter Sioen',
@@ -27,7 +23,7 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
 
         $this->users[] = $user;
 
-        $passwordResetUser = new UserWithPassword(
+        $passwordResetUser = new User(
             'reset',
             'reset',
             'reset',
@@ -39,9 +35,6 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
         $this->users[] = $passwordResetUser;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function findByUsername($username)
     {
         foreach ($this->users as $user) {
@@ -51,9 +44,6 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function find($id)
     {
         foreach ($this->users as $user) {
@@ -63,28 +53,17 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supportsClass($class)
     {
-        return $class === UserWithPassword::class;
+        return $class === User::class;
     }
 
-    /**
-     * @param string $token
-     *
-     * @return UserInterface|null
-     */
-    public function findByPasswordResetToken($token)
+    public function findByPasswordResetToken(PasswordResetToken $token)
     {
         return $this->findByUsername('reset');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function add(User $user)
+    public function add(UserInterface $user)
     {
         $this->users[] = $user;
     }
@@ -94,14 +73,11 @@ class InMemoryUserRepository implements UserRepository, PasswordResetRepository
      *
      * This does nothing here since the objects get updated by reference when changing them in the tests
      */
-    public function save(User $user)
+    public function save(UserInterface $user)
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function delete(User $user)
+    public function delete(UserInterface $user)
     {
         foreach ($this->users as $key => $row) {
             if ($row->getUserName() === $user->getUserName()) {

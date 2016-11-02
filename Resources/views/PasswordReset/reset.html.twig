@@ -1,7 +1,36 @@
-{% extends '::empty.html.twig' %}
+{% extends "SumoCodersFrameworkMultiUserBundle::empty_layout.html.twig" %}
 
-{% block main %}
+{% block header_title %}
+  <h2>
+    {{ app.request.get('_route')|trans|capitalize }}
+  </h2>
+{% endblock %}
 
-    {{ form(form) }}
+{% block sumocoders_multi_user_content %}
+
+  {{ form_start(form) }}
+  {{ form_errors(form) }}
+  <div class="form-group">
+    <label class="control-label" for="change_password_newPassword_first">
+      {{ form_label(form.newPassword.first) }}
+    </label>
+
+    <div class="input-group">
+      <div class="input-group-addon password icon icon-lock"></div>
+      {{ form_widget(form.newPassword.first, {attr: {class: 'input-lg'}}) }}
+    </div>
+
+    <label class="control-label" for="change_password_newPassword_second">
+      {{ form_label(form.newPassword.second) }}
+    </label>
+
+    <div class="input-group">
+      <div class="input-group-addon password icon icon-lock"></div>
+      {{ form_widget(form.newPassword.second, {attr: {class: 'input-lg'}}) }}
+    </div>
+  </div>
+  {{ form_widget(form.submit, {attr: {class: 'btn-info pull-right'}}) }}
+  {{ form_rest(form) }}
+  {{ form_end(form) }}
 
 {% endblock %}

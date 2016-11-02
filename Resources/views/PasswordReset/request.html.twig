@@ -1,7 +1,27 @@
-{% extends '::empty.html.twig' %}
+{% extends "SumoCodersFrameworkMultiUserBundle::empty_layout.html.twig" %}
 
-{% block main %}
+{% block header_title %}
+  <h2>
+    {{ app.request.get('_route')|trans|capitalize }}
+  </h2>
+{% endblock %}
 
-    {{ form(form) }}
+{% block sumocoders_multi_user_content %}
+
+  {{ form_start(form) }}
+  {{ form_errors(form) }}
+  <div class="form-group">
+    <label class="control-label" for="username">
+      {{ form_label(form.userName) }}
+    </label>
+
+    <div class="input-group">
+      <div class="input-group-addon username icon icon-user"></div>
+      {{ form_widget(form.userName, {attr: {class: 'input-lg'}}) }}
+    </div>
+  </div>
+  {{ form_widget(form.submit, {attr: {class: 'btn-info pull-right'}}) }}
+  {{ form_rest(form) }}
+  {{ form_end(form) }}
 
 {% endblock %}

@@ -3,18 +3,14 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Security;
 
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordResetTokenException;
-use SumoCoders\FrameworkMultiUserBundle\User\UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 
 class PasswordResetToken
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $token;
 
     /**
-     * PasswordResetToken constructor.
-     *
      * @param string $token
      */
     public function __construct($token)
@@ -31,14 +27,14 @@ class PasswordResetToken
     }
 
     /**
-     * @param UserInterface $user
+     * @param User $user
      * @param PasswordResetToken $token
      *
      * @throws InvalidPasswordResetTokenException
      *
      * @return bool
      */
-    public static function validateToken(UserInterface $user, PasswordResetToken $token)
+    public static function validateToken(User $user, PasswordResetToken $token)
     {
         if ($user->getPasswordResetToken()->equals($token)) {
             return true;
@@ -48,15 +44,13 @@ class PasswordResetToken
     }
 
     /**
-     * Generates a PasswordToken
+     * Generates a PasswordToken.
      *
      * @return PasswordResetToken
      */
     public static function generate()
     {
-        $token = time() . base64_encode(random_bytes(10));
-
-        return new self($token);
+        return new self(uniqid());
     }
 
     /**
@@ -69,5 +63,13 @@ class PasswordResetToken
     public function equals(PasswordResetToken $token)
     {
         return $token->token === $this->token;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getToken();
     }
 }

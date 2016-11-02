@@ -4,8 +4,6 @@ namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
 class RequestPasswordDataTransferObject
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $userName;
 }
