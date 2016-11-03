@@ -70,7 +70,7 @@ final class Status
      */
     public function isBlocked()
     {
-        return $this->status === self::blocked();
+        return $this->status === self::BLOCKED;
     }
 
     /**
