@@ -14,7 +14,7 @@ final class BlockController
     private $userRepository;
 
     /** @var FlashBagInterface */
-    private $flashbag;
+    private $flashBag;
 
     /** @var TranslatorInterface */
     private $translator;
@@ -27,20 +27,20 @@ final class BlockController
 
     /**
      * @param UserRepository $userRepository
-     * @param FlashBagInterface $flashbag
+     * @param FlashBagInterface $flashBag
      * @param TranslatorInterface $translator
      * @param Router $router
      * @param string $redirectRoute
      */
     public function __construct(
         UserRepository $userRepository,
-        FlashBagInterface $flashbag,
+        FlashBagInterface $flashBag,
         TranslatorInterface $translator,
         Router $router,
         $redirectRoute
     ) {
         $this->userRepository = $userRepository;
-        $this->flashbag = $flashbag;
+        $this->flashBag = $flashBag;
         $this->translator = $translator;
         $this->router = $router;
         $this->redirectRoute = $redirectRoute;
@@ -58,7 +58,7 @@ final class BlockController
         $this->userRepository->save($user);
 
         if ($this->redirectRoute !== null) {
-            $this->flashbag->add(
+            $this->flashBag->add(
                 'success',
                 $this->translator->trans(
                     'sumocoders.multiuserbundle.flash.' . ($user->isBlocked() ? 'block_success' : 'unblock_success')
