@@ -169,7 +169,7 @@ class User implements UserInterface
 
     public function toggleBlock()
     {
-        if ($this->status === Status::blocked()) {
+        if ((string) $this->status === Status::BLOCKED) {
             $this->status = Status::active();
 
             return;
