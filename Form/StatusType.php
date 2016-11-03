@@ -5,9 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Form;
 use SumoCoders\FrameworkMultiUserBundle\ValueObject\Status;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
-use Symfony\Component\Form\Exception;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 final class StatusType extends AbstractType implements DataMapperInterface
