@@ -58,11 +58,12 @@ final class BlockController
         $this->userRepository->save($user);
 
         if ($this->redirectRoute !== null) {
-            $translation = $user->isBlocked()
-                ? $this->translator->trans('sumocoders.multiuserbundle.flash.block_success')
-                : $this->translator->trans('sumocoders.multiuserbundle.flash.unblock_success');
-
-            $this->flashbag->add('success', $translation);
+            $this->flashbag->add(
+                'success',
+                $this->translator->trans(
+                    'sumocoders.multiuserbundle.flash.' . ($user->isBlocked() ? 'block_success' : 'unblock_success')
+                )
+            );
 
             return new RedirectResponse($this->router->generate($this->redirectRoute));
         }
