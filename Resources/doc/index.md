@@ -21,6 +21,17 @@ public function registerBundles()
 }
 ```
 
+Add DBAL type to doctrine:
+
+```yaml
+# app/config/config.yml
+doctrine:
+  dbal:
+    types:
+      user_status: SumoCoders\FrameworkMultiUserBundle\DBALType\StatusType
+```
+
+
 Add the routing:
 
 ```yaml
