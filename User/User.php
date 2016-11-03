@@ -5,6 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\ValueObject\Status;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 class User implements UserInterface
@@ -32,6 +33,9 @@ class User implements UserInterface
 
     /** @var int */
     protected $id;
+
+    /** @var Status */
+    protected $status;
 
     /**
      * @param string $username
@@ -161,5 +165,21 @@ class User implements UserInterface
         $this->plainPassword = $data->getPlainPassword();
         $this->displayName = $data->getDisplayName();
         $this->email = $data->getEmail();
+    }
+
+    public function toggleBlock()
+    {
+        if ($this->status === Status::blocked()) {
+            $this->status = Status::active();
+
+            return;
+        }
+
+        $this->status = Status::blocked();
+    }
+
+    public function isBlocked()
+    {
+        return $this->status->isBlocked();
     }
 }

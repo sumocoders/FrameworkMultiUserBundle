@@ -61,6 +61,14 @@ final class Status
     }
 
     /**
+     * @return bool
+     */
+    public function isBlocked()
+    {
+        return $this->status === self::blocked();
+    }
+
+    /**
      * @return string
      */
     public function __toString()

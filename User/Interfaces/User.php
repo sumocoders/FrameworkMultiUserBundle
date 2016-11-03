@@ -6,7 +6,7 @@ use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTr
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-interface User extends UserInterface, PasswordReset
+interface User extends UserInterface, PasswordReset, Blockable
 {
     /**
      * @return string
