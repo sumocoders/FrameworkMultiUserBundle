@@ -26,6 +26,11 @@ final class Status
         $this->status = $status;
     }
 
+    /**
+     * @param string $status
+     *
+     * @return Status
+     */
     public static function fromString($status)
     {
         return new self($status);

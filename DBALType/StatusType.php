@@ -17,6 +17,12 @@ final class StatusType extends Type
         return $platform->getVarcharTypeDeclarationSQL($fieldDeclaration);
     }
 
+    /**
+     * @param mixed $value
+     * @param AbstractPlatform $platform
+     *
+     * @return Status|void
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         if ($value === null) {

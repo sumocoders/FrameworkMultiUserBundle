@@ -46,6 +46,11 @@ final class BlockController
         $this->redirectRoute = $redirectRoute;
     }
 
+    /**
+     * @param int $id
+     *
+     * @return RedirectResponse
+     */
     public function toggleAction($id)
     {
         $user = $this->userRepository->find($id);

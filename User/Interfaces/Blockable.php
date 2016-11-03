@@ -11,6 +11,8 @@ interface Blockable
 
     /**
      * This will check if the user is blocked.
+     *
+     * @return bool
      */
     public function isBlocked();
 }
