@@ -21,6 +21,8 @@ sumocoders:
       password_reset_success: Your password has been successfully changed. You can now log in with your new credentials
       password_reset_request_success: Request successful. You will receive an email within 10 minutes containing the link to reset your password.
       login_success: Welcome, %username%! You've successfully logged in.
+      block_success: The user is blocked.
+      unblock_success: The user is not blocked anymore.
 request:
   password:
     userName: displayname

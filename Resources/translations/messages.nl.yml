@@ -21,6 +21,8 @@ sumocoders:
       password_reset_success: Je wachtwoord is succesvol gewijzigd, je kan nu inloggen met je nieuwe gegevens
       password_reset_request_success: Aanvraag succesvol. Binnen de 10 minuten ontvangt u een email met een link waar u uw wachtwoord kan wijzigen.
       login_success: Welkom, %username%! Je bent succesvol ingelogd.
+      block_success: De gebruiker is geblokkeerd.
+      unblock_success: De gebruiker is niet meer geblokkeerd.
 request:
   password:
     userName: gebruikersnaam
