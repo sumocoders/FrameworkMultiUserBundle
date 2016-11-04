@@ -29,7 +29,7 @@ class UserDataTransferObject implements UserDataTransferObjectInterface
 
     public static function fromUser(UserInterface $user)
     {
-        $baseUserTransferObject = new self();
+        $baseUserTransferObject = new static();
         $baseUserTransferObject->user = $user;
         $baseUserTransferObject->id = $user->getId();
         $baseUserTransferObject->userName = $user->getUsername();
