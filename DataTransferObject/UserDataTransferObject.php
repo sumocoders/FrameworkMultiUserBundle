@@ -25,7 +25,7 @@ class UserDataTransferObject implements UserDataTransferObjectInterface
     public $plainPassword;
 
     /** @var UserInterface */
-    private $user;
+    protected $user;
 
     public static function fromUser(UserInterface $user)
     {
