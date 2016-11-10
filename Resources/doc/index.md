@@ -1,5 +1,6 @@
 # Getting Started With FrameworkMultiUserBundle
 
+<<<<<<< Updated upstream
 
 ## Installation
 
@@ -100,6 +101,11 @@ security:
     - { path: ^/\w\w/request-password-reset, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/\w\w/reset-password, role: IS_AUTHENTICATED_ANONYMOUSLY }
 ```
+=======
+1. [Installation](installation.md)
+* [Routing](routing.md)
+* [Users, users everywhere!](users_entity.md)
+>>>>>>> Stashed changes
 
 ## Configuring redirect url's
 
@@ -152,35 +158,6 @@ security:
     firewalls:
         main:
           switch_user: { role: ROLE_ALLOWED_TO_SWITCH, parameter: _switch_user }
-```
-
-## User CRUD
-
-For each CRUD action a controller service and route must be defined`
-
-The services expects the following:
-* a ContainerInterface
-* a FormTypeInterface
-* a Handler
-* a UserRepository
-* an optional redirect route
-
-```yaml
-services:
-  multi_user.user.controller.create:
-    class: SumoCoders\FrameworkMultiUserBundle\Controller\UserController
-    arguments:
-      - "@service_container"
-      - "@multi_user_form_add_user"
-      - "@multi_user.handler.create_user"
-      - "@multi_user.user.repository"
-      - "/nl"
-```
-```yaml
-#routing.yml
-  multi_user_controller:
-    defaults: { _controller: multi_user.user.controller.create:baseAction}
-    path:     /user/create
 ```
 
 ## Password reset
