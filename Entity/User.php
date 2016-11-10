@@ -1,40 +1,77 @@
 <?php
 
-namespace SumoCoders\FrameworkMultiUserBundle\User;
+namespace SumoCoders\FrameworkMultiUserBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
 use SumoCoders\FrameworkMultiUserBundle\ValueObject\Status;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
+/**
+ * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ */
 class User implements UserInterface
 {
-    /** @var string */
-    protected $username;
-
-    /** @var string */
-    protected $salt;
-
-    /** @var string */
-    protected $plainPassword;
-
-    /** @var string */
-    protected $password;
-
-    /** @var string */
-    protected $displayName;
-
-    /** @var PasswordResetToken */
-    protected $passwordResetToken;
-
-    /** @var string */
-    protected $email;
-
-    /** @var int */
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     */
     protected $id;
 
-    /** @var Status */
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $salt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $displayName;
+
+    /**
+     * @var PasswordResetToken
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $passwordResetToken;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $email;
+
+    /**
+     * @var Status
+     *
+     * @ORM\Column(type="user_status")
+     */
     protected $status;
 
     /**

@@ -8,7 +8,7 @@ use SumoCoders\FrameworkMultiUserBundle\Security\FormCredentials;
 use SumoCoders\FrameworkMultiUserBundle\Security\ObjectUserProvider;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use SumoCoders\FrameworkMultiUserBundle\User\User;
+use SumoCoders\FrameworkMultiUserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -32,7 +32,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $this->router = $this->getMock(RouterInterface::class);
         $this->flashBag = $this->getMock(FlashBagInterface::class);
         $this->translator = $this->getMock(TranslatorInterface::class);
-        $encoders['SumoCoders\FrameworkMultiUserBundle\User\User'] = [
+        $encoders['SumoCoders\FrameworkMultiUserBundle\Entity\User'] = [
             'class' => 'Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder',
             'arguments' => [12],
         ];
