@@ -4,9 +4,9 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository as UserRepositoryInterface;
 
-class InMemoryUserRepository implements UserRepository
+class InMemoryUserRepository implements UserRepositoryInterface
 {
     /** @var User[] */
     private $users = [];
