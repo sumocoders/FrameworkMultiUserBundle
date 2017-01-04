@@ -109,7 +109,7 @@ a custom redirect url. The default one is /.
 ```yaml
 sumo_coders_framework_multi_user:
   redirect_routes:
-    SumoCoders\FrameworkMultiUserBundle\User\User: sumocoders_frameworkexample_bootstrap_carousel
+    SumoCoders\FrameworkMultiUserBundle\Entity\User: sumocoders_frameworkexample_bootstrap_carousel
 ```
 
 ## User commands

@@ -5,7 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject
     as UserDataTransferObjectInterface;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
-use SumoCoders\FrameworkMultiUserBundle\User\User;
+use SumoCoders\FrameworkMultiUserBundle\Entity\User;
 
 class UserDataTransferObject implements UserDataTransferObjectInterface
 {
