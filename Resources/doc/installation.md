@@ -19,7 +19,7 @@
 	    // ...
 	    $bundles = array(
 	        // ...
-	        new SumoCoders\FrameworkExampleBundle\SumoCodersFrameworkMultiUserBundle(),
+	        new SumoCoders\FrameworkMultiUserBundle\SumoCodersFrameworkMultiUserBundle(),
 	    );
 	}
 	```
