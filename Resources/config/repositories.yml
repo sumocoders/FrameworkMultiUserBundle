@@ -1,3 +1,6 @@
 services:
   multi_user.user.repository:
-    class: SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository
+    class: SumoCoders\FrameworkMultiUserBundle\User\DoctrineUserRepository
+    factory: ["@doctrine.orm.default_entity_manager", getRepository]
+    arguments:
+      - SumoCodersFrameworkMultiUserBundle:User
