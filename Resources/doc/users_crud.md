@@ -2,7 +2,7 @@
 ***
 #Users
 ***
-[Entity](users_entity.md) | [Forms](users_forms.md) | [Data transfer objects](users_dto.md) | CRUD | [Commands](users_commands.md)
+[Entity](users_entity.md) | [Repository](users_repositories.md) | [Data transfer objects](users_dto.md) | [Forms](users_forms.md) | CRUD
 ***
 ##CRUD
 Now that we have our entities, forms and data transfer objects, it's time to tie it all together. To do this we will create services based on the MultiUserBundle's UserController. Each and every action you would usually write a controller for can now simply be defined as a service.
@@ -33,31 +33,31 @@ If you want to use a custom handler to do some funky stuff like dispatching even
 Make sure your handler always matches the form you are injecting into the controller or the results might be unexpected! You wouldn't want to delete a user from an add form, wouldn't you?
 
 ###User repository
+This is one of the repositories we've defined earlier, it shoud match the type of user you want to use.
 
-The services expects the following:
+###Redirect route
+This one's optional. This is the route the controller will redirect to if everything succeeded. It can be both a named route or a hardcoded route.
 
-* a ContainerInterface
-* a FormTypeInterface
-* a Handler
-* a UserRepository
-* an optional redirect route
-
+###Complete example
 ```yaml
 services:
-  multi_user.user.controller.create:
+  acme_bundle.admin.controller.create:
     class: SumoCoders\FrameworkMultiUserBundle\Controller\UserController
     arguments:
-      - "@service_container"
-      - "@multi_user_form_add_user"
+      - "@form.factory"
+      - "@router"
+      - "@add_admin_form"
       - "@multi_user.handler.create_user"
-      - "@multi_user.user.repository"
-      - "/nl"
+      - "@admin_repository"
+      - "my_admin_overview"
 ```
 ```yaml
 #routing.yml
-  multi_user_controller:
-    defaults: { _controller: multi_user.user.controller.create:baseAction}
-    path:     /user/create
+add_admin_controller:
+  defaults: { _controller: acme_bundle.admin.controller.create:baseAction}
+  path:     /admin/create
 ```
+
+So, we can now create and edit our users with the CRUD we've created, great! But how do we actually log in with these users? That's where the [user provider](user_provider.md) comes in to play!
 ***
 [User provider](user_provider.md) »

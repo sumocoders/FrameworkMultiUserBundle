@@ -1,10 +1,8 @@
-« [Routing](routing.md)
+« [User provider](user_provider.md)
 ***
-#Users
+#CLI command
+The multiuserbundle has a simple CLI command to create a base user. You can call it by executing `app/console sumocoders:multiuser:create [username] [password] [displayName] [email]`
+
+After doing this you can log in with this user and start using the CRUD we've created!
 ***
-[Entity](users_entity.md) | [Forms](users_forms.md) | [Data transfer objects](users_dto.md) | [CRUD](users_crud.md) | Commands
-***
-##Commands
-blabla
-***
-[User provider](user_provider.md) »
+[Congratulations](congratulations.md) »

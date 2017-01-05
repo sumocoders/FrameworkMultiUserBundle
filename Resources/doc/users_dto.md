@@ -2,7 +2,7 @@
 ***
 #Users
 ***
-[Entity](users_entity.md) | [Forms](users_forms.md) | Data transfer objects | [CRUD](users_crud.md) | [Commands](users_commands.md)
+[Entity](users_entity.md) | [Repository](users_repositories.md) | Data transfer objects | [Forms](users_forms.md) | [CRUD](users_crud.md)
 ***
 ##Data transfer objects
 Data transfer objects are simply objects that carry data between processes. Nothing is done with this data, the point of a data transfer object is to simply translate a certain object to another.  
@@ -76,17 +76,11 @@ class AdvisorDataTransferObject extends UserDataTransferObject
             $this->id
         );
     }
-
-    /**
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
 }
 ```
 
 As you see, the extra property in the Advisor entity needs to be reflected in the data transfer object and has to be set in the `fromUser()` method.
+
+Now that we have the means to communicate between the entity and the outside world, it's time to create some [forms](users_forms.md)!
 ***
-[User provider](user_provider.md) »
+[Forms](users_forms.md) »

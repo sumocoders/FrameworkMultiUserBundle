@@ -35,6 +35,19 @@ security:
 
 Note the logout path matches the route we set earlier.
 
+##Keep your guard up
+We need to let our application know who the guard at our front door is. In the case of the multiuser bundle, the guard is `sumocoders.form_authenticator`. This class will handle the authentication of anyone who tries to enter the application.
+
+```yaml
+#app/config/security.yml
+security:
+  firewalls:
+    my_firewall:
+      guard:
+        authenticators:
+          - sumocoders.form_authenticator
+```
+
 ##Authentication
 Don't forget to make the login, request password and reset password urls accessible by anonymous users. Otherwise, you won't be able to login without being logged in, weird right?
 

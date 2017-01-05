@@ -2,26 +2,31 @@
 ***
 #Users
 ***
-[Entity](users_entity.md) | Forms | [Data transfer objects](users_dto.md) | [CRUD](users_crud.md) | [Commands](users_commands.md)
+[Entity](users_entity.md) | [Repository](users_repositories.md) | [Data transfer objects](users_dto.md) | Forms | [CRUD](users_crud.md)
 ***
 ##Forms
-Every user needs a specific form for each base form you want to implement. Luckily, little configuration is required to get things going. In these examples I will show you what you need to do create an _add_ form for your users.
+Every user needs a specific form for each base form you want to implement. Luckily, little configuration is required to get things going. 
+
+4 forms are defined in `SumoCoders\FrameworkMultiUserBundle\Form`:
+
+* AddUserType
+* EditUserType
+* ChangePasswordType
+* RequestPasswordType
+
+The first 2 forms are the most important since you will be extending these for each user. `ChangePasswordType` and `RequestPasswordType` are already implemented in the bundle itself.
+
+In these examples I will show you what you need to do create an _add_ form for your users.
 
 ##The admin
 ```
 final class AddAdminType extends AddUserType
 {
-    /**
-     * @return string
-     */
     public function getName()
     {
         return 'users_add_admin';
     }
 
-    /**
-     * @return string
-     */
     public function getDataTransferObjectClass()
     {
         return AdminDataTransferObject::class;
@@ -64,5 +69,6 @@ final class AddAdvisorType extends AddUserType
     }
 }
 ```
+We have our forms, we have our entities, we have everything in between, let's tie everything together!
 ***
-[User provider](user_provider.md) »
+[CRUD](users_crud.md) »

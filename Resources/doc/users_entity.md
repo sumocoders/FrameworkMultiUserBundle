@@ -2,45 +2,10 @@
 ***
 #Users
 ***
-Entity | [Forms](users_forms.md) | [Data transfer objects](users_dto.md) | [CRUD](users_crud.md) | [Commands](users_commands.md)
+Entity | [Repository](users_repositories.md) | [Data transfer objects](users_dto.md) | [Forms](users_forms.md) | [CRUD](users_crud.md)
 ***
 ##Entity
-For every type of user you want in your application, you're going to need an entity. An entity is basically a description of an object. Since every user you're going to want to define needs to implement the `SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User` interface it's a good idea to extend your users from the multi user bundle's `SumoCoders\FrameworkMultiUserBundle\User` class.
-
-###The basics
-In the example's we're going to use we've even create a base user that extends the base user. Why go through such madness, you ask? Well we at SumoCoders (and many others alike) use [Doctrine](http://www.doctrine-project.org/) as our ORM tool. While this is super useful and everyone should use it, we wanted to keep the multi user bundle as general as possible.
-
-```php
-/**
- * @ORM\Entity
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"user" = "User", "admin" = "Admin", "advisor" = "Advisor"})
- */
-abstract class User extends BaseUser
-{
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     */
-    protected $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $username;
-    
-    ...
-}
-```
-
-As you can see, all we do here is take the properties of the base user, repeat them and apply our mapping to it.  
-Note the `@ORM\DiscriminatorMap()` tag in the class PHPDoc. This will be used to discriminate the users we will extend from this base user. This way we can have a combined table for the properties which both users have (such as `id`, `username` and so on) but also have seperate tables for the unique properties. More on this later.
+For every type of user you want in your application, you're going to need an entity. An entity is basically a description of an object. Since every user you're going to want to define needs to implement the `SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User` interface it's a good idea to extend your users from the multi user bundle's `SumoCoders\FrameworkMultiUserBundle\User` class. In our documentation we will use an Admin and an Advisor as examples.
 
 ###The admin
 
@@ -96,16 +61,9 @@ class Advisor extends User
         $id = null,
         PasswordResetToken $token = null
     ) {
-        $this->username = $username;
-        $this->plainPassword = $plainPassword;
-        $this->displayName = $displayName;
-        $this->email = $email;
+        parent::__construct($username, $plainPassword, $displayName, $email, $id, $token);
+        
         $this->firstName = $firstName;
-        $this->id = $id;
-
-        if ($token) {
-            $this->passwordResetToken = $token;
-        }
     }
     
     public function getRoles()
@@ -115,10 +73,7 @@ class Advisor extends User
     
     public function change(UserDataTransferObject $data)
     {
-        $this->username = $data->getEmail();
-        $this->plainPassword = $data->getPlainPassword();
-        $this->displayName = $data->getDisplayName();
-        $this->email = $data->getEmail();
+        parent::change($data);
         $this->firstName = $data->getFirstName();
     }
 }
@@ -126,7 +81,7 @@ class Advisor extends User
 
 As you can see one extra property can make a hell of a change. You need to overwrite the constructor and change method to hold the extra property.
 
-We've now defined our users, time to make communication possible!
+Now that we've defined our users, we need a way to store them! We do this with [repositories](users_repositories.md)
 
 ***
-[User provider](user_provider.md) »
+[Repository](users_repositories.md) »
