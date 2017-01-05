@@ -96,6 +96,9 @@ class User implements UserInterface
         $this->email = $email;
         $this->id = $id;
 
+        // set the default status to active
+        $this->status = Status::active();
+
         if ($token) {
             $this->passwordResetToken = $token;
         }
