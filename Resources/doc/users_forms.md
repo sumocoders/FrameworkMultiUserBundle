@@ -19,7 +19,12 @@ The first 2 forms are the most important since you will be extending these for e
 In these examples I will show you what you need to do create an _add_ form for your users.
 
 ##The admin
-```
+```php
+namespace AppBundle\Form;
+
+use AppBundle\DataTransferObject\AdminDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\Form\AddUserType;
+
 final class AddAdminType extends AddUserType
 {
     public function getName()
@@ -39,7 +44,14 @@ As our Admin closely resembles a base user, all we need to do is define the name
 ##The advisor
 The same applies to our advisor but because we have an extra property, first name, we need also to add an extra field to our form.
 
-```
+```php
+namespace AppBundle\Form;
+
+use AppBundle\DataTransferObject\AdvisorDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\Form\AddUserType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+
 final class AddAdvisorType extends AddUserType
 {
     /**

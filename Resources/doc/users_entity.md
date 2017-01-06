@@ -9,7 +9,12 @@ For every type of user you want in your application, you're going to need an ent
 
 ###The admin
 
-```
+```php
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use SumoCoders\FrameworkMultiUserBundle\Entity\User;
+
 /**
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AdminRepository")
@@ -29,7 +34,14 @@ As you can see our admin user type has no extra properties compared to the base 
 
 In our example the advisor only has 1 extra property, a first name.
 
-```
+```php
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+use SumoCoders\FrameworkMultiUserBundle\Entity\User;
+
 /**
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AdvisorRepository")

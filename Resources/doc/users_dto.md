@@ -12,7 +12,12 @@ In our case it will be used in the communication between the forms which want to
 Our implemented data transfer objects will extend the multiuserbundle's base class which is found in `SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject`
 
 ##The admin
-```
+```php
+namespace AppBundle\DataTransferObject;
+
+use AppBundle\Entity\Admin;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
+
 class AdminDataTransferObject extends UserDataTransferObject
 {
     /**
@@ -39,7 +44,13 @@ class AdminDataTransferObject extends UserDataTransferObject
 This is all there is to it. Since the admin has the exact same properties as the base user all we need to do is make sure we return the correct entity.
 
 ##The advisor
-```
+```php
+namespace AppBundle\DataTransferObject;
+
+use AppBundle\Entity\Advisor;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
+
 class AdvisorDataTransferObject extends UserDataTransferObject
 {
     /** @var string */
