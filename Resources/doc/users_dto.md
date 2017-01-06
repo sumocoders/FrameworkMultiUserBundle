@@ -9,6 +9,8 @@ Data transfer objects are simply objects that carry data between processes. Noth
 
 In our case it will be used in the communication between the forms which want to write their data to an object and our entity which will eventually hold the data the form received. Placing a data transfer object between the form and the entity allows us to not use setters.
 
+Our implemented data transfer objects will extend the multiuserbundle's base class which is found in `SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject`
+
 ##The admin
 ```
 class AdminDataTransferObject extends UserDataTransferObject
