@@ -47,6 +47,15 @@ security:
         authenticators:
           - sumocoders.form_authenticator
 ```
+##Encoding
+We have to let the system know how we wish to encode our passwords. Sha512 is the solution we generally use, but you can use any encoder you want.
+
+```yaml
+# app/config/security.yml
+security:
+  encoders:
+    SumoCoders\FrameworkMultiUserBundle\Entity\User: sha512
+```
 
 ##Authentication
 Don't forget to make the login, request password and reset password urls accessible by anonymous users. Otherwise, you won't be able to login without being logged in, weird right?
