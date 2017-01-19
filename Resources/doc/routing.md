@@ -29,7 +29,7 @@ security:
   firewalls:
     my_firewall:
       logout:
-        path:   /%locale%/logout
+        path: multi_user_logout
         target: /
 ```
 
