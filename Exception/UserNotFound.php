@@ -18,6 +18,16 @@ final class UserNotFound extends Exception
     }
 
     /**
+     * @param string $email
+     *
+     * @return self
+     */
+    public static function withEmail($email)
+    {
+        return new self('No user found with email "' . $email . '".');
+    }
+
+    /**
      * @param PasswordResetToken $token
      *
      * @return self
