@@ -127,4 +127,24 @@ class UserRepositoryCollection
 
         throw UserNotFound::withUsername($username);
     }
+
+    /**
+     * @param string $email
+     *
+     * @throws UserNotFound
+     *
+     * @return User
+     */
+    public function findUserByEmail($email)
+    {
+        foreach ($this->userRepositories as $repository) {
+            $user = $repository->findByEmail($email);
+
+            if ($user) {
+                return $user;
+            }
+        }
+
+        throw UserNotFound::withEmail($email);
+    }
 }

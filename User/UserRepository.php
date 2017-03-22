@@ -29,6 +29,16 @@ abstract class UserRepository extends EntityRepository implements UserRepository
     }
 
     /**
+     * @param string $email
+     *
+     * @return null|UserInterface
+     */
+    public function findByEmail($email)
+    {
+        return $this->findOneBy(['email' => $email]);
+    }
+
+    /**
      * @param string $class
      *
      * @return bool

@@ -45,6 +45,15 @@ class InMemoryUserRepository implements UserRepositoryInterface
         }
     }
 
+    public function findByEmail($email)
+    {
+        foreach ($this->users as $user) {
+            if ($user->getEmail() === $email) {
+                return $user;
+            }
+        }
+    }
+
     public function find($id)
     {
         foreach ($this->users as $user) {
