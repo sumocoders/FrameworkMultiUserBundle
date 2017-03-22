@@ -2,12 +2,12 @@
 ***
 #User provider
 
-The user provider will do exactly as described. When requested, it will provide a user frome one of the repositories if it can find one.
+The user provider will do exactly as described. When requested, it will provide a user from one of the repositories if it can find one.
 
 To create a user provider, you'll need two services:
 
 * A `UserRepositoryCollection` with the repositories we've created earlier.
-* An instance of the `ObjectProvider` getting the repository as argument
+* An instance of the `ObjectUserProvider` or `ObjectUserEmailProvider` getting the repository as argument
 
 ```yaml
 # app/config/config.yml
