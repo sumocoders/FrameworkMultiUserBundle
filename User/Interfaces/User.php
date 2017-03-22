@@ -29,6 +29,11 @@ interface User extends UserInterface, PasswordReset, Blockable
     public function change(UserDataTransferObject $data);
 
     /**
+     * @return string
+     */
+    public function getEmail();
+
+    /**
      * @return bool
      */
     public function hasPlainPassword();

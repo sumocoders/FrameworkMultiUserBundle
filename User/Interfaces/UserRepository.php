@@ -12,6 +12,12 @@ interface UserRepository extends PasswordResetRepository
     public function findByUsername($username);
 
     /**
+     * @param string $email
+     * @return User|null
+     */
+    public function findByEmail($email);
+
+    /**
      * @param string $class
      *
      * @return bool
