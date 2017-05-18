@@ -25,7 +25,7 @@ sumocoders:
       unblock_success: The user is not blocked anymore.
 request:
   password:
-    userName: displayname
+    userName: username
     submit: Reset password
 change:
   password:
