@@ -8,12 +8,11 @@ use SumoCoders\FrameworkMultiUserBundle\Form\RequestPasswordType;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 final class RequestPasswordResetController
 {
@@ -62,7 +61,7 @@ final class RequestPasswordResetController
     /**
      * @param Request $request
      *
-     * @return array
+     * @return array|RedirectResponse|Response
      */
     public function requestAction(Request $request)
     {
@@ -73,25 +72,17 @@ final class RequestPasswordResetController
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $this->requestPasswordResetHandler->handle($form->getData());
-
-                $this->flashBag->add(
-                    'success',
-                    $this->translator->trans(
-                        'sumocoders.multiuserbundle.flash.password_reset_request_success'
-                    )
-                );
-
-                return new RedirectResponse($this->router->generate('multi_user_login'));
-            } catch (UserNotFound $exception) {
-                $errorMessage = $this->translator->trans(
-                    'sumocoders.multiuserbundle.request_password_reset.username_not_found',
-                    [
-                        '%username%' => $form->getData()->userName
-                    ],
-                    'validators'
-                );
-                $form->addError(new FormError($errorMessage));
+            } catch (UserNotFound $ignore) {
             }
+
+            $this->flashBag->add(
+                'success',
+                $this->translator->trans(
+                    'sumocoders.multiuserbundle.flash.password_reset_request_success'
+                )
+            );
+
+            return new RedirectResponse($this->router->generate('multi_user_login'));
         }
 
         return $this->templating->renderResponse(
