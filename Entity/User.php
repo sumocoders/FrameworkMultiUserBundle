@@ -75,6 +75,11 @@ class User implements UserInterface
     protected $status;
 
     /**
+     * @var string
+     */
+    protected $plainPassword;
+
+    /**
      * @param string $username
      * @param string $plainPassword
      * @param string $displayName
