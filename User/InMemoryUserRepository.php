@@ -43,6 +43,24 @@ class InMemoryUserRepository implements UserRepositoryInterface
                 return $user;
             }
         }
+
+        return null;
+    }
+
+    /**
+     * @param string $emailAddress
+     *
+     * @return UserInterface|null
+     */
+    public function findByEmailAddress($emailAddress)
+    {
+        foreach ($this->users as $user) {
+            if ($user->getEmail() === $emailAddress) {
+                return $user;
+            }
+        }
+
+        return null;
     }
 
     public function find($id)
@@ -52,6 +70,8 @@ class InMemoryUserRepository implements UserRepositoryInterface
                 return $user;
             }
         }
+
+        return null;
     }
 
     public function supportsClass($class)
