@@ -22,18 +22,19 @@ class ObjectUserEmailProvider implements UserProviderInterface
         $this->userRepositoryCollection = $userRepositoryCollection;
     }
 
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($emailAddress)
     {
         foreach ($this->userRepositoryCollection->all() as $repository) {
-            $user = $repository->findByEmailAddress($username);
+            $user = $repository->findByEmailAddress($emailAddress);
 
             if ($user instanceof User) {
                 return $user;
             }
         }
 
+        // Since we are using the email as username we keep this exception since it is a part of symfony
         throw new UsernameNotFoundException(
-            sprintf('Username "%s" does not exist.', $username)
+            sprintf('Email "%s" does not exist.', $emailAddress)
         );
     }
 
