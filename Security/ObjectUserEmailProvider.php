@@ -45,7 +45,7 @@ class ObjectUserEmailProvider implements UserProviderInterface
             );
         }
 
-        return $this->loadUserByUsername($user->getUsername());
+        return $this->loadUserByUsername($user->getEmail());
     }
 
     public function supportsClass($class)
