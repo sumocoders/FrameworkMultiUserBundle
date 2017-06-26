@@ -29,9 +29,9 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->router = $this->getMock(RouterInterface::class);
-        $this->flashBag = $this->getMock(FlashBagInterface::class);
-        $this->translator = $this->getMock(TranslatorInterface::class);
+        $this->router = $this->getMockBuilder(RouterInterface::class)->getMock();
+        $this->flashBag = $this->getMockBuilder(FlashBagInterface::class)->getMock();
+        $this->translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
         $encoders['SumoCoders\FrameworkMultiUserBundle\Entity\User'] = [
             'class' => 'Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder',
             'arguments' => [12],
@@ -61,7 +61,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $user = $this->getUser();
         $user->encodePassword(new PlaintextPasswordEncoder());
         $this->assertTrue(
-            $this->formAuthenticator->checkCredentials($this->getCredentials($user->getSalt()), $user)
+            $this->formAuthenticator->checkCredentials($this->getCredentials(), $user)
         );
     }
 
@@ -92,9 +92,9 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $this->formAuthenticator->onAuthenticationSuccess($request, $token, $providerKey);
     }
 
-    private function getCredentials($salt = 'zout', $username = 'wouter', $password = 'test')
+    private function getCredentials($username = 'wouter', $password = 'test')
     {
-        $mock = $this->getMock(FormCredentials::class, [], [$username, $password . '{' . $salt . '}']);
+        $mock = $this->getMockBuilder(FormCredentials::class)->disableOriginalConstructor()->getMock();
         $mock->method('getUserName')->willReturn($username);
         $mock->method('getPlainPassword')->willReturn($password);
 
