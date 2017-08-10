@@ -11,6 +11,7 @@ services:
   password_reset_token_created_listener:
     class: SumoCoders\FrameworkMultiUserBundle\Event\OnPasswordResetTokenCreated
     arguments:
+      - "@framework.message_factory"
       - "@swiftmailer.mailer"
       - "@translator.default"
       - "@templating"

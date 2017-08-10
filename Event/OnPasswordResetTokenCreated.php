@@ -2,14 +2,17 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Event;
 
+use SumoCoders\FrameworkCoreBundle\Mail\MessageFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Swift_Mailer;
-use Swift_Message;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class OnPasswordResetTokenCreated implements EventSubscriberInterface
 {
+    /** @var MessageFactory */
+    private $messageFactory;
+
     /** @var Swift_Mailer */
     private $mailer;
 
@@ -22,47 +25,39 @@ class OnPasswordResetTokenCreated implements EventSubscriberInterface
     /** @var EngineInterface */
     private $engine;
 
-    /**
-     * @param Swift_Mailer $mailer
-     * @param TranslatorInterface $translator
-     * @param EngineInterface $engine
-     * @param string $emailFrom
-     */
     public function __construct(
+        MessageFactory $messageFactory,
         Swift_Mailer $mailer,
         TranslatorInterface $translator,
         EngineInterface $engine,
         $emailFrom
     ) {
+        $this->messageFactory = $messageFactory;
         $this->mailer = $mailer;
         $this->translator = $translator;
         $this->engine = $engine;
         $this->emailFrom = $emailFrom;
     }
 
-    /**
-     * @param PasswordResetTokenCreated $event
-     *
-     * @return int
-     */
-    public function onPasswordResetTokenCreated(PasswordResetTokenCreated $event)
+    public function onPasswordResetTokenCreated(PasswordResetTokenCreated $event): int
     {
-        $message = Swift_Message::newInstance()
-            ->setSubject('Password reset requested')
+        $message = $this->messageFactory->createHtmlMessage(
+            'Password reset requested',
+            $this->engine->render(
+                'SumoCodersFrameworkMultiUserBundle:Email:passwordReset.html.twig',
+                ['user' => $event->getUser()]
+            )
+        );
+
+        $message
             ->setFrom($this->emailFrom)
             ->setTo($event->getUser()->getEmail())
-            ->setBody(
-                $this->engine->render(
-                    'SumoCodersFrameworkMultiUserBundle:Email:passwordReset.html.twig',
-                    ['user' => $event->getUser()]
-                ),
-                'text/html'
-            );
+        ;
 
         return $this->mailer->send($message);
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             PasswordResetTokenCreated::NAME => [
