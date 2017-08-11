@@ -9,5 +9,5 @@ interface FormWithDataTransferObject extends FormTypeInterface
     /**
      * @return string
      */
-    public function getDataTransferObjectClass();
+    public static function getDataTransferObjectClass();
 }

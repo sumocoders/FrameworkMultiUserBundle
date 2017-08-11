@@ -35,7 +35,7 @@ class UserController
     /** @var Handler */
     private $handler;
 
-    /** @var FormWithDataTransferObject */
+    /** @var string */
     private $form;
 
     /** @var UserRepository */
@@ -49,7 +49,7 @@ class UserController
      * @param Router $router
      * @param FlashBagInterface $flashBag
      * @param TranslatorInterface $translator
-     * @param FormWithDataTransferObject $form
+     * @param string $form
      * @param Handler $handler
      * @param UserRepository $userRepository
      * @param string $redirectRoute = null
@@ -59,7 +59,7 @@ class UserController
         Router $router,
         FlashBagInterface $flashBag,
         TranslatorInterface $translator,
-        FormWithDataTransferObject $form,
+        string $form,
         Handler $handler,
         UserRepository $userRepository,
         $redirectRoute = null
@@ -119,7 +119,7 @@ class UserController
         }
 
         $user = $this->userRepository->find((int) $id);
-        $dataTransferObjectClass = $this->form->getDataTransferObjectClass();
+        $dataTransferObjectClass = $this->form::getDataTransferObjectClass();
         $dataTransferObject = $dataTransferObjectClass::fromUser($user);
 
         return $this->formFactory->create($this->form, $dataTransferObject);
