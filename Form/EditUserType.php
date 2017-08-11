@@ -40,7 +40,7 @@ class EditUserType extends AbstractType implements FormWithDataTransferObject
         return 'multi_user_form_edit_user';
     }
 
-    public function getDataTransferObjectClass()
+    public static function getDataTransferObjectClass()
     {
         return UserDataTransferObject::class;
     }

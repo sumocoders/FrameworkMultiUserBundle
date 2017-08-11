@@ -10,7 +10,9 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * This class handles all the user actions.
@@ -24,10 +26,16 @@ class UserController
     /** @var Router */
     private $router;
 
+    /** @var FlashBagInterface */
+    private $flashBag;
+
+    /** @var TranslatorInterface */
+    private $translator;
+
     /** @var Handler */
     private $handler;
 
-    /** @var FormWithDataTransferObject */
+    /** @var string */
     private $form;
 
     /** @var UserRepository */
@@ -39,7 +47,9 @@ class UserController
     /**
      * @param FormFactoryInterface $formFactory
      * @param Router $router
-     * @param FormWithDataTransferObject $form
+     * @param FlashBagInterface $flashBag
+     * @param TranslatorInterface $translator
+     * @param string $form
      * @param Handler $handler
      * @param UserRepository $userRepository
      * @param string $redirectRoute = null
@@ -47,13 +57,17 @@ class UserController
     public function __construct(
         FormFactoryInterface $formFactory,
         Router $router,
-        FormWithDataTransferObject $form,
+        FlashBagInterface $flashBag,
+        TranslatorInterface $translator,
+        string $form,
         Handler $handler,
         UserRepository $userRepository,
         $redirectRoute = null
     ) {
         $this->formFactory = $formFactory;
         $this->router = $router;
+        $this->flashBag = $flashBag;
+        $this->translator = $translator;
         $this->form = $form;
         $this->handler = $handler;
         $this->userRepository = $userRepository;
@@ -77,6 +91,14 @@ class UserController
             $command = $form->getData();
             $this->handler->handle($command);
 
+            $this->flashBag->add(
+                'success',
+                $this->translator->trans(
+                    $id === null ? 'sumocoders.multiuserbundle.flash.added' : 'sumocoders.multiuserbundle.flash.edited',
+                    ['%user%' => $command->getEntity()->getDisplayName()]
+                )
+            );
+
             if ($this->redirectRoute !== null) {
                 return new RedirectResponse($this->router->generate($this->redirectRoute));
             }
@@ -97,7 +119,7 @@ class UserController
         }
 
         $user = $this->userRepository->find((int) $id);
-        $dataTransferObjectClass = $this->form->getDataTransferObjectClass();
+        $dataTransferObjectClass = $this->form::getDataTransferObjectClass();
         $dataTransferObject = $dataTransferObjectClass::fromUser($user);
 
         return $this->formFactory->create($this->form, $dataTransferObject);

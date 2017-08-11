@@ -23,6 +23,8 @@ sumocoders:
       login_success: Welkom, %username%! Je bent succesvol ingelogd.
       block_success: De gebruiker is geblokkeerd.
       unblock_success: De gebruiker is niet meer geblokkeerd.
+      added: De gebruiker "%user%" is toegevoegd.
+      edited: De gerbuiker "%user%" is bewerkt.
 request:
   password:
     userName: gebruikersnaam

@@ -46,7 +46,7 @@ class AddUserType extends AbstractType implements FormWithDataTransferObject
         return 'multi_user_form_add_user';
     }
 
-    public function getDataTransferObjectClass()
+    public static function getDataTransferObjectClass()
     {
         return UserDataTransferObject::class;
     }
