@@ -10,7 +10,9 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * This class handles all the user actions.
@@ -23,6 +25,12 @@ class UserController
 
     /** @var Router */
     private $router;
+
+    /** @var FlashBagInterface */
+    private $flashBag;
+
+    /** @var TranslatorInterface */
+    private $translator;
 
     /** @var Handler */
     private $handler;
@@ -39,6 +47,8 @@ class UserController
     /**
      * @param FormFactoryInterface $formFactory
      * @param Router $router
+     * @param FlashBagInterface $flashBag
+     * @param TranslatorInterface $translator
      * @param FormWithDataTransferObject $form
      * @param Handler $handler
      * @param UserRepository $userRepository
@@ -47,6 +57,8 @@ class UserController
     public function __construct(
         FormFactoryInterface $formFactory,
         Router $router,
+        FlashBagInterface $flashBag,
+        TranslatorInterface $translator,
         FormWithDataTransferObject $form,
         Handler $handler,
         UserRepository $userRepository,
@@ -54,6 +66,8 @@ class UserController
     ) {
         $this->formFactory = $formFactory;
         $this->router = $router;
+        $this->flashBag = $flashBag;
+        $this->translator = $translator;
         $this->form = $form;
         $this->handler = $handler;
         $this->userRepository = $userRepository;
@@ -76,6 +90,14 @@ class UserController
         if ($form->isSubmitted() && $form->isValid()) {
             $command = $form->getData();
             $this->handler->handle($command);
+
+            $this->flashBag->add(
+                'success',
+                $this->translator->trans(
+                    $id === null ? 'sumocoders.multiuserbundle.flash.added' : 'sumocoders.multiuserbundle.flash.edited',
+                    ['%user%' => $command->getEntity()->getDisplayName()]
+                )
+            );
 
             if ($this->redirectRoute !== null) {
                 return new RedirectResponse($this->router->generate($this->redirectRoute));
