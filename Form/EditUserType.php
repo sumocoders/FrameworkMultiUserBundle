@@ -6,6 +6,8 @@ use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObjec
 use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,6 +34,12 @@ class EditUserType extends AbstractType implements FormWithDataTransferObject
         )->add(
             'email',
             EmailType::class
+        )->add(
+            'plainPassword',
+            RepeatedType::class,
+            [
+                'type' => PasswordType::class,
+            ]
         );
     }
 
