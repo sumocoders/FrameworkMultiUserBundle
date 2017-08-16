@@ -39,6 +39,7 @@ class EditUserType extends AbstractType implements FormWithDataTransferObject
             RepeatedType::class,
             [
                 'type' => PasswordType::class,
+                'required' => false,
             ]
         );
     }
