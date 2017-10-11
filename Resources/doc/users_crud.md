@@ -46,7 +46,9 @@ services:
     arguments:
       - "@form.factory"
       - "@router"
-      - "@add_admin_form"
+      - "@session.flash_bag"
+      - "@translator"
+      - "MyProject\\UserBundle\\Form\AddAdminType"
       - "@multi_user.handler.create_user"
       - "@admin_repository"
       - "my_admin_overview"
