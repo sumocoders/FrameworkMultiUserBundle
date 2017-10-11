@@ -1,15 +1,15 @@
 « [Routing](routing.md)
 ***
-#Users
+# Users
 ***
 [Entity](users_entity.md) | Repository | [Data transfer objects](users_dto.md) | [Forms](users_forms.md) | [CRUD](users_crud.md)
 ***
-##Repository
+## Repository
 Every entity also requires it's own repository which extends `SumoCoders\FrameworkMultiUserBundle\User\UserRepository`. This is fairly simple to do because we only have to implement one method. These repositories can also contain custom methods for each entity.
 
 Be sure to define these repositories as services, we'll need them in the next step!
 
-###The admin
+### The admin
 
 ```
 class AdminRepository extends UserRepository
@@ -21,7 +21,7 @@ class AdminRepository extends UserRepository
 }
 ```
 
-###The advisor
+### The advisor
 
 ```
 class AdvisorRepository extends UserRepository

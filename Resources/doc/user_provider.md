@@ -1,6 +1,6 @@
 « [CRUD](users_crud.md)
 ***
-#User provider
+# User provider
 
 The user provider will do exactly as described. When requested, it will provide a user frome one of the repositories if it can find one.
 

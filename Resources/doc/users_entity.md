@@ -1,13 +1,13 @@
 « [Routing](routing.md)
 ***
-#Users
+# Users
 ***
 Entity | [Repository](users_repositories.md) | [Data transfer objects](users_dto.md) | [Forms](users_forms.md) | [CRUD](users_crud.md)
 ***
-##Entity
+## Entity
 For every type of user you want in your application, you're going to need an entity. An entity is basically a description of an object. Since every user you're going to want to define needs to implement the `SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User` interface it's a good idea to extend your users from the multi user bundle's `SumoCoders\FrameworkMultiUserBundle\User` class. In our documentation we will use an Admin and an Advisor as examples.
 
-###The admin
+### The admin
 
 ```php
 namespace AppBundle\Entity;
@@ -30,7 +30,7 @@ class Admin extends User
 
 As you can see our admin user type has no extra properties compared to the base user. The only thing we need to do here is define the admin's roles.
 
-###The advisor
+### The advisor
 
 In our example the advisor only has 1 extra property, a first name.
 
