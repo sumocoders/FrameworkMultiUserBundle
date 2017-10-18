@@ -7,7 +7,7 @@ use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTra
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
 use SumoCoders\FrameworkMultiUserBundle\Form\ChangePasswordType;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class PasswordResetController
 {
-    /** @var UserRepositoryCollection */
+    /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
     /** @var ResetPasswordHandler */
@@ -40,7 +40,7 @@ class PasswordResetController
     private $flashBag;
 
     /**
-     * @param UserRepositoryCollection $userRepositoryCollection
+     * @param BaseUserRepositoryCollection $userRepositoryCollection
      * @param ResetPasswordHandler $resetPasswordHandler
      * @param Router $router
      * @param FormFactoryInterface $formFactory
@@ -49,7 +49,7 @@ class PasswordResetController
      * @param FlashBagInterface $flashBag
      */
     public function __construct(
-        UserRepositoryCollection $userRepositoryCollection,
+        BaseUserRepositoryCollection $userRepositoryCollection,
         ResetPasswordHandler $resetPasswordHandler,
         Router $router,
         FormFactoryInterface $formFactory,

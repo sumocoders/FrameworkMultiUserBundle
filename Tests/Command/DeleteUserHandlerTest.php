@@ -4,23 +4,23 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use PHPUnit_Framework_TestCase;
 use SumoCoders\FrameworkMultiUserBundle\Command\DeleteUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
-use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\BaseUserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\User\InMemoryBaseUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 
 class DeleteUserHandlerTest extends PHPUnit_Framework_TestCase
 {
     /** @var UserRepository */
     private $userRepository;
 
-    /** @var UserRepositoryCollection */
+    /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
     public function setUp()
     {
-        $this->userRepository = new InMemoryUserRepository();
-        $this->userRepositoryCollection = new UserRepositoryCollection([$this->userRepository]);
+        $this->userRepository = new InMemoryBaseUserRepository();
+        $this->userRepositoryCollection = new BaseUserRepositoryCollection([$this->userRepository]);
     }
 
     /**
@@ -32,7 +32,7 @@ class DeleteUserHandlerTest extends PHPUnit_Framework_TestCase
 
         $deletingUser = $this->userRepository->findByUsername('wouter');
 
-        $handler->handle(UserDataTransferObject::fromUser($deletingUser));
+        $handler->handle(BaseUserDataTransferObject::fromUser($deletingUser));
 
         $this->assertNotNull($deletingUser);
         $this->assertNull(

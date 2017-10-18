@@ -2,9 +2,9 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-use SumoCoders\FrameworkMultiUserBundle\Entity\User;
+use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 
-final class DoctrineUserRepository extends UserRepository
+final class DoctrineBaseUserRepository extends UserRepository
 {
     /**
      * @param string $class
@@ -13,6 +13,6 @@ final class DoctrineUserRepository extends UserRepository
      */
     public function supportsClass($class)
     {
-        return User::class === $class;
+        return BaseUser::class === $class;
     }
 }

@@ -2,19 +2,19 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-use SumoCoders\FrameworkMultiUserBundle\Entity\User;
+use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository as UserRepositoryInterface;
 
-class InMemoryUserRepository implements UserRepositoryInterface
+class InMemoryBaseUserRepository implements UserRepositoryInterface
 {
-    /** @var User[] */
+    /** @var BaseUser[] */
     private $users = [];
 
     public function __construct()
     {
-        $user = new User(
+        $user = new BaseUser(
             'wouter',
             'test',
             'Wouter Sioen',
@@ -24,7 +24,7 @@ class InMemoryUserRepository implements UserRepositoryInterface
 
         $this->users[] = $user;
 
-        $passwordResetUser = new User(
+        $passwordResetUser = new BaseUser(
             'reset',
             'reset',
             'reset',
@@ -50,7 +50,7 @@ class InMemoryUserRepository implements UserRepositoryInterface
     /**
      * @param string $emailAddress
      *
-     * @return UserInterface|null
+     * @return User|null
      */
     public function findByEmailAddress($emailAddress)
     {
@@ -76,7 +76,7 @@ class InMemoryUserRepository implements UserRepositoryInterface
 
     public function supportsClass($class)
     {
-        return $class === User::class;
+        return $class === BaseUser::class;
     }
 
     public function findByPasswordResetToken(PasswordResetToken $token)
@@ -84,7 +84,7 @@ class InMemoryUserRepository implements UserRepositoryInterface
         return $this->findByUsername('reset');
     }
 
-    public function add(UserInterface $user)
+    public function add(User $user)
     {
         $this->users[] = $user;
     }
@@ -94,11 +94,11 @@ class InMemoryUserRepository implements UserRepositoryInterface
      *
      * This does nothing here since the objects get updated by reference when changing them in the tests
      */
-    public function save(UserInterface $user)
+    public function save(User $user)
     {
     }
 
-    public function delete(UserInterface $user)
+    public function delete(User $user)
     {
         foreach ($this->users as $key => $row) {
             if ($row->getUserName() === $user->getUserName()) {

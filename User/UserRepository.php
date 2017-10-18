@@ -4,15 +4,15 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 
 use Doctrine\ORM\EntityRepository;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository as UserRepositoryInterface;
 
 abstract class UserRepository extends EntityRepository implements UserRepositoryInterface
 {
     /**
-     * @param UserInterface $user
+     * @param User $user
      */
-    public function add(UserInterface $user)
+    public function add(User $user)
     {
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
@@ -21,7 +21,7 @@ abstract class UserRepository extends EntityRepository implements UserRepository
     /**
      * @param string $username
      *
-     * @return null|UserInterface
+     * @return null|User
      */
     public function findByUsername($username)
     {
@@ -31,7 +31,7 @@ abstract class UserRepository extends EntityRepository implements UserRepository
     /**
      * @param string $emailAddress
      *
-     * @return UserInterface|null
+     * @return User|null
      */
     public function findByEmailAddress($emailAddress)
     {
@@ -46,17 +46,17 @@ abstract class UserRepository extends EntityRepository implements UserRepository
     abstract public function supportsClass($class);
 
     /**
-     * @param UserInterface $user
+     * @param User $user
      */
-    public function save(UserInterface $user)
+    public function save(User $user)
     {
         $this->getEntityManager()->flush();
     }
 
     /**
-     * @param UserInterface $user
+     * @param User $user
      */
-    public function delete(UserInterface $user)
+    public function delete(User $user)
     {
         $this->getEntityManager()->remove($user);
         $this->getEntityManager()->flush();
@@ -65,7 +65,7 @@ abstract class UserRepository extends EntityRepository implements UserRepository
     /**
      * @param PasswordResetToken $token
      *
-     * @return null|UserInterface
+     * @return null|User
      */
     public function findByPasswordResetToken(PasswordResetToken $token)
     {

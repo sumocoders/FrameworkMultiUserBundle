@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Console;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\BaseUserDataTransferObject;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -53,7 +53,7 @@ final class CreateUserCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userTransferObject = new UserDataTransferObject();
+        $userTransferObject = new BaseUserDataTransferObject();
         $userTransferObject->userName = $input->getArgument('username');
         $userTransferObject->plainPassword = $input->getArgument('password');
         $userTransferObject->displayName = $input->getArgument('displayName');

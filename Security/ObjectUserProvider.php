@@ -3,7 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Security;
 
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -11,13 +11,13 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class ObjectUserProvider implements UserProviderInterface
 {
-    /** @var UserRepositoryCollection */
+    /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
     /**
-     * @param UserRepositoryCollection $userRepositoryCollection
+     * @param BaseUserRepositoryCollection $userRepositoryCollection
      */
-    public function __construct(UserRepositoryCollection $userRepositoryCollection)
+    public function __construct(BaseUserRepositoryCollection $userRepositoryCollection)
     {
         $this->userRepositoryCollection = $userRepositoryCollection;
     }

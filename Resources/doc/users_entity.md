@@ -13,13 +13,13 @@ For every type of user you want in your application, you're going to need an ent
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use SumoCoders\FrameworkMultiUserBundle\Entity\User;
+use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 
 /**
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AdminRepository")
  */
-class Admin extends User
+class Admin extends BaseUser
 {
     public function getRoles()
     {
@@ -40,13 +40,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
-use SumoCoders\FrameworkMultiUserBundle\Entity\User;
+use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 
 /**
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AdvisorRepository")
  */
-class Advisor extends User
+class Advisor extends BaseUser
 {
     /**
      * @var string

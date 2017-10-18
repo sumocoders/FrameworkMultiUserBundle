@@ -6,23 +6,23 @@ use Doctrine\ORM\EntityNotFoundException;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\RequestPasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Event\PasswordResetTokenCreated;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RequestPasswordResetHandler
 {
-    /** @var UserRepositoryCollection */
+    /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
     /** @var EventDispatcherInterface */
     private $dispatcher;
 
     /**
-     * @param UserRepositoryCollection $userRepositoryCollection
+     * @param BaseUserRepositoryCollection $userRepositoryCollection
      * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
-        UserRepositoryCollection $userRepositoryCollection,
+        BaseUserRepositoryCollection $userRepositoryCollection,
         EventDispatcherInterface $dispatcher
     ) {
         $this->userRepositoryCollection = $userRepositoryCollection;
