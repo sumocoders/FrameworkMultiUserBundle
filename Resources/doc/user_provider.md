@@ -13,7 +13,7 @@ To create a user provider, you'll need two services:
 # app/config/config.yml
 services:
   multi_user.user_repository.collection:
-    class: SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection
+    class: SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection
     arguments:
       - ["@admin_repository", "@advisor_repository"]
   multi_user.user_provider:

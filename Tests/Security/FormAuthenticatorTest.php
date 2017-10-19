@@ -6,9 +6,9 @@ use PHPUnit_Framework_TestCase;
 use SumoCoders\FrameworkMultiUserBundle\Security\FormAuthenticator;
 use SumoCoders\FrameworkMultiUserBundle\Security\FormCredentials;
 use SumoCoders\FrameworkMultiUserBundle\Security\ObjectUserProvider;
-use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use SumoCoders\FrameworkMultiUserBundle\Entity\User;
+use SumoCoders\FrameworkMultiUserBundle\User\InMemoryBaseUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -32,7 +32,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $this->router = $this->getMockBuilder(RouterInterface::class)->getMock();
         $this->flashBag = $this->getMockBuilder(FlashBagInterface::class)->getMock();
         $this->translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
-        $encoders['SumoCoders\FrameworkMultiUserBundle\Entity\User'] = [
+        $encoders[ 'SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser' ] = [
             'class' => 'Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder',
             'arguments' => [12],
         ];
@@ -49,7 +49,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     public function testFormAuthenticatorGetUser()
     {
-        $userRepositoryCollection = new UserRepositoryCollection([new InMemoryUserRepository()]);
+        $userRepositoryCollection = new BaseUserRepositoryCollection([new InMemoryBaseUserRepository()]);
         $provider = new ObjectUserProvider($userRepositoryCollection);
         $user = $this->formAuthenticator->getUser($this->getCredentials(), $provider);
 
@@ -103,6 +103,6 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen', $email = 'wouter@example.dev', $id = 1)
     {
-        return new User($username, $password, $displayName, $email, $id);
+        return new BaseUser($username, $password, $displayName, $email, $id);
     }
 }

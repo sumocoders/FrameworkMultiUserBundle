@@ -3,17 +3,17 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 
 final class DeleteUserHandler extends AbstractUserHandler
 {
-    /** @var UserRepositoryCollection */
+    /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
     /**
-     * @param UserRepositoryCollection $userRepositoryCollection
+     * @param BaseUserRepositoryCollection $userRepositoryCollection
      */
-    public function __construct(UserRepositoryCollection $userRepositoryCollection)
+    public function __construct(BaseUserRepositoryCollection $userRepositoryCollection)
     {
         $this->userRepositoryCollection = $userRepositoryCollection;
     }

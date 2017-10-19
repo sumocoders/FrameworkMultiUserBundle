@@ -9,7 +9,7 @@ use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 
-class UserRepositoryCollection
+class BaseUserRepositoryCollection
 {
     /** @var UserRepository[] */
     private $userRepositories = [];
@@ -25,7 +25,7 @@ class UserRepositoryCollection
     }
 
     /**
-     * Registers the UserRepository to the UserRepositoryCollection.
+     * Registers the UserRepository to the BaseUserRepositoryCollection.
      *
      * @param UserRepository $userRepository
      */
@@ -51,7 +51,7 @@ class UserRepositoryCollection
     }
 
     /**
-     * Find the UserRepository for a given User Class.
+     * Find the UserRepository for a given BaseUser Class.
      *
      * @param string $className
      *
@@ -71,7 +71,7 @@ class UserRepositoryCollection
     }
 
     /**
-     * Check if the UserRepositoryCollection supports a User class.
+     * Check if the BaseUserRepositoryCollection supports a BaseUser class.
      *
      * @param string $className
      *

@@ -5,16 +5,16 @@ namespace SumoCoders\FrameworkMultiUserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\ValueObject\Status;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
- * @ORM\Entity(repositoryClass="SumoCoders\FrameworkMultiUserBundle\User\DoctrineUserRepository")
+ * @ORM\Entity(repositoryClass="SumoCoders\FrameworkMultiUserBundle\BaseUser\DoctrineBaseUserRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  */
-class User implements UserInterface
+class BaseUser implements User
 {
     /**
      * @var int

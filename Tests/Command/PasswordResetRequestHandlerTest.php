@@ -5,9 +5,9 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 use PHPUnit_Framework_TestCase;
 use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\RequestPasswordDataTransferObject;
-use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\InMemoryBaseUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PasswordResetRequestHandlerTest extends PHPUnit_Framework_TestCase
@@ -15,13 +15,13 @@ class PasswordResetRequestHandlerTest extends PHPUnit_Framework_TestCase
     /** @var UserRepository */
     private $userRepository;
 
-    /** @var UserRepositoryCollection */
+    /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
     public function setUp()
     {
-        $this->userRepository = new InMemoryUserRepository();
-        $this->userRepositoryCollection = new UserRepositoryCollection([$this->userRepository]);
+        $this->userRepository = new InMemoryBaseUserRepository();
+        $this->userRepositoryCollection = new BaseUserRepositoryCollection([$this->userRepository]);
     }
 
     /**

@@ -3,12 +3,12 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 final class CreateUserHandler extends AbstractUserHandler
 {
-    /** @var UserRepositoryCollection */
+    /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
     /** @var EncoderFactoryInterface */
@@ -16,11 +16,11 @@ final class CreateUserHandler extends AbstractUserHandler
 
     /**
      * @param EncoderFactoryInterface $encoderFactory
-     * @param UserRepositoryCollection $userRepositoryCollection
+     * @param BaseUserRepositoryCollection $userRepositoryCollection
      */
     public function __construct(
         EncoderFactoryInterface $encoderFactory,
-        UserRepositoryCollection $userRepositoryCollection
+        BaseUserRepositoryCollection $userRepositoryCollection
     ) {
         $this->userRepositoryCollection = $userRepositoryCollection;
         $this->encoderFactory = $encoderFactory;

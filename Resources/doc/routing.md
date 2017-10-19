@@ -54,7 +54,7 @@ We have to let the system know how we wish to encode our passwords. Sha512 is th
 # app/config/security.yml
 security:
   encoders:
-    SumoCoders\FrameworkMultiUserBundle\Entity\User: sha512
+    SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser: sha512
 ```
 
 ## Authentication

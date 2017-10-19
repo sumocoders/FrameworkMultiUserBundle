@@ -4,10 +4,10 @@ namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject
     as UserDataTransferObjectInterface;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
-use SumoCoders\FrameworkMultiUserBundle\Entity\User;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
+use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 
-class UserDataTransferObject implements UserDataTransferObjectInterface
+class BaseUserDataTransferObject implements UserDataTransferObjectInterface
 {
     /** @var int */
     public $id;
@@ -24,10 +24,10 @@ class UserDataTransferObject implements UserDataTransferObjectInterface
     /** @var string */
     public $plainPassword;
 
-    /** @var UserInterface */
+    /** @var User */
     protected $user;
 
-    public static function fromUser(UserInterface $user)
+    public static function fromUser(User $user)
     {
         $baseUserTransferObject = new static();
         $baseUserTransferObject->user = $user;
@@ -50,7 +50,7 @@ class UserDataTransferObject implements UserDataTransferObjectInterface
             return $this->user;
         }
 
-        return new User(
+        return new BaseUser(
             $this->userName,
             $this->plainPassword,
             $this->displayName,
