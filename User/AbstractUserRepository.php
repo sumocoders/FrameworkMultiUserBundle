@@ -7,7 +7,7 @@ use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository as UserRepositoryInterface;
 
-abstract class UserRepository extends EntityRepository implements UserRepositoryInterface
+abstract class AbstractUserRepository extends EntityRepository implements UserRepositoryInterface
 {
     /**
      * @param User $user

@@ -4,7 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\User;
 
 use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 
-final class DoctrineBaseUserRepository extends UserRepository
+final class DoctrineBaseAbstractUserRepository extends AbstractUserRepository
 {
     /**
      * @param string $class
