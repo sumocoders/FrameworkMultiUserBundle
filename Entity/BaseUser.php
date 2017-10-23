@@ -10,7 +10,7 @@ use SumoCoders\FrameworkMultiUserBundle\ValueObject\Status;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
- * @ORM\Entity(repositoryClass="SumoCoders\FrameworkMultiUserBundle\BaseUser\DoctrineBaseUserRepository")
+ * @ORM\Entity(repositoryClass="SumoCoders\FrameworkMultiUserBundle\User\DoctrineBaseUserRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  */
