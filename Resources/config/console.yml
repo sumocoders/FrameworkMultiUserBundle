@@ -40,7 +40,7 @@ services:
   multi_user.command.delete_user:
     class: SumoCoders\FrameworkMultiUserBundle\Console\DeleteUserCommand
     arguments:
-      - "@multi_user.user.repository"
+      - "@multi_user.base_user.repository"
       - "@multi_user.handler.delete_user"
     tags:
       -  { name: "console.command" }
