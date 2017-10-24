@@ -227,4 +227,9 @@ class BaseUser implements User
     {
         return $this->status->isBlocked();
     }
+
+    public function canSwitchTo(BaseUser $user): bool
+    {
+        return false;
+    }
 }
