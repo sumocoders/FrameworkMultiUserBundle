@@ -3,9 +3,9 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use SumoCoders\FrameworkCoreBundle\BreadCrumb\BreadCrumbBuilder;
 use SumoCoders\FrameworkMultiUserBundle\Command\Handler;
 use SumoCoders\FrameworkMultiUserBundle\Form\DeleteType;
-use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -42,6 +42,12 @@ class UserController
     /** @var UserRepository */
     private $userRepository;
 
+    /** @var BreadCrumbBuilder */
+    private $breadcrumbBuilder;
+
+    /** @var array */
+    private $breadcrumbs;
+
     /** @var string */
     private $redirectRoute;
 
@@ -63,6 +69,8 @@ class UserController
         string $form,
         Handler $handler,
         UserRepository $userRepository,
+        BreadCrumbBuilder $breadcrumbBuilder,
+        array $breadcrumbs,
         $redirectRoute = null
     ) {
         $this->formFactory = $formFactory;
@@ -72,6 +80,8 @@ class UserController
         $this->form = $form;
         $this->handler = $handler;
         $this->userRepository = $userRepository;
+        $this->breadcrumbBuilder = $breadcrumbBuilder;
+        $this->breadcrumbs = $breadcrumbs;
         $this->redirectRoute = $redirectRoute;
     }
 
@@ -85,6 +95,15 @@ class UserController
      */
     public function baseAction(Request $request, $id = null)
     {
+        foreach ($this->breadcrumbs as $breadcrumb) {
+            $uri = '';
+            if ($breadcrumb['route'] !== '') {
+                $uri = $this->router->generate($breadcrumb['route']);
+            }
+
+            $this->breadcrumbBuilder->addSimpleItem(ucfirst($this->translator->trans($breadcrumb['label'])), $uri);
+        }
+
         $form = $this->getFormForId($id);
         $form->handleRequest($request);
 
