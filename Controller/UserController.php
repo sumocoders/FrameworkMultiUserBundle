@@ -4,6 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SumoCoders\FrameworkMultiUserBundle\Command\Handler;
+use SumoCoders\FrameworkMultiUserBundle\Form\DeleteType;
 use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 use Symfony\Component\Form\Form;
@@ -102,6 +103,16 @@ class UserController
             if ($this->redirectRoute !== null) {
                 return new RedirectResponse($this->router->generate($this->redirectRoute));
             }
+        }
+
+        if ($id !== null) {
+            $deleteForm = $this->formFactory->create(DeleteType::class, $form->getData());
+
+            return [
+                'form' => $form->createView(),
+                'deleteForm' => $deleteForm->createView(),
+                'user' => $form->getData()->getEntity(),
+            ];
         }
 
         return ['form' => $form->createView()];
