@@ -8,38 +8,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 interface User extends UserInterface, PasswordReset, Blockable
 {
-    /**
-     * @return string
-     */
-    public function __toString();
+    public function __toString(): string;
 
-    /**
-     * @return string
-     */
-    public function getDisplayName();
+    public function getDisplayName(): string;
 
-    /**
-     * @return int
-     */
-    public function getId();
+    public function getId(): int;
 
-    /**
-     * @param UserDataTransferObject $data
-     */
-    public function change(UserDataTransferObject $data);
+    public function change(UserDataTransferObject $data): void;
 
-    /**
-     * @return bool
-     */
-    public function hasPlainPassword();
+    public function hasPlainPassword(): bool;
 
-    /**
-     * @return string
-     */
-    public function getPlainPassword();
+    public function getPlainPassword(): string;
 
-    /**
-     * @param PasswordEncoderInterface $encoder
-     */
-    public function encodePassword(PasswordEncoderInterface $encoder);
+    public function encodePassword(PasswordEncoderInterface $encoder): void;
 }

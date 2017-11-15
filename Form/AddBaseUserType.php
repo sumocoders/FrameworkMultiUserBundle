@@ -14,14 +14,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AddBaseUserType extends AbstractType implements FormWithDataTransferObject
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => $this->getDataTransferObjectClass(),
         ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'userName',
@@ -41,12 +41,12 @@ class AddBaseUserType extends AbstractType implements FormWithDataTransferObject
         );
     }
 
-    public function getName()
+    public function getBlockPrefix(): string
     {
         return 'multi_user_form_add_user';
     }
 
-    public static function getDataTransferObjectClass()
+    public static function getDataTransferObjectClass(): string
     {
         return BaseUserDataTransferObject::class;
     }

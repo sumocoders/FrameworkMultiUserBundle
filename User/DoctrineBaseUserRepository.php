@@ -6,12 +6,7 @@ use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 
 final class DoctrineBaseUserRepository extends AbstractUserRepository
 {
-    /**
-     * @param string $class
-     *
-     * @return bool
-     */
-    public function supportsClass($class)
+    public function supportsClass(string $class): bool
     {
         return BaseUser::class === $class;
     }

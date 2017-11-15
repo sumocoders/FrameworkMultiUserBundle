@@ -36,7 +36,7 @@ class InMemoryBaseUserRepository implements UserRepositoryInterface
         $this->users[] = $passwordResetUser;
     }
 
-    public function findByUsername($username)
+    public function findByUsername(string $username): void
     {
         foreach ($this->users as $user) {
             if ($user->getUsername() === $username) {
@@ -47,12 +47,7 @@ class InMemoryBaseUserRepository implements UserRepositoryInterface
         return null;
     }
 
-    /**
-     * @param string $emailAddress
-     *
-     * @return User|null
-     */
-    public function findByEmailAddress($emailAddress)
+    public function findByEmailAddress(string $emailAddress): ?User
     {
         foreach ($this->users as $user) {
             if ($user->getEmail() === $emailAddress) {
@@ -63,7 +58,7 @@ class InMemoryBaseUserRepository implements UserRepositoryInterface
         return null;
     }
 
-    public function find($id)
+    public function find(int $id): ?User
     {
         foreach ($this->users as $user) {
             if ($user->getId() === $id) {
@@ -74,31 +69,29 @@ class InMemoryBaseUserRepository implements UserRepositoryInterface
         return null;
     }
 
-    public function supportsClass($class)
+    public function supportsClass(string $class): bool
     {
         return $class === BaseUser::class;
     }
 
-    public function findByPasswordResetToken(PasswordResetToken $token)
+    public function findByPasswordResetToken(PasswordResetToken $token): ?User
     {
         return $this->findByUsername('reset');
     }
 
-    public function add(User $user)
+    public function add(User $user): void
     {
         $this->users[] = $user;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * This does nothing here since the objects get updated by reference when changing them in the tests
      */
-    public function save(User $user)
+    public function save(User $user): void
     {
     }
 
-    public function delete(User $user)
+    public function delete(User $user): void
     {
         foreach ($this->users as $key => $row) {
             if ($row->getUserName() === $user->getUserName()) {

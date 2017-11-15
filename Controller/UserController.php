@@ -45,16 +45,6 @@ class UserController
     /** @var string */
     private $redirectRoute;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     * @param Router $router
-     * @param FlashBagInterface $flashBag
-     * @param TranslatorInterface $translator
-     * @param string $form
-     * @param Handler $handler
-     * @param UserRepository $userRepository
-     * @param string $redirectRoute = null
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         Router $router,
@@ -63,7 +53,7 @@ class UserController
         string $form,
         Handler $handler,
         UserRepository $userRepository,
-        $redirectRoute = null
+        ?string $redirectRoute = null
     ) {
         $this->formFactory = $formFactory;
         $this->router = $router;
@@ -77,13 +67,13 @@ class UserController
 
     /**
      * @param Request $request
-     * @param int $id
+     * @param int|null $id
      *
      * @Template()
      *
-     * @return array
+     * @return array|RedirectResponse
      */
-    public function baseAction(Request $request, $id = null)
+    public function baseAction(Request $request, ?int $id = null)
     {
         $form = $this->getFormForId($id);
         $form->handleRequest($request);
@@ -118,12 +108,7 @@ class UserController
         return ['form' => $form->createView()];
     }
 
-    /**
-     * @param int $id = null
-     *
-     * @return Form
-     */
-    private function getFormForId($id = null)
+    private function getFormForId(?int $id = null): Form
     {
         if ($id === null) {
             return $this->formFactory->create($this->form);

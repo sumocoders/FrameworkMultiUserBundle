@@ -39,15 +39,6 @@ class PasswordResetController
     /** @var FlashBagInterface */
     private $flashBag;
 
-    /**
-     * @param BaseUserRepositoryCollection $userRepositoryCollection
-     * @param ResetPasswordHandler $resetPasswordHandler
-     * @param Router $router
-     * @param FormFactoryInterface $formFactory
-     * @param EngineInterface $templating
-     * @param Translator $translator
-     * @param FlashBagInterface $flashBag
-     */
     public function __construct(
         BaseUserRepositoryCollection $userRepositoryCollection,
         ResetPasswordHandler $resetPasswordHandler,
@@ -74,7 +65,7 @@ class PasswordResetController
      *
      * @return RedirectResponse
      */
-    public function resetAction(Request $request, PasswordResetToken $token)
+    public function resetAction(Request $request, PasswordResetToken $token): RedirectResponse
     {
         $user = $this->userRepositoryCollection->findUserByToken($token);
 

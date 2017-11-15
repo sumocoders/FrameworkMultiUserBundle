@@ -39,7 +39,7 @@ final class DeleteController
         FlashBagInterface $flashBag,
         TranslatorInterface $translator,
         Router $router,
-        $redirectRoute
+        string $redirectRoute
     ) {
         $this->formFactory = $formFactory;
         $this->handler = $handler;
@@ -49,6 +49,12 @@ final class DeleteController
         $this->redirectRoute = $redirectRoute;
     }
 
+    /**
+     * @param Request $request
+     * @param BaseUser $user
+     *
+     * @return array|RedirectResponse
+     */
     public function deleteAction(Request $request, BaseUser $user)
     {
         $userDataTransferObject = BaseUserDataTransferObject::fromUser($user);

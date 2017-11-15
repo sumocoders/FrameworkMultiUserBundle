@@ -2,32 +2,31 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject
-    as UserDataTransferObjectInterface;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 
-class BaseUserDataTransferObject implements UserDataTransferObjectInterface
+class BaseUserDataTransferObject implements UserDataTransferObject
 {
-    /** @var int */
+    /** @var int|null */
     public $id;
 
-    /** @var string */
+    /** @var string|null */
     public $userName;
 
-    /** @var string */
+    /** @var string|null */
     public $displayName;
 
-    /** @var string */
+    /** @var string|null */
     public $email;
 
-    /** @var string */
+    /** @var string|null */
     public $plainPassword;
 
     /** @var User */
     protected $user;
 
-    public static function fromUser(User $user)
+    public static function fromUser(User $user): UserDataTransferObject
     {
         $baseUserTransferObject = new static();
         $baseUserTransferObject->user = $user;
@@ -42,7 +41,7 @@ class BaseUserDataTransferObject implements UserDataTransferObjectInterface
         return $baseUserTransferObject;
     }
 
-    public function getEntity()
+    public function getEntity(): User
     {
         if ($this->user) {
             $this->user->change($this);
@@ -58,27 +57,27 @@ class BaseUserDataTransferObject implements UserDataTransferObjectInterface
         );
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUserName()
+    public function getUserName(): ?string
     {
         return $this->userName;
     }
 
-    public function getDisplayName()
+    public function getDisplayName(): ?string
     {
         return $this->displayName;
     }
 
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function getPlainPassword()
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }

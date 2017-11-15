@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EditBaseUserType extends AbstractType implements FormWithDataTransferObject
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [
@@ -23,7 +23,7 @@ class EditBaseUserType extends AbstractType implements FormWithDataTransferObjec
         );
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'userName',
@@ -44,12 +44,12 @@ class EditBaseUserType extends AbstractType implements FormWithDataTransferObjec
         );
     }
 
-    public function getName()
+    public function getBlockPrefix(): string
     {
         return 'multi_user_form_edit_user';
     }
 
-    public static function getDataTransferObjectClass()
+    public static function getDataTransferObjectClass(): string
     {
         return BaseUserDataTransferObject::class;
     }

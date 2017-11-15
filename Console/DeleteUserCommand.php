@@ -18,10 +18,6 @@ final class DeleteUserCommand extends Command
     /** @var DeleteUserHandler */
     private $handler;
 
-    /**
-     * @param UserRepository $userRepository
-     * @param DeleteUserHandler $handler
-     */
     public function __construct(UserRepository $userRepository, DeleteUserHandler $handler)
     {
         parent::__construct();
@@ -29,7 +25,7 @@ final class DeleteUserCommand extends Command
         $this->handler = $handler;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('sumocoders:multiuser:delete')
@@ -42,7 +38,7 @@ final class DeleteUserCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $username = $input->getArgument('username');
         $user = $this->userRepository->findByUsername($username);

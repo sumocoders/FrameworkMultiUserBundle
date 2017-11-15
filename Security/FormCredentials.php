@@ -10,32 +10,18 @@ class FormCredentials
     /** @var string */
     private $username;
 
-    /**
-     * @param string $username
-     * @param string $plainPassword
-     */
-    public function __construct($username, $plainPassword)
+    public function __construct(string $username, string $plainPassword)
     {
         $this->username = $username;
         $this->plainPassword = $plainPassword;
     }
 
-    /**
-     * Returns the username.
-     *
-     * @return string
-     */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    /**
-     * Returns the plain password.
-     *
-     * @return string
-     */
-    public function getPlainPassword()
+    public function getPlainPassword(): string
     {
         return $this->plainPassword;
     }

@@ -6,30 +6,13 @@ use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 
 interface PasswordReset
 {
-    /**
-     * @return string
-     */
-    public function getEmail();
+    public function getEmail(): string;
 
-    /**
-     * @return PasswordResetToken
-     */
-    public function getPasswordResetToken();
+    public function getPasswordResetToken(): ?PasswordResetToken;
 
-    /**
-     * @param $password
-     *
-     * @return self
-     */
-    public function setPassword($password);
+    public function setPassword(string $password);
 
-    /**
-     * @return self
-     */
     public function generatePasswordResetToken();
 
-    /**
-     * @return self
-     */
     public function clearPasswordResetToken();
 }

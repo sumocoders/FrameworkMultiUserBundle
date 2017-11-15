@@ -9,65 +9,36 @@ use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository as UserRe
 
 abstract class AbstractUserRepository extends EntityRepository implements UserRepositoryInterface
 {
-    /**
-     * @param User $user
-     */
-    public function add(User $user)
+    public function add(User $user): void
     {
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * @param string $username
-     *
-     * @return null|User
-     */
-    public function findByUsername($username)
+    public function findByUsername(string $username): ?User
     {
         return $this->findOneBy(['username' => $username]);
     }
 
-    /**
-     * @param string $emailAddress
-     *
-     * @return User|null
-     */
-    public function findByEmailAddress($emailAddress)
+    public function findByEmailAddress(string $emailAddress): ?User
     {
         return $this->findOneBy(['email' => $emailAddress]);
     }
 
-    /**
-     * @param string $class
-     *
-     * @return bool
-     */
-    abstract public function supportsClass($class);
+    abstract public function supportsClass(string $class): bool;
 
-    /**
-     * @param User $user
-     */
-    public function save(User $user)
+    public function save(User $user): void
     {
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * @param User $user
-     */
-    public function delete(User $user)
+    public function delete(User $user): void
     {
         $this->getEntityManager()->remove($user);
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * @param PasswordResetToken $token
-     *
-     * @return null|User
-     */
-    public function findByPasswordResetToken(PasswordResetToken $token)
+    public function findByPasswordResetToken(PasswordResetToken $token): ?User
     {
         return $this->findOneBy(['passwordResetToken' => $token->getToken()]);
     }

@@ -14,10 +14,6 @@ final class UpdateUserHandler extends AbstractUserHandler
     /** @var EncoderFactoryInterface */
     private $encoderFactory;
 
-    /**
-     * @param EncoderFactoryInterface $encoderFactory
-     * @param BaseUserRepositoryCollection $userRepositoryCollection
-     */
     public function __construct(
         EncoderFactoryInterface $encoderFactory,
         BaseUserRepositoryCollection $userRepositoryCollection
@@ -26,7 +22,7 @@ final class UpdateUserHandler extends AbstractUserHandler
         $this->encoderFactory = $encoderFactory;
     }
 
-    public function handle(UserDataTransferObject $userDataTransferObject)
+    public function handle(UserDataTransferObject $userDataTransferObject): void
     {
         $userEntity = $userDataTransferObject->getEntity();
 

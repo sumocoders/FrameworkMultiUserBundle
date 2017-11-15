@@ -6,40 +6,17 @@ use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 
 interface UserDataTransferObject
 {
-    /**
-     * @return int
-     */
-    public function getId();
+    public function getId(): ?int;
 
-    /**
-     * @return string
-     */
-    public function getUserName();
+    public function getUserName(): ?string;
 
-    /**
-     * @return string
-     */
-    public function getDisplayName();
+    public function getDisplayName(): ?string;
 
-    /**
-     * @return string
-     */
-    public function getEmail();
+    public function getEmail(): ?string;
 
-    /**
-     * @return string
-     */
-    public function getPlainPassword();
+    public function getPlainPassword(): ?string;
 
-    /**
-     * @param User $user
-     *
-     * @return self
-     */
-    public static function fromUser(User $user);
+    public static function fromUser(User $user): self;
 
-    /**
-     * @return User
-     */
-    public function getEntity();
+    public function getEntity(): User;
 }
