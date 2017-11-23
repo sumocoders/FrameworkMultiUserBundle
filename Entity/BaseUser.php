@@ -92,8 +92,8 @@ class BaseUser implements User
         string $plainPassword,
         string $displayName,
         string $email,
-        ?int $id = null,
-        ?PasswordResetToken $token = null
+        int $id = null,
+        PasswordResetToken $token = null
     ) {
         $this->username = $username;
         $this->plainPassword = $plainPassword;

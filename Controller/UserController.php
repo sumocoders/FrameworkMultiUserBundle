@@ -53,7 +53,7 @@ class UserController
         string $form,
         Handler $handler,
         UserRepository $userRepository,
-        ?string $redirectRoute = null
+        string $redirectRoute = null
     ) {
         $this->formFactory = $formFactory;
         $this->router = $router;
@@ -73,7 +73,7 @@ class UserController
      *
      * @return array|RedirectResponse
      */
-    public function baseAction(Request $request, ?int $id = null)
+    public function baseAction(Request $request, int $id = null)
     {
         $form = $this->getFormForId($id);
         $form->handleRequest($request);
