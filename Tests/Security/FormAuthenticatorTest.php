@@ -59,7 +59,9 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $provider = new ObjectUserProvider($userRepositoryCollection);
         $user = $this->formAuthenticator->getUser($this->getCredentials(), $provider);
 
-        $this->assertEquals($this->getUser(), $user);
+        $this->assertEquals($this->getUser()->getId(), $user->getId());
+        $this->assertEquals($this->getUser()->getUsername(), $user->getUsername());
+        $this->assertEquals($this->getUser()->getEmail(), $user->getEmail());
     }
 
     public function testCheckCredentials()
