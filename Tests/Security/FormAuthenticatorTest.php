@@ -49,7 +49,13 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
 
     public function testFormAuthenticatorGetUser()
     {
-        $userRepositoryCollection = new BaseUserRepositoryCollection([new InMemoryBaseUserRepository()]);
+        $userRepositoryCollection = new BaseUserRepositoryCollection(
+            [
+                new InMemoryBaseUserRepository(
+                    new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+                ),
+            ]
+        );
         $provider = new ObjectUserProvider($userRepositoryCollection);
         $user = $this->formAuthenticator->getUser($this->getCredentials(), $provider);
 

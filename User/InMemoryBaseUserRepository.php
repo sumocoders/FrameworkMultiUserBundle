@@ -6,13 +6,14 @@ use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository as UserRepositoryInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 class InMemoryBaseUserRepository implements UserRepositoryInterface
 {
     /** @var BaseUser[] */
     private $users = [];
 
-    public function __construct()
+    public function __construct(EncoderFactory $encoderFactory)
     {
         $user = new BaseUser(
             'wouter',
@@ -21,6 +22,7 @@ class InMemoryBaseUserRepository implements UserRepositoryInterface
             'wouter@example.dev',
             1
         );
+        $user->encodePassword($encoderFactory->getEncoder($user));
 
         $this->users[] = $user;
 
@@ -32,6 +34,7 @@ class InMemoryBaseUserRepository implements UserRepositoryInterface
             2,
             PasswordResetToken::generate()
         );
+        $passwordResetUser->encodePassword($encoderFactory->getEncoder($passwordResetUser));
 
         $this->users[] = $passwordResetUser;
     }

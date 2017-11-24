@@ -22,7 +22,9 @@ class CreateUserHandlerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->userRepository = new InMemoryBaseUserRepository();
+        $this->userRepository = new InMemoryBaseUserRepository(
+            new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+        );
         $this->userRepositoryCollection = new BaseUserRepositoryCollection([$this->userRepository]);
     }
 
