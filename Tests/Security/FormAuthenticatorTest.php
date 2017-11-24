@@ -9,6 +9,7 @@ use SumoCoders\FrameworkMultiUserBundle\Security\ObjectUserProvider;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryBaseUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -109,8 +110,12 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         return $mock;
     }
 
-    private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen', $email = 'wouter@example.dev', $id = 1)
+    private function getUser(): User
     {
-        return new BaseUser($username, $password, $displayName, $email, $id);
+        $inMemoryBaseUserRepository = new InMemoryBaseUserRepository(
+            new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+        );
+
+        return $inMemoryBaseUserRepository->find(1);
     }
 }
