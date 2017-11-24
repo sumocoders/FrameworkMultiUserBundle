@@ -36,7 +36,7 @@ class InMemoryBaseUserRepository implements UserRepositoryInterface
         $this->users[] = $passwordResetUser;
     }
 
-    public function findByUsername(string $username): void
+    public function findByUsername(string $username): ?User
     {
         foreach ($this->users as $user) {
             if ($user->getUsername() === $username) {
@@ -58,7 +58,12 @@ class InMemoryBaseUserRepository implements UserRepositoryInterface
         return null;
     }
 
-    public function find(int $id): ?User
+    /**
+     * @param int $id
+     *
+     * @return null|User
+     */
+    public function find($id): ?User
     {
         foreach ($this->users as $user) {
             if ($user->getId() === $id) {
