@@ -36,10 +36,11 @@ class CreateUserHandlerTest extends PHPUnit_Framework_TestCase
             $this->userRepositoryCollection
         );
 
-        $user = new BaseUser('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
-
-        $userDataTransferObject = BaseUserDataTransferObject::fromUser($user);
+        $userDataTransferObject = new BaseUserDataTransferObject();
+        $userDataTransferObject->userName = 'sumo';
         $userDataTransferObject->plainPassword = 'randomPassword';
+        $userDataTransferObject->displayName = 'sumocoders';
+        $userDataTransferObject->email = 'sumo@example.dev';
 
         $handler->handle($userDataTransferObject);
 
