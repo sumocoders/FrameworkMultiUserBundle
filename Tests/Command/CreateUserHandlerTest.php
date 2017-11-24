@@ -20,7 +20,7 @@ class CreateUserHandlerTest extends PHPUnit_Framework_TestCase
     /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->userRepository = new InMemoryBaseUserRepository(
             new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
@@ -31,7 +31,7 @@ class CreateUserHandlerTest extends PHPUnit_Framework_TestCase
     /**
      * Test if CreateUserHandler gets handled.
      */
-    public function testCreateUserGetsHandled()
+    public function testCreateUserGetsHandled(): void
     {
         $handler = new CreateUserHandler(
             new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()]),

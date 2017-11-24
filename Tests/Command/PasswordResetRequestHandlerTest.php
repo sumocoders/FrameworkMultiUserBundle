@@ -21,7 +21,7 @@ class PasswordResetRequestHandlerTest extends PHPUnit_Framework_TestCase
     /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->userRepository = new InMemoryBaseUserRepository(
             new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
@@ -32,7 +32,7 @@ class PasswordResetRequestHandlerTest extends PHPUnit_Framework_TestCase
     /**
      * Test if CreateUserHandler gets handled.
      */
-    public function testPasswordResetRequestGetsHandled()
+    public function testPasswordResetRequestGetsHandled(): void
     {
         $dispatcherMock = $this->getMockBuilder(EventDispatcherInterface::class)
             ->disableOriginalConstructor()

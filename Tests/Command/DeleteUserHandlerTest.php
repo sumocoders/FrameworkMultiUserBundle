@@ -20,7 +20,7 @@ class DeleteUserHandlerTest extends PHPUnit_Framework_TestCase
     /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->userRepository = new InMemoryBaseUserRepository(
             new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
@@ -31,7 +31,7 @@ class DeleteUserHandlerTest extends PHPUnit_Framework_TestCase
     /**
      * Test if DeleteUserHandler gets handled.
      */
-    public function testUpdateUserGetsHandled()
+    public function testUpdateUserGetsHandled(): void
     {
         $handler = new DeleteUserHandler($this->userRepositoryCollection);
 

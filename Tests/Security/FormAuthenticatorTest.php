@@ -28,7 +28,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
     private $flashBag;
     private $translator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->router = $this->getMockBuilder(RouterInterface::class)->getMock();
         $this->flashBag = $this->getMockBuilder(FlashBagInterface::class)->getMock();
@@ -48,7 +48,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testFormAuthenticatorGetUser()
+    public function testFormAuthenticatorGetUser(): void
     {
         $userRepositoryCollection = new BaseUserRepositoryCollection(
             [
@@ -65,7 +65,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->getUser()->getEmail(), $user->getEmail());
     }
 
-    public function testCheckCredentials()
+    public function testCheckCredentials(): void
     {
         $user = $this->getUser();
         $user->encodePassword(new PlaintextPasswordEncoder());
@@ -77,7 +77,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException Symfony\Component\Security\Core\Exception\BadCredentialsException
      */
-    public function testBadCredentialsException()
+    public function testBadCredentialsException(): void
     {
         $this->expectException('Symfony\Component\Security\Core\Exception\BadCredentialsException');
         $this->formAuthenticator->checkCredentials(
@@ -86,7 +86,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testOnAuthenticationSuccess()
+    public function testOnAuthenticationSuccess(): void
     {
         $request = new Request();
         $providerKey = 'main';
@@ -101,7 +101,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $this->formAuthenticator->onAuthenticationSuccess($request, $token, $providerKey);
     }
 
-    private function getCredentials($username = 'wouter', $password = 'test')
+    private function getCredentials($username = 'wouter', $password = 'test'): FormCredentials
     {
         $mock = $this->getMockBuilder(FormCredentials::class)->disableOriginalConstructor()->getMock();
         $mock->method('getUserName')->willReturn($username);

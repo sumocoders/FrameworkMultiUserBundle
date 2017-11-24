@@ -21,7 +21,7 @@ class PasswordResetHandlerTest extends PHPUnit_Framework_TestCase
     /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->userRepository = new InMemoryBaseUserRepository(
             new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
@@ -34,7 +34,7 @@ class PasswordResetHandlerTest extends PHPUnit_Framework_TestCase
      *
      * @throws InvalidPasswordConfirmationException
      */
-    public function testPasswordResetGetsHandled()
+    public function testPasswordResetGetsHandled(): void
     {
         $handler = new ResetPasswordHandler(
             $this->userRepositoryCollection,
