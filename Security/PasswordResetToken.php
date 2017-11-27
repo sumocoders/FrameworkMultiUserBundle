@@ -10,18 +10,12 @@ class PasswordResetToken
     /** @var string */
     private $token;
 
-    /**
-     * @param string $token
-     */
-    public function __construct($token)
+    public function __construct(string $token)
     {
         $this->token = $token;
     }
 
-    /**
-     * @return string
-     */
-    public function getToken()
+    public function getToken(): string
     {
         return $this->token;
     }
@@ -34,7 +28,7 @@ class PasswordResetToken
      *
      * @return bool
      */
-    public static function validateToken(User $user, PasswordResetToken $token)
+    public static function validateToken(User $user, PasswordResetToken $token): bool
     {
         if ($user->getPasswordResetToken()->equals($token)) {
             return true;
@@ -43,32 +37,17 @@ class PasswordResetToken
         throw new InvalidPasswordResetTokenException('The given token is not valid.');
     }
 
-    /**
-     * Generates a PasswordToken.
-     *
-     * @return PasswordResetToken
-     */
-    public static function generate()
+    public static function generate(): PasswordResetToken
     {
         return new self(uniqid());
     }
 
-    /**
-     * Check if a token is equal to a different token.
-     *
-     * @param PasswordResetToken $token
-     *
-     * @return bool
-     */
-    public function equals(PasswordResetToken $token)
+    public function equals(PasswordResetToken $token): bool
     {
         return $token->token === $this->token;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getToken();
     }

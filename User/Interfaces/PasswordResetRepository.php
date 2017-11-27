@@ -6,10 +6,5 @@ use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 
 interface PasswordResetRepository
 {
-    /**
-     * @param PasswordResetToken $token
-     *
-     * @return User|null
-     */
-    public function findByPasswordResetToken(PasswordResetToken $token);
+    public function findByPasswordResetToken(PasswordResetToken $token): ?User;
 }

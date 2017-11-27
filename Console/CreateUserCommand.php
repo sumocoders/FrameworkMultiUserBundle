@@ -14,16 +14,13 @@ final class CreateUserCommand extends Command
     /** @var CreateUserHandler */
     private $handler;
 
-    /**
-     * @param CreateUserHandler $handler
-     */
     public function __construct(CreateUserHandler $handler)
     {
         parent::__construct();
         $this->handler = $handler;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('sumocoders:multiuser:create')
@@ -51,7 +48,7 @@ final class CreateUserCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $userTransferObject = new BaseUserDataTransferObject();
         $userTransferObject->userName = $input->getArgument('username');

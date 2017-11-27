@@ -20,26 +20,29 @@ class CreateUserHandlerTest extends PHPUnit_Framework_TestCase
     /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->userRepository = new InMemoryBaseUserRepository();
+        $this->userRepository = new InMemoryBaseUserRepository(
+            new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+        );
         $this->userRepositoryCollection = new BaseUserRepositoryCollection([$this->userRepository]);
     }
 
     /**
      * Test if CreateUserHandler gets handled.
      */
-    public function testCreateUserGetsHandled()
+    public function testCreateUserGetsHandled(): void
     {
         $handler = new CreateUserHandler(
             new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()]),
             $this->userRepositoryCollection
         );
 
-        $user = new BaseUser('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
-
-        $userDataTransferObject = BaseUserDataTransferObject::fromUser($user);
+        $userDataTransferObject = new BaseUserDataTransferObject();
+        $userDataTransferObject->userName = 'sumo';
         $userDataTransferObject->plainPassword = 'randomPassword';
+        $userDataTransferObject->displayName = 'sumocoders';
+        $userDataTransferObject->email = 'sumo@example.dev';
 
         $handler->handle($userDataTransferObject);
 

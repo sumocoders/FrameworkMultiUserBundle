@@ -25,19 +25,12 @@ final class BlockController
     /** @var string */
     private $redirectRoute;
 
-    /**
-     * @param UserRepository $userRepository
-     * @param FlashBagInterface $flashBag
-     * @param TranslatorInterface $translator
-     * @param Router $router
-     * @param string $redirectRoute
-     */
     public function __construct(
         UserRepository $userRepository,
         FlashBagInterface $flashBag,
         TranslatorInterface $translator,
         Router $router,
-        $redirectRoute
+        string $redirectRoute
     ) {
         $this->userRepository = $userRepository;
         $this->flashBag = $flashBag;
@@ -46,12 +39,7 @@ final class BlockController
         $this->redirectRoute = $redirectRoute;
     }
 
-    /**
-     * @param int $id
-     *
-     * @return RedirectResponse
-     */
-    public function toggleAction($id)
+    public function toggleAction(int $id): RedirectResponse
     {
         $user = $this->userRepository->find($id);
         $user->toggleBlock();

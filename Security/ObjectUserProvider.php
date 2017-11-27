@@ -14,15 +14,19 @@ class ObjectUserProvider implements UserProviderInterface
     /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    /**
-     * @param BaseUserRepositoryCollection $userRepositoryCollection
-     */
     public function __construct(BaseUserRepositoryCollection $userRepositoryCollection)
     {
         $this->userRepositoryCollection = $userRepositoryCollection;
     }
 
-    public function loadUserByUsername($username)
+    /**
+     * @param string $username
+     *
+     * @return User
+     *
+     * @throws UsernameNotFoundException
+     */
+    public function loadUserByUsername($username): User
     {
         foreach ($this->userRepositoryCollection->all() as $repository) {
             $user = $repository->findByUsername($username);
@@ -37,7 +41,14 @@ class ObjectUserProvider implements UserProviderInterface
         );
     }
 
-    public function refreshUser(UserInterface $user)
+    /**
+     * @param UserInterface $user
+     *
+     * @return User
+     *
+     * @throws UnsupportedUserException
+     */
+    public function refreshUser(UserInterface $user): User
     {
         if (!$this->supportsClass(get_class($user))) {
             throw new UnsupportedUserException(
@@ -48,7 +59,7 @@ class ObjectUserProvider implements UserProviderInterface
         return $this->loadUserByUsername($user->getUsername());
     }
 
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
         return $this->userRepositoryCollection->supportsClass($class);
     }

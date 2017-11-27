@@ -34,14 +34,6 @@ final class RequestPasswordResetController
     /** @var FlashBagInterface */
     private $flashBag;
 
-    /**
-     * @param EngineInterface $templating
-     * @param FormFactoryInterface $formFactory
-     * @param RequestPasswordResetHandler $requestPasswordResetHandler
-     * @param Router $router
-     * @param Translator $translator
-     * @param FlashBagInterface $flashBag
-     */
     public function __construct(
         EngineInterface $templating,
         FormFactoryInterface $formFactory,
@@ -58,12 +50,7 @@ final class RequestPasswordResetController
         $this->flashBag = $flashBag;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return array|RedirectResponse|Response
-     */
-    public function requestAction(Request $request)
+    public function requestAction(Request $request): Response
     {
         $form = $this->formFactory->create(RequestPasswordType::class);
 

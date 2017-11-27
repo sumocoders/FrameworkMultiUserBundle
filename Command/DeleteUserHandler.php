@@ -10,15 +10,12 @@ final class DeleteUserHandler extends AbstractUserHandler
     /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    /**
-     * @param BaseUserRepositoryCollection $userRepositoryCollection
-     */
     public function __construct(BaseUserRepositoryCollection $userRepositoryCollection)
     {
         $this->userRepositoryCollection = $userRepositoryCollection;
     }
 
-    public function handle(UserDataTransferObject $user)
+    public function handle(UserDataTransferObject $user): void
     {
         $userEntity = $user->getEntity();
 

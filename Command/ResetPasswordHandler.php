@@ -15,10 +15,6 @@ class ResetPasswordHandler
     /** @var EncoderFactoryInterface */
     private $encoderFactory;
 
-    /**
-     * @param BaseUserRepositoryCollection $userRepositoryCollection
-     * @param EncoderFactoryInterface $encoderFactory
-     */
     public function __construct(
         BaseUserRepositoryCollection $userRepositoryCollection,
         EncoderFactoryInterface $encoderFactory
@@ -32,7 +28,7 @@ class ResetPasswordHandler
      *
      * @throws InvalidPasswordConfirmationException
      */
-    public function handle(ChangePasswordDataTransferObject $dataTransferObject)
+    public function handle(ChangePasswordDataTransferObject $dataTransferObject): void
     {
         $user = $dataTransferObject->user;
         $user->setPassword($dataTransferObject->newPassword);

@@ -6,6 +6,7 @@ use SumoCoders\FrameworkMultiUserBundle\Security\FormAuthenticator;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
@@ -31,12 +32,6 @@ final class LoginController
     /** @var Translator */
     private $translator;
 
-    /**
-     * @param EngineInterface $templating
-     * @param AuthenticationUtils $authenticationUtils
-     * @param FormAuthenticator $formAuthenticator
-     * @param TokenStorage $tokenStorage
-     */
     public function __construct(
         EngineInterface $templating,
         AuthenticationUtils $authenticationUtils,
@@ -51,7 +46,7 @@ final class LoginController
         $this->translator = $translator;
     }
 
-    public function loginAction()
+    public function loginAction(): Response
     {
         if ($this->tokenStorage->getToken()->getUser() instanceof User) {
             return new RedirectResponse(
@@ -69,13 +64,9 @@ final class LoginController
         );
     }
 
-    /**
-     * @param AuthenticationException|null $exception
-     *
-     * @return null|string
-     */
-    private function getTranslatedErrorMessageFromAuthenticationException(AuthenticationException $exception = null)
-    {
+    private function getTranslatedErrorMessageFromAuthenticationException(
+        ?AuthenticationException $exception = null
+    ): ?string {
         if ($exception === null) {
             return null;
         }
@@ -92,12 +83,7 @@ final class LoginController
         }
     }
 
-    /**
-     * @param string $messageString
-     *
-     * @return string
-     */
-    private function translateValidatorMessage($messageString)
+    private function translateValidatorMessage(string $messageString): string
     {
         return $this->translator->trans(
             $messageString,

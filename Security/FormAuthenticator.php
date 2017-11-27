@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Security;
 
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -31,13 +32,6 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     /** array */
     private $redirectRoutes = [];
 
-    /**
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param RouterInterface $router
-     * @param FlashBagInterface $flashBag
-     * @param TranslatorInterface $translator
-     * @param array $redirectRoutes
-     */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
         RouterInterface $router,
@@ -52,11 +46,11 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         $this->redirectRoutes = $redirectRoutes;
     }
 
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): ?FormCredentials
     {
         if ($request->getPathInfo() !== $this->getLoginUrl()
             || !$request->isMethod(Request::METHOD_POST)) {
-            return;
+            return null;
         }
 
         return new FormCredentials(
@@ -65,12 +59,20 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         );
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): User
     {
         return $userProvider->loadUserByUsername($credentials->getUsername());
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
+    /**
+     * @param FormCredentials $credentials
+     * @param UserInterface $user
+     *
+     * @return bool
+     *
+     * @throws BadCredentialsException
+     */
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         $plainPassword = $credentials->getPlainPassword();
         $encoder = $this->passwordEncoder;
@@ -82,12 +84,12 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         return true;
     }
 
-    protected function getLoginUrl()
+    protected function getLoginUrl(): string
     {
         return $this->router->generate('multi_user_login');
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): RedirectResponse
     {
         // if the user hit a secure page and start() was called, this was
         // the URL they were on, and probably where you want to redirect to
@@ -110,7 +112,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         return new RedirectResponse($targetPath);
     }
 
-    public function getSuccessRedirectUrl(TokenInterface $token)
+    public function getSuccessRedirectUrl(TokenInterface $token): string
     {
         foreach ($this->redirectRoutes as $class => $route) {
             if (get_class($token->getUser()) === $class) {
@@ -121,7 +123,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         return $this->getDefaultSuccessRedirectURL();
     }
 
-    protected function getDefaultSuccessRedirectURL()
+    protected function getDefaultSuccessRedirectURL(): string
     {
         return '/';
     }

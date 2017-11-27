@@ -7,22 +7,12 @@ use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 
 final class UserNotFound extends Exception
 {
-    /**
-     * @param string $username
-     *
-     * @return self
-     */
-    public static function withUsername($username)
+    public static function withUsername(string $username): self
     {
         return new self('No user found with username "' . $username . '".');
     }
 
-    /**
-     * @param PasswordResetToken $token
-     *
-     * @return self
-     */
-    public static function withToken(PasswordResetToken $token)
+    public static function withToken(PasswordResetToken $token): self
     {
         return new self('No user found with password reset token "' . $token->getToken() . '".');
     }

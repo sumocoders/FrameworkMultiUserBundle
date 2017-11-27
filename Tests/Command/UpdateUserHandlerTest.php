@@ -20,16 +20,18 @@ class UpdateUserHandlerTest extends PHPUnit_Framework_TestCase
     /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->userRepository = new InMemoryBaseUserRepository();
+        $this->userRepository = new InMemoryBaseUserRepository(
+            new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+        );
         $this->userRepositoryCollection = new BaseUserRepositoryCollection([$this->userRepository]);
     }
 
     /**
      * Test if UpdateUserHandler gets handled.
      */
-    public function testUpdateUserGetsHandled()
+    public function testUpdateUserGetsHandled(): void
     {
         $handler = new UpdateUserHandler(
             new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()]),

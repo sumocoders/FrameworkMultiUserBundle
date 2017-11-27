@@ -6,12 +6,7 @@ use Exception;
 
 final class RepositoryNotRegisteredException extends Exception
 {
-    /**
-     * @param $classname
-     *
-     * @return static
-     */
-    public static function withClassName($classname)
+    public static function withClassName(string $classname): self
     {
         return new static('No repository has been registered for the '.$classname.' class.');
     }

@@ -4,52 +4,17 @@ namespace SumoCoders\FrameworkMultiUserBundle\User\Interfaces;
 
 interface UserRepository extends PasswordResetRepository
 {
-    /**
-     * @param string $username
-     *
-     * @return User|null
-     */
-    public function findByUsername($username);
+    public function findByUsername(string $username): ?User;
 
-    /**
-     * @param string $emailAddress
-     *
-     * @return User|null
-     */
-    public function findByEmailAddress($emailAddress);
+    public function findByEmailAddress(string $emailAddress): ?User;
 
-    /**
-     * @param string $class
-     *
-     * @return bool
-     */
-    public function supportsClass($class);
+    public function supportsClass(string $class): bool;
 
-    /**
-     * @param $id
-     *
-     * @return User
-     */
     public function find($id);
 
-    /**
-     * Saves the given user.
-     *
-     * @param User $user
-     */
-    public function add(User $user);
+    public function add(User $user): void;
 
-    /**
-     * Saves the given user.
-     *
-     * @param User $user
-     */
-    public function save(User $user);
+    public function save(User $user): void;
 
-    /**
-     * Delete an existing user.
-     *
-     * @param User $user
-     */
-    public function delete(User $user);
+    public function delete(User $user): void;
 }

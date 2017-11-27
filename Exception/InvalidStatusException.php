@@ -7,12 +7,7 @@ use SumoCoders\FrameworkMultiUserBundle\ValueObject\Status;
 
 final class InvalidStatusException extends Exception
 {
-    /**
-     * @param string $status
-     *
-     * @return InvalidStatusException
-     */
-    public static function withStatus($status)
+    public static function withStatus(string $status): self
     {
         return new self(
             sprintf(

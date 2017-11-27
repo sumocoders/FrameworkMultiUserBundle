@@ -14,15 +14,19 @@ class ObjectUserEmailProvider implements UserProviderInterface
     /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    /**
-     * @param BaseUserRepositoryCollection $userRepositoryCollection
-     */
     public function __construct(BaseUserRepositoryCollection $userRepositoryCollection)
     {
         $this->userRepositoryCollection = $userRepositoryCollection;
     }
 
-    public function loadUserByUsername($emailAddress)
+    /**
+     * @param string $emailAddress
+     *
+     * @return User
+     *
+     * @throws UsernameNotFoundException
+     */
+    public function loadUserByUsername($emailAddress): User
     {
         foreach ($this->userRepositoryCollection->all() as $repository) {
             $user = $repository->findByEmailAddress($emailAddress);
@@ -38,7 +42,14 @@ class ObjectUserEmailProvider implements UserProviderInterface
         );
     }
 
-    public function refreshUser(UserInterface $user)
+    /**
+     * @param UserInterface $user
+     *
+     * @return User
+     *
+     * @throws UnsupportedUserException
+     */
+    public function refreshUser(UserInterface $user): User
     {
         if (!$this->supportsClass(get_class($user))) {
             throw new UnsupportedUserException(
@@ -49,7 +60,7 @@ class ObjectUserEmailProvider implements UserProviderInterface
         return $this->loadUserByUsername($user->getEmail());
     }
 
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
         return $this->userRepositoryCollection->supportsClass($class);
     }

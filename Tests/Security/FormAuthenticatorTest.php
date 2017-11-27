@@ -9,6 +9,7 @@ use SumoCoders\FrameworkMultiUserBundle\Security\ObjectUserProvider;
 use SumoCoders\FrameworkMultiUserBundle\User\InMemoryBaseUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -27,7 +28,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
     private $flashBag;
     private $translator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->router = $this->getMockBuilder(RouterInterface::class)->getMock();
         $this->flashBag = $this->getMockBuilder(FlashBagInterface::class)->getMock();
@@ -47,16 +48,24 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testFormAuthenticatorGetUser()
+    public function testFormAuthenticatorGetUser(): void
     {
-        $userRepositoryCollection = new BaseUserRepositoryCollection([new InMemoryBaseUserRepository()]);
+        $userRepositoryCollection = new BaseUserRepositoryCollection(
+            [
+                new InMemoryBaseUserRepository(
+                    new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+                ),
+            ]
+        );
         $provider = new ObjectUserProvider($userRepositoryCollection);
         $user = $this->formAuthenticator->getUser($this->getCredentials(), $provider);
 
-        $this->assertEquals($this->getUser(), $user);
+        $this->assertEquals($this->getUser()->getId(), $user->getId());
+        $this->assertEquals($this->getUser()->getUsername(), $user->getUsername());
+        $this->assertEquals($this->getUser()->getEmail(), $user->getEmail());
     }
 
-    public function testCheckCredentials()
+    public function testCheckCredentials(): void
     {
         $user = $this->getUser();
         $user->encodePassword(new PlaintextPasswordEncoder());
@@ -68,16 +77,16 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException Symfony\Component\Security\Core\Exception\BadCredentialsException
      */
-    public function testBadCredentialsException()
+    public function testBadCredentialsException(): void
     {
-        $this->setExpectedException('Symfony\Component\Security\Core\Exception\BadCredentialsException');
+        $this->expectException('Symfony\Component\Security\Core\Exception\BadCredentialsException');
         $this->formAuthenticator->checkCredentials(
             $this->getCredentials('wouter', 'wrongPassword'),
             $this->getUser()
         );
     }
 
-    public function testOnAuthenticationSuccess()
+    public function testOnAuthenticationSuccess(): void
     {
         $request = new Request();
         $providerKey = 'main';
@@ -92,7 +101,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $this->formAuthenticator->onAuthenticationSuccess($request, $token, $providerKey);
     }
 
-    private function getCredentials($username = 'wouter', $password = 'test')
+    private function getCredentials($username = 'wouter', $password = 'test'): FormCredentials
     {
         $mock = $this->getMockBuilder(FormCredentials::class)->disableOriginalConstructor()->getMock();
         $mock->method('getUserName')->willReturn($username);
@@ -101,8 +110,12 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         return $mock;
     }
 
-    private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen', $email = 'wouter@example.dev', $id = 1)
+    private function getUser(): User
     {
-        return new BaseUser($username, $password, $displayName, $email, $id);
+        $inMemoryBaseUserRepository = new InMemoryBaseUserRepository(
+            new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+        );
+
+        return $inMemoryBaseUserRepository->find(1);
     }
 }
