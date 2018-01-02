@@ -28,6 +28,10 @@
     {
       "name": "Dylan Moerman",
       "email": "dylan@sumocoders.be"
+    },
+    {
+      "name": "Bruno Vitorino",
+      "email": "bruno@sumocoders.be"
     }
   ],
   "minimum-stability": "dev",
