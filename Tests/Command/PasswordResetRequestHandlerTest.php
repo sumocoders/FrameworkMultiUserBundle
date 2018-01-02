@@ -5,29 +5,34 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 use PHPUnit_Framework_TestCase;
 use SumoCoders\FrameworkMultiUserBundle\Command\RequestPasswordResetHandler;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\RequestPasswordDataTransferObject;
-use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
+use SumoCoders\FrameworkMultiUserBundle\User\InMemoryBaseUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 class PasswordResetRequestHandlerTest extends PHPUnit_Framework_TestCase
 {
     /** @var UserRepository */
     private $userRepository;
 
-    /** @var UserRepositoryCollection */
+    /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->userRepository = new InMemoryUserRepository();
-        $this->userRepositoryCollection = new UserRepositoryCollection([$this->userRepository]);
+        $this->userRepository = new InMemoryBaseUserRepository(
+            new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+        );
+        $this->userRepositoryCollection = new BaseUserRepositoryCollection([$this->userRepository]);
     }
 
     /**
      * Test if CreateUserHandler gets handled.
      */
-    public function testPasswordResetRequestGetsHandled()
+    public function testPasswordResetRequestGetsHandled(): void
     {
         $dispatcherMock = $this->getMockBuilder(EventDispatcherInterface::class)
             ->disableOriginalConstructor()

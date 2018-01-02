@@ -4,11 +4,11 @@ namespace SumoCoders\FrameworkMultiUserBundle\Tests\Command;
 
 use PHPUnit_Framework_TestCase;
 use SumoCoders\FrameworkMultiUserBundle\Command\CreateUserHandler;
-use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject;
-use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\BaseUserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\User\InMemoryBaseUserRepository;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use SumoCoders\FrameworkMultiUserBundle\Entity\User;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
@@ -17,29 +17,32 @@ class CreateUserHandlerTest extends PHPUnit_Framework_TestCase
     /** @var UserRepository */
     private $userRepository;
 
-    /** @var UserRepositoryCollection */
+    /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->userRepository = new InMemoryUserRepository();
-        $this->userRepositoryCollection = new UserRepositoryCollection([$this->userRepository]);
+        $this->userRepository = new InMemoryBaseUserRepository(
+            new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+        );
+        $this->userRepositoryCollection = new BaseUserRepositoryCollection([$this->userRepository]);
     }
 
     /**
      * Test if CreateUserHandler gets handled.
      */
-    public function testCreateUserGetsHandled()
+    public function testCreateUserGetsHandled(): void
     {
         $handler = new CreateUserHandler(
-            new EncoderFactory([User::class => new PlaintextPasswordEncoder()]),
+            new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()]),
             $this->userRepositoryCollection
         );
 
-        $user = new User('sumo', 'randomPassword', 'sumocoders', 'sumo@example.dev');
-
-        $userDataTransferObject = UserDataTransferObject::fromUser($user);
+        $userDataTransferObject = new BaseUserDataTransferObject();
+        $userDataTransferObject->userName = 'sumo';
         $userDataTransferObject->plainPassword = 'randomPassword';
+        $userDataTransferObject->displayName = 'sumocoders';
+        $userDataTransferObject->email = 'sumo@example.dev';
 
         $handler->handle($userDataTransferObject);
 

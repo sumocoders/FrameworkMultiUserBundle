@@ -22,7 +22,7 @@ class ChangePasswordDataTransferObject
      */
     public $user;
 
-    public static function forUser(User $user)
+    public static function forUser(User $user): self
     {
         $changePasswordTransferObject = new self();
         $changePasswordTransferObject->user = $user;

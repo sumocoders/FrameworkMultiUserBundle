@@ -5,16 +5,16 @@ namespace SumoCoders\FrameworkMultiUserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\ValueObject\Status;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
- * @ORM\Entity(repositoryClass="SumoCoders\FrameworkMultiUserBundle\User\DoctrineUserRepository")
+ * @ORM\Entity(repositoryClass="SumoCoders\FrameworkMultiUserBundle\User\DoctrineBaseUserRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  */
-class User implements UserInterface
+class BaseUser implements User
 {
     /**
      * @var int
@@ -75,6 +75,11 @@ class User implements UserInterface
     protected $status;
 
     /**
+     * @var string
+     */
+    protected $plainPassword;
+
+    /**
      * @param string $username
      * @param string $plainPassword
      * @param string $displayName
@@ -83,11 +88,11 @@ class User implements UserInterface
      * @param PasswordResetToken $token
      */
     public function __construct(
-        $username,
-        $plainPassword,
-        $displayName,
-        $email,
-        $id = null,
+        string $username,
+        string $plainPassword,
+        string $displayName,
+        string $email,
+        int $id = null,
         PasswordResetToken $token = null
     ) {
         $this->username = $username;
@@ -104,22 +109,22 @@ class User implements UserInterface
         }
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         return ['ROLE_USER'];
     }
 
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function getSalt()
+    public function getSalt(): string
     {
         return $this->salt;
     }
 
-    public function encodePassword(PasswordEncoderInterface $encoder)
+    public function encodePassword(PasswordEncoderInterface $encoder): void
     {
         if (empty($this->plainPassword)) {
             return;
@@ -133,73 +138,73 @@ class User implements UserInterface
         $this->eraseCredentials();
     }
 
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         $this->plainPassword = null;
     }
 
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return $this->displayName;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getDisplayName();
     }
 
-    public function clearPasswordResetToken()
+    public function clearPasswordResetToken(): self
     {
         $this->passwordResetToken = null;
 
         return $this;
     }
 
-    public function generatePasswordResetToken()
+    public function generatePasswordResetToken(): self
     {
         $this->passwordResetToken = PasswordResetToken::generate();
 
         return $this;
     }
 
-    public function getPasswordResetToken()
+    public function getPasswordResetToken(): ?PasswordResetToken
     {
         return $this->passwordResetToken;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setPassword($password)
+    public function setPassword(string $password): self
     {
         $this->plainPassword = $password;
 
         return $this;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function hasPlainPassword()
+    public function hasPlainPassword(): bool
     {
         return !empty($this->plainPassword);
     }
 
-    public function getPlainPassword()
+    public function getPlainPassword(): string
     {
         return $this->plainPassword;
     }
 
-    public function change(UserDataTransferObject $data)
+    public function change(UserDataTransferObject $data): void
     {
         $this->username = $data->getUserName();
         $this->plainPassword = $data->getPlainPassword();
@@ -207,7 +212,7 @@ class User implements UserInterface
         $this->email = $data->getEmail();
     }
 
-    public function toggleBlock()
+    public function toggleBlock(): void
     {
         if ((string) $this->status === Status::BLOCKED) {
             $this->status = Status::active();
@@ -218,8 +223,13 @@ class User implements UserInterface
         $this->status = Status::blocked();
     }
 
-    public function isBlocked()
+    public function isBlocked(): bool
     {
         return $this->status->isBlocked();
+    }
+
+    public function canSwitchTo(BaseUser $user): bool
+    {
+        return false;
     }
 }

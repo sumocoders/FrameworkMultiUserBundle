@@ -6,7 +6,7 @@ The FrameworkMultiUserBundle is a simple bundle that allows multiple users to be
 
 First thing's first, let's get started with the [Installation](installation.md)!
 
-#Overview
+## Overview
 
 * [Getting started](index.md)
 * [Installation](installation.md)

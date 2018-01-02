@@ -17,7 +17,7 @@ final class Status
      *
      * @throws InvalidStatusException
      */
-    private function __construct($status)
+    private function __construct(string $status)
     {
         if (!in_array($status, self::getPossibleStatuses())) {
             throw InvalidStatusException::withStatus($status);
@@ -26,20 +26,12 @@ final class Status
         $this->status = $status;
     }
 
-    /**
-     * @param string $status
-     *
-     * @return Status
-     */
-    public static function fromString($status)
+    public static function fromString(string $status): self
     {
         return new self($status);
     }
 
-    /**
-     * @return array
-     */
-    public static function getPossibleStatuses()
+    public static function getPossibleStatuses(): array
     {
         $statuses = [
             self::ACTIVE,
@@ -49,34 +41,22 @@ final class Status
         return array_combine($statuses, $statuses);
     }
 
-    /**
-     * @return Status
-     */
-    public static function active()
+    public static function active(): self
     {
         return new self(self::ACTIVE);
     }
 
-    /**
-     * @return Status
-     */
-    public static function blocked()
+    public static function blocked(): self
     {
         return new self(self::BLOCKED);
     }
 
-    /**
-     * @return bool
-     */
-    public function isBlocked()
+    public function isBlocked(): bool
     {
         return $this->status === self::BLOCKED;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->status;
     }

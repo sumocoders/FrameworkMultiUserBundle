@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class PasswordRequestTokenConverter implements ParamConverterInterface
 {
-    public function apply(Request $request, ParamConverter $configuration)
+    public function apply(Request $request, ParamConverter $configuration): bool
     {
         $token = new PasswordResetToken($request->attributes->get('token'));
         $request->attributes->set('token', $token);
@@ -17,7 +17,7 @@ final class PasswordRequestTokenConverter implements ParamConverterInterface
         return true;
     }
 
-    public function supports(ParamConverter $configuration)
+    public function supports(ParamConverter $configuration): bool
     {
         return PasswordResetToken::class === $configuration->getClass();
     }

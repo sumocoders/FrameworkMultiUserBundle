@@ -4,23 +4,19 @@ namespace SumoCoders\FrameworkMultiUserBundle\Command;
 
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\ChangePasswordDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidPasswordConfirmationException;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ResetPasswordHandler
 {
-    /** @var UserRepositoryCollection */
+    /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
 
     /** @var EncoderFactoryInterface */
     private $encoderFactory;
 
-    /**
-     * @param UserRepositoryCollection $userRepositoryCollection
-     * @param EncoderFactoryInterface $encoderFactory
-     */
     public function __construct(
-        UserRepositoryCollection $userRepositoryCollection,
+        BaseUserRepositoryCollection $userRepositoryCollection,
         EncoderFactoryInterface $encoderFactory
     ) {
         $this->userRepositoryCollection = $userRepositoryCollection;
@@ -32,7 +28,7 @@ class ResetPasswordHandler
      *
      * @throws InvalidPasswordConfirmationException
      */
-    public function handle(ChangePasswordDataTransferObject $dataTransferObject)
+    public function handle(ChangePasswordDataTransferObject $dataTransferObject): void
     {
         $user = $dataTransferObject->user;
         $user->setPassword($dataTransferObject->newPassword);

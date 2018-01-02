@@ -1,10 +1,10 @@
 « [Routing](routing.md)
 ***
-#Users
+# Users
 ***
 [Entity](users_entity.md) | [Repository](users_repositories.md) | [Data transfer objects](users_dto.md) | Forms | [CRUD](users_crud.md)
 ***
-##Forms
+## Forms
 Every user needs a specific form for each base form you want to implement. Luckily, little configuration is required to get things going. 
 
 4 forms are defined in `SumoCoders\FrameworkMultiUserBundle\Form`:
@@ -18,7 +18,7 @@ The first 2 forms are the most important since you will be extending these for e
 
 In these examples I will show you what you need to do create an _add_ form for your users.
 
-##The admin
+## The admin
 ```php
 namespace AppBundle\Form;
 
@@ -41,7 +41,7 @@ final class AddAdminType extends AddUserType
 
 As our Admin closely resembles a base user, all we need to do is define the name and the data transfer object class.
 
-##The advisor
+## The advisor
 The same applies to our advisor but because we have an extra property, first name, we need also to add an extra field to our form.
 
 ```php

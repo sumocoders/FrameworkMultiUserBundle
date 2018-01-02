@@ -10,7 +10,7 @@ final class StatusType extends Type
 {
     const STATUS = 'user_status';
 
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         $fieldDeclaration['length'] = 50;
 
@@ -18,35 +18,41 @@ final class StatusType extends Type
     }
 
     /**
-     * @param mixed $value
+     * @param string|null $value
      * @param AbstractPlatform $platform
      *
-     * @return Status|void
+     * @return Status|null
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Status
     {
         if ($value === null) {
-            return;
+            return null;
         }
 
         return Status::fromString($value);
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    /**
+     * @param Status|null $value
+     * @param AbstractPlatform $platform
+     *
+     * @return string|null
+     */
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if ($value === null) {
-            return;
+            return null;
         }
 
         return (string) $value;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return self::STATUS;
     }
 
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;
     }

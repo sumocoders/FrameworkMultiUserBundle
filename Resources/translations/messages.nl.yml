@@ -15,6 +15,7 @@ sumocoders:
       logout: afmelden
       user_not_found: geen gebruiker gevonden met gebruikersnaam %username%
       forgot_password: wachtwoord vergeten?
+      delete: verwijder
     mail:
       request_password: pas je wachtwoord <a href="%link%">hier</a> aan
     flash:
@@ -23,6 +24,14 @@ sumocoders:
       login_success: Welkom, %username%! Je bent succesvol ingelogd.
       block_success: De gebruiker is geblokkeerd.
       unblock_success: De gebruiker is niet meer geblokkeerd.
+      added: De gebruiker "%user%" is toegevoegd.
+      edited: De gebruiker "%user%" is bewerkt.
+      deleted: De gebruiker "%user%" is verwijderd.
+    modal:
+      title:
+        deleteUser: Gebruiker verwijderen
+      body:
+        confirmDelete: Ben je zeker dat je deze gebruiker wilt verwijderen?
 request:
   password:
     userName: gebruikersnaam

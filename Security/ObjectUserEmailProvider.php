@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
-class ObjectUserProvider implements UserProviderInterface
+class ObjectUserEmailProvider implements UserProviderInterface
 {
     /** @var BaseUserRepositoryCollection */
     private $userRepositoryCollection;
@@ -20,24 +20,25 @@ class ObjectUserProvider implements UserProviderInterface
     }
 
     /**
-     * @param string $username
+     * @param string $emailAddress
      *
      * @return User
      *
      * @throws UsernameNotFoundException
      */
-    public function loadUserByUsername($username): User
+    public function loadUserByUsername($emailAddress): User
     {
         foreach ($this->userRepositoryCollection->all() as $repository) {
-            $user = $repository->findByUsername($username);
+            $user = $repository->findByEmailAddress($emailAddress);
 
             if ($user instanceof User) {
                 return $user;
             }
         }
 
+        // Since we are using the email as username we keep this exception since it is a part of symfony
         throw new UsernameNotFoundException(
-            sprintf('Username "%s" does not exist.', $username)
+            sprintf('Email "%s" does not exist.', $emailAddress)
         );
     }
 
@@ -56,7 +57,7 @@ class ObjectUserProvider implements UserProviderInterface
             );
         }
 
-        return $this->loadUserByUsername($user->getUsername());
+        return $this->loadUserByUsername($user->getEmail());
     }
 
     public function supportsClass($class): bool

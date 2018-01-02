@@ -6,8 +6,5 @@ use Symfony\Component\Form\FormTypeInterface;
 
 interface FormWithDataTransferObject extends FormTypeInterface
 {
-    /**
-     * @return string
-     */
-    public function getDataTransferObjectClass();
+    public static function getDataTransferObjectClass(): string;
 }

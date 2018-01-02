@@ -6,9 +6,10 @@ use PHPUnit_Framework_TestCase;
 use SumoCoders\FrameworkMultiUserBundle\Security\FormAuthenticator;
 use SumoCoders\FrameworkMultiUserBundle\Security\FormCredentials;
 use SumoCoders\FrameworkMultiUserBundle\Security\ObjectUserProvider;
-use SumoCoders\FrameworkMultiUserBundle\User\InMemoryUserRepository;
-use SumoCoders\FrameworkMultiUserBundle\User\UserRepositoryCollection;
-use SumoCoders\FrameworkMultiUserBundle\Entity\User;
+use SumoCoders\FrameworkMultiUserBundle\User\InMemoryBaseUserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\BaseUserRepositoryCollection;
+use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -27,12 +28,12 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
     private $flashBag;
     private $translator;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->router = $this->getMock(RouterInterface::class);
-        $this->flashBag = $this->getMock(FlashBagInterface::class);
-        $this->translator = $this->getMock(TranslatorInterface::class);
-        $encoders['SumoCoders\FrameworkMultiUserBundle\Entity\User'] = [
+        $this->router = $this->getMockBuilder(RouterInterface::class)->getMock();
+        $this->flashBag = $this->getMockBuilder(FlashBagInterface::class)->getMock();
+        $this->translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
+        $encoders[ 'SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser' ] = [
             'class' => 'Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder',
             'arguments' => [12],
         ];
@@ -47,37 +48,45 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testFormAuthenticatorGetUser()
+    public function testFormAuthenticatorGetUser(): void
     {
-        $userRepositoryCollection = new UserRepositoryCollection([new InMemoryUserRepository()]);
+        $userRepositoryCollection = new BaseUserRepositoryCollection(
+            [
+                new InMemoryBaseUserRepository(
+                    new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+                ),
+            ]
+        );
         $provider = new ObjectUserProvider($userRepositoryCollection);
         $user = $this->formAuthenticator->getUser($this->getCredentials(), $provider);
 
-        $this->assertEquals($this->getUser(), $user);
+        $this->assertEquals($this->getUser()->getId(), $user->getId());
+        $this->assertEquals($this->getUser()->getUsername(), $user->getUsername());
+        $this->assertEquals($this->getUser()->getEmail(), $user->getEmail());
     }
 
-    public function testCheckCredentials()
+    public function testCheckCredentials(): void
     {
         $user = $this->getUser();
         $user->encodePassword(new PlaintextPasswordEncoder());
         $this->assertTrue(
-            $this->formAuthenticator->checkCredentials($this->getCredentials($user->getSalt()), $user)
+            $this->formAuthenticator->checkCredentials($this->getCredentials(), $user)
         );
     }
 
     /**
      * @expectedException Symfony\Component\Security\Core\Exception\BadCredentialsException
      */
-    public function testBadCredentialsException()
+    public function testBadCredentialsException(): void
     {
-        $this->setExpectedException('Symfony\Component\Security\Core\Exception\BadCredentialsException');
+        $this->expectException('Symfony\Component\Security\Core\Exception\BadCredentialsException');
         $this->formAuthenticator->checkCredentials(
             $this->getCredentials('wouter', 'wrongPassword'),
             $this->getUser()
         );
     }
 
-    public function testOnAuthenticationSuccess()
+    public function testOnAuthenticationSuccess(): void
     {
         $request = new Request();
         $providerKey = 'main';
@@ -92,17 +101,21 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $this->formAuthenticator->onAuthenticationSuccess($request, $token, $providerKey);
     }
 
-    private function getCredentials($salt = 'zout', $username = 'wouter', $password = 'test')
+    private function getCredentials($username = 'wouter', $password = 'test'): FormCredentials
     {
-        $mock = $this->getMock(FormCredentials::class, [], [$username, $password . '{' . $salt . '}']);
+        $mock = $this->getMockBuilder(FormCredentials::class)->disableOriginalConstructor()->getMock();
         $mock->method('getUserName')->willReturn($username);
         $mock->method('getPlainPassword')->willReturn($password);
 
         return $mock;
     }
 
-    private function getUser($username = 'wouter', $password = 'test', $displayName = 'Wouter Sioen', $email = 'wouter@example.dev', $id = 1)
+    private function getUser(): User
     {
-        return new User($username, $password, $displayName, $email, $id);
+        $inMemoryBaseUserRepository = new InMemoryBaseUserRepository(
+            new EncoderFactory([BaseUser::class => new PlaintextPasswordEncoder()])
+        );
+
+        return $inMemoryBaseUserRepository->find(1);
     }
 }

@@ -9,14 +9,11 @@ use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
 
-class UserRepositoryCollection
+class BaseUserRepositoryCollection
 {
     /** @var UserRepository[] */
     private $userRepositories = [];
 
-    /**
-     * @param UserRepository[] $userRepositories
-     */
     public function __construct(array $userRepositories)
     {
         foreach ($userRepositories as $repository) {
@@ -24,24 +21,17 @@ class UserRepositoryCollection
         }
     }
 
-    /**
-     * Registers the UserRepository to the UserRepositoryCollection.
-     *
-     * @param UserRepository $userRepository
-     */
-    public function addUserRepository(UserRepository $userRepository)
+    public function addUserRepository(UserRepository $userRepository): void
     {
         $this->userRepositories[] = $userRepository;
     }
 
     /**
-     * Get the userRepositories.
-     *
      * @throws NoRepositoriesRegisteredException
      *
      * @return UserRepository[]
      */
-    public function all()
+    public function all(): array
     {
         if (count($this->userRepositories) === 0) {
             throw new NoRepositoriesRegisteredException('No user repositories registered');
@@ -51,15 +41,13 @@ class UserRepositoryCollection
     }
 
     /**
-     * Find the UserRepository for a given User Class.
-     *
      * @param string $className
      *
      * @throws RepositoryNotRegisteredException
      *
      * @return UserRepository
      */
-    public function findRepositoryByClassName($className)
+    public function findRepositoryByClassName(string $className): UserRepository
     {
         foreach ($this->userRepositories as $repository) {
             if ($repository->supportsClass($className)) {
@@ -71,13 +59,11 @@ class UserRepositoryCollection
     }
 
     /**
-     * Check if the UserRepositoryCollection supports a User class.
-     *
      * @param string $className
      *
      * @return bool
      */
-    public function supportsClass($className)
+    public function supportsClass(string $className): bool
     {
         foreach ($this->userRepositories as $repository) {
             if ($repository->supportsClass($className)) {
@@ -95,7 +81,7 @@ class UserRepositoryCollection
      *
      * @return User
      */
-    public function findUserByToken(PasswordResetToken $token)
+    public function findUserByToken(PasswordResetToken $token): User
     {
         foreach ($this->userRepositories as $repository) {
             $user = $repository->findByPasswordResetToken($token);
@@ -115,7 +101,7 @@ class UserRepositoryCollection
      *
      * @return User
      */
-    public function findUserByUserName($username)
+    public function findUserByUserName(string $username): User
     {
         foreach ($this->userRepositories as $repository) {
             $user = $repository->findByUsername($username);

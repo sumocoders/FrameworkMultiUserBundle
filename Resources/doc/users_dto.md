@@ -1,17 +1,17 @@
 « [Routing](routing.md)
 ***
-#Users
+# Users
 ***
 [Entity](users_entity.md) | [Repository](users_repositories.md) | Data transfer objects | [Forms](users_forms.md) | [CRUD](users_crud.md)
 ***
-##Data transfer objects
+## Data transfer objects
 Data transfer objects are simply objects that carry data between processes. Nothing is done with this data, the point of a data transfer object is to simply translate a certain object to another.  
 
 In our case it will be used in the communication between the forms which want to write their data to an object and our entity which will eventually hold the data the form received. Placing a data transfer object between the form and the entity allows us to not use setters.
 
 Our implemented data transfer objects will extend the multiuserbundle's base class which is found in `SumoCoders\FrameworkMultiUserBundle\DataTransferObject\UserDataTransferObject`
 
-##The admin
+## The admin
 ```php
 namespace AppBundle\DataTransferObject;
 
@@ -43,7 +43,7 @@ class AdminDataTransferObject extends UserDataTransferObject
 
 This is all there is to it. Since the admin has the exact same properties as the base user all we need to do is make sure we return the correct entity.
 
-##The advisor
+## The advisor
 ```php
 namespace AppBundle\DataTransferObject;
 

@@ -6,8 +6,5 @@ use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTr
 
 interface Handler
 {
-    /**
-     * @param UserDataTransferObject $user
-     */
-    public function handle(UserDataTransferObject $user);
+    public function handle(UserDataTransferObject $user): void;
 }

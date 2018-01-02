@@ -4,15 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\User\Interfaces;
 
 interface Blockable
 {
-    /**
-     * This will toggle the status of the user, between active and blocked.
-     */
-    public function toggleBlock();
+    public function toggleBlock(): void;
 
-    /**
-     * This will check if the user is blocked.
-     *
-     * @return bool
-     */
-    public function isBlocked();
+    public function isBlocked(): bool;
 }
