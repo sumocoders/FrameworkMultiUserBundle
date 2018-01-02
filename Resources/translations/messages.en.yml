@@ -33,3 +33,7 @@ change:
       first: password
       second: repeat password
     submit: Set new password
+user:
+  header:
+    title:
+      login: Login

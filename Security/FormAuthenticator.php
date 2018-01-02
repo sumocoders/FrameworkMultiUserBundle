@@ -82,6 +82,11 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         return true;
     }
 
+    public function supports(Request $request)
+    {
+        return $request->getBasePath() === '/login' && $request->isMethod('POST');
+    }
+
     protected function getLoginUrl()
     {
         return $this->router->generate('multi_user_login');

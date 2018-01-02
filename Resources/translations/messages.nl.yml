@@ -33,3 +33,7 @@ change:
       first: wachtwoord
       second: herhaal wachtwoord
     submit: Stel nieuw wachtwoord in
+user:
+  header:
+    title:
+      login: Login
