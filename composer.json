@@ -40,7 +40,7 @@
     "symfony/framework-bundle": "^3.3||^4.0",
     "symfony/security-guard": "^3.3||^4.0",
     "symfony/security" : "^3.3||^4.0",
-    "swiftmailer/swiftmailer": "^5.4",
+    "swiftmailer/swiftmailer": "^6.0",
     "doctrine/orm": "^2.5"
   },
   "require-dev": {
