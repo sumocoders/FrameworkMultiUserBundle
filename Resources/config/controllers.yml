@@ -7,6 +7,7 @@ services:
       - "@sumocoders.form_authenticator"
       - "@security.token_storage"
       - "@translator.default"
+    public: true
 
   multi_user.password_reset.request_controller:
     class: SumoCoders\FrameworkMultiUserBundle\Controller\RequestPasswordResetController
@@ -17,6 +18,7 @@ services:
       - "@router"
       - "@translator.default"
       - "@session.flash_bag"
+    public: true
 
   multi_user.password_reset.reset_controller:
     class: SumoCoders\FrameworkMultiUserBundle\Controller\PasswordResetController
@@ -28,3 +30,4 @@ services:
       - "@templating"
       - "@translator.default"
       - "@session.flash_bag"
+    public: true
