@@ -63,9 +63,9 @@ class PasswordResetController
      *
      * @throws InvalidPasswordConfirmationException
      *
-     * @return RedirectResponse
+     * @return RedirectResponse|array
      */
-    public function resetAction(Request $request, PasswordResetToken $token): RedirectResponse
+    public function resetAction(Request $request, PasswordResetToken $token)
     {
         $user = $this->userRepositoryCollection->findUserByToken($token);
 
