@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
@@ -63,9 +64,9 @@ class PasswordResetController
      *
      * @throws InvalidPasswordConfirmationException
      *
-     * @return RedirectResponse|array
+     * @return Response
      */
-    public function resetAction(Request $request, PasswordResetToken $token)
+    public function resetAction(Request $request, PasswordResetToken $token): Response
     {
         $user = $this->userRepositoryCollection->findUserByToken($token);
 
