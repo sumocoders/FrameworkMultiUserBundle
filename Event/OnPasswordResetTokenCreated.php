@@ -39,7 +39,12 @@ class OnPasswordResetTokenCreated implements EventSubscriberInterface
         $this->emailFrom = $emailFrom;
     }
 
-    public function onPasswordResetTokenCreated(PasswordResetTokenCreated $event): int
+    /**
+     * @param PasswordResetTokenCreated $event
+     *
+     * @return int
+     */
+    public function onPasswordResetTokenCreated(PasswordResetTokenCreated $event)
     {
         $message = $this->messageFactory->createHtmlMessage(
             'Password reset requested',
@@ -57,7 +62,10 @@ class OnPasswordResetTokenCreated implements EventSubscriberInterface
         return $this->mailer->send($message);
     }
 
-    public static function getSubscribedEvents(): array
+    /**
+     * @return array
+     */
+    public static function getSubscribedEvents()
     {
         return [
             PasswordResetTokenCreated::NAME => [
