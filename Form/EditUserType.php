@@ -35,7 +35,7 @@ class EditUserType extends AbstractType implements FormWithDataTransferObject
         );
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'multi_user_form_edit_user';
     }

@@ -40,7 +40,7 @@ class ChangePasswordType extends AbstractType
         );
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'change_password';
     }

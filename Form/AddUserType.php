@@ -41,7 +41,7 @@ class AddUserType extends AbstractType implements FormWithDataTransferObject
         );
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'multi_user_form_add_user';
     }

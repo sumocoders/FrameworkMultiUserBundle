@@ -35,7 +35,7 @@ class RequestPasswordType extends AbstractType
         );
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'request_password';
     }
