@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
-final class RequestPasswordResetController
+class RequestPasswordResetController
 {
     /** @var EngineInterface */
     private $templating;

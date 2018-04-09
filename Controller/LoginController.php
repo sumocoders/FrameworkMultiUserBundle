@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-final class LoginController
+class LoginController
 {
     /** @var EngineInterface */
     private $templating;

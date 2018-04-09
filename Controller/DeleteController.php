@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Translation\TranslatorInterface;
 
-final class DeleteController
+class DeleteController
 {
     /** @var FormFactoryInterface */
     private $formFactory;
