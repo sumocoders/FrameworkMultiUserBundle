@@ -7,15 +7,15 @@ use SumoCoders\FrameworkMultiUserBundle\Exception\RepositoryNotRegisteredExcepti
 use SumoCoders\FrameworkMultiUserBundle\Exception\UserNotFound;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
-use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
+use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository as UserRepositoryInterface;
 
 class UserRepositoryCollection
 {
-    /** @var UserRepository[] */
+    /** @var UserRepositoryInterface[] */
     private $userRepositories = [];
 
     /**
-     * @param UserRepository[] $userRepositories
+     * @param UserRepositoryInterface[] $userRepositories
      */
     public function __construct(array $userRepositories)
     {
@@ -27,9 +27,9 @@ class UserRepositoryCollection
     /**
      * Registers the UserRepository to the UserRepositoryCollection.
      *
-     * @param UserRepository $userRepository
+     * @param UserRepositoryInterface $userRepository
      */
-    public function addUserRepository(UserRepository $userRepository)
+    public function addUserRepository(UserRepositoryInterface $userRepository)
     {
         $this->userRepositories[] = $userRepository;
     }
@@ -39,7 +39,7 @@ class UserRepositoryCollection
      *
      * @throws NoRepositoriesRegisteredException
      *
-     * @return UserRepository[]
+     * @return UserRepositoryInterface[]
      */
     public function all()
     {
@@ -57,10 +57,11 @@ class UserRepositoryCollection
      *
      * @throws RepositoryNotRegisteredException
      *
-     * @return UserRepository
+     * @return UserRepositoryInterface
      */
     public function findRepositoryByClassName($className)
     {
+        /** @var UserRepositoryInterface $repository */
         foreach ($this->userRepositories as $repository) {
             if ($repository->supportsClass($className)) {
                 return $repository;
