@@ -39,6 +39,7 @@
   "require": {
     "symfony/framework-bundle": "^4.1",
     "symfony/security-bundle": "^4.1",
+    "symfony/templating": "^4.1",
     "swiftmailer/swiftmailer": "^6.1",
     "doctrine/orm": "^2.5"
   },
