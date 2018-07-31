@@ -19,7 +19,6 @@ abstract class AbstractUserRepository implements UserRepositoryInterface
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->entityRepository = $entityManager->getRepository(User::class);
     }
 
     public function add(User $user): void
