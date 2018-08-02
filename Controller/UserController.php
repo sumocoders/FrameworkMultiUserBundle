@@ -2,16 +2,20 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SumoCoders\FrameworkMultiUserBundle\Command\Handler;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Form\DeleteType;
+use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -44,12 +48,16 @@ class UserController
     /** @var string */
     protected $redirectRoute;
 
+    /** @var EngineInterface */
+    private $engine;
+
     public function __construct(
+        EngineInterface $engine,
         FormFactoryInterface $formFactory,
-        Router $router,
+        RouterInterface $router,
         FlashBagInterface $flashBag,
         TranslatorInterface $translator,
-        string $form,
+        FormWithDataTransferObject $form,
         Handler $handler,
         UserRepository $userRepository,
         string $redirectRoute = null
@@ -62,15 +70,14 @@ class UserController
         $this->handler = $handler;
         $this->userRepository = $userRepository;
         $this->redirectRoute = $redirectRoute;
+        $this->engine = $engine;
     }
 
     /**
      * @param Request $request
      * @param int|null $id
      *
-     * @Template()
-     *
-     * @return array|RedirectResponse
+     * @return Response|RedirectResponse
      */
     public function baseAction(Request $request, int $id = null)
     {
@@ -89,34 +96,62 @@ class UserController
                 )
             );
 
-            if ($this->redirectRoute !== null) {
-                return new RedirectResponse($this->router->generate($this->redirectRoute));
+            if ($this->getRedirectResponse() instanceof RedirectResponse) {
+                return $this->getRedirectResponse();
             }
         }
 
         if ($id !== null) {
             $deleteForm = $this->formFactory->create(DeleteType::class, $form->getData());
 
-            return [
-                'form' => $form->createView(),
-                'deleteForm' => $deleteForm->createView(),
-                'user' => $form->getData()->getEntity(),
-            ];
+            return new Response(
+                $this->engine->render(
+                    'SumoCodersFrameworkMultiUserBundle:User:base.html.twig',
+                    [
+                        'form' => $form->createView(),
+                        'deleteForm' => $deleteForm->createView(),
+                        'user' => $form->getData()->getEntity(),
+                    ]
+                )
+            );
         }
 
-        return ['form' => $form->createView()];
+        return new Response(
+            $this->engine->render(
+                'SumoCodersFrameworkMultiUserBundle:User:base.html.twig',
+                [
+                    'form' => $form->createView(),
+                ]
+            )
+        );
     }
 
-    private function getFormForId(?int $id = null): Form
+    protected function getRedirectResponse(): ?RedirectResponse
+    {
+        if ($this->redirectRoute !== null) {
+            return new RedirectResponse($this->router->generate($this->redirectRoute));
+        }
+
+        return null;
+    }
+
+    protected function getFormForId(?int $id = null): FormInterface
     {
         if ($id === null) {
-            return $this->formFactory->create($this->form);
+            return $this->formFactory->create(
+                get_class($this->form)
+            );
         }
 
         $user = $this->userRepository->find((int) $id);
+
+        /** @var UserDataTransferObject $dataTransferObjectClass */
         $dataTransferObjectClass = $this->form::getDataTransferObjectClass();
         $dataTransferObject = $dataTransferObjectClass::fromUser($user);
 
-        return $this->formFactory->create($this->form, $dataTransferObject);
+        return $this->formFactory->create(
+            get_class($this->form),
+            $dataTransferObject
+        );
     }
 }
