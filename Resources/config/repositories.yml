@@ -1,5 +1,0 @@
-services:
-  multi_user.base_user.repository:
-    class: SumoCoders\FrameworkMultiUserBundle\User\DoctrineBaseUserRepository
-    arguments:
-      - "@doctrine.orm.default_entity_manager"
