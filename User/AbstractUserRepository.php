@@ -2,61 +2,47 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository as UserRepositoryInterface;
 
-abstract class AbstractUserRepository implements UserRepositoryInterface
+abstract class AbstractUserRepository extends ServiceEntityRepository implements UserRepositoryInterface
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var EntityRepository */
-    protected $entityRepository;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
     public function add(User $user): void
     {
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-    }
-
-    public function find($id): ?User
-    {
-        return $this->entityRepository->find($id);
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
     }
 
     public function findByUsername(string $username): ?User
     {
-        return $this->entityRepository->findOneBy(['username' => $username]);
+        return $this->findOneBy(['username' => $username]);
     }
 
     public function findByEmailAddress(string $emailAddress): ?User
     {
-        return $this->entityRepository->findOneBy(['email' => $emailAddress]);
+        return $this->findOneBy(['email' => $emailAddress]);
     }
 
-    abstract public function supportsClass(string $class): bool;
+    public function supportsClass(string $class): bool
+    {
+        return $this->getClassName() === $class;
+    }
 
     public function save(User $user): void
     {
-        $this->entityManager->flush();
+        $this->getEntityManager()->flush();
     }
 
     public function delete(User $user): void
     {
-        $this->entityManager->remove($user);
-        $this->entityManager->flush();
+        $this->getEntityManager()->remove($user);
+        $this->getEntityManager()->flush();
     }
 
     public function findByPasswordResetToken(PasswordResetToken $token): ?User
     {
-        return $this->entityRepository->findOneBy(['passwordResetToken' => $token->getToken()]);
+        return $this->findOneBy(['passwordResetToken' => $token->getToken()]);
     }
 }
