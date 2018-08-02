@@ -28,7 +28,6 @@ class SumoCodersFrameworkMultiUserExtension extends Extension
         $loader->load('console.yml');
         $loader->load('controllers.yml');
         $loader->load('forms.yml');
-        $loader->load('repositories.yml');
         $loader->load('services.yml');
     }
 }
