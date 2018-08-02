@@ -81,6 +81,7 @@ class UserController
      */
     public function baseAction(Request $request, int $id = null)
     {
+        $template = $this->getTemplate();
         $form = $this->getFormForId($id);
         $form->handleRequest($request);
 
@@ -106,7 +107,7 @@ class UserController
 
             return new Response(
                 $this->engine->render(
-                    'SumoCodersFrameworkMultiUserBundle:User:base.html.twig',
+                    $template,
                     [
                         'form' => $form->createView(),
                         'deleteForm' => $deleteForm->createView(),
@@ -118,12 +119,17 @@ class UserController
 
         return new Response(
             $this->engine->render(
-                'SumoCodersFrameworkMultiUserBundle:User:base.html.twig',
+                $template,
                 [
                     'form' => $form->createView(),
                 ]
             )
         );
+    }
+
+    protected function getTemplate(): string
+    {
+        return 'SumoCodersFrameworkMultiUserBundle:User:base.html.twig';
     }
 
     protected function getRedirectResponse(): ?RedirectResponse
