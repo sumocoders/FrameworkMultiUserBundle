@@ -3,7 +3,6 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SumoCoders\FrameworkCoreBundle\BreadCrumb\BreadCrumbBuilder;
 use SumoCoders\FrameworkMultiUserBundle\Command\Handler;
 use SumoCoders\FrameworkMultiUserBundle\Form\DeleteType;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
@@ -41,12 +40,6 @@ class UserController
 
     /** @var UserRepository */
     private $userRepository;
-
-    /** @var BreadCrumbBuilder */
-    private $breadcrumbBuilder;
-
-    /** @var array */
-    private $breadcrumbs;
 
     /** @var string */
     private $redirectRoute;
