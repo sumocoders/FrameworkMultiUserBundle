@@ -59,8 +59,6 @@ class UserController
         string $form,
         Handler $handler,
         UserRepository $userRepository,
-        BreadCrumbBuilder $breadcrumbBuilder,
-        array $breadcrumbs,
         string $redirectRoute = null
     ) {
         $this->formFactory = $formFactory;
@@ -70,8 +68,6 @@ class UserController
         $this->form = $form;
         $this->handler = $handler;
         $this->userRepository = $userRepository;
-        $this->breadcrumbBuilder = $breadcrumbBuilder;
-        $this->breadcrumbs = $breadcrumbs;
         $this->redirectRoute = $redirectRoute;
     }
 
@@ -85,15 +81,6 @@ class UserController
      */
     public function baseAction(Request $request, int $id = null)
     {
-        foreach ($this->breadcrumbs as $breadcrumb) {
-            $uri = '';
-            if ($breadcrumb['route'] !== '') {
-                $uri = $this->router->generate($breadcrumb['route']);
-            }
-
-            $this->breadcrumbBuilder->addSimpleItem(ucfirst($this->translator->trans($breadcrumb['label'])), $uri);
-        }
-
         $form = $this->getFormForId($id);
         $form->handleRequest($request);
 
