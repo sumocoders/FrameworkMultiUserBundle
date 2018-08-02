@@ -1,5 +1,7 @@
 services:
   SumoCoders\FrameworkMultiUserBundle\User\DoctrineBaseUserRepository:
     class: SumoCoders\FrameworkMultiUserBundle\User\DoctrineBaseUserRepository
+    arguments:
+      - '@doctrine'
   multi_user.base_user.repository:
     alias: SumoCoders\FrameworkMultiUserBundle\User\DoctrineBaseUserRepository
