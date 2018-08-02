@@ -21,28 +21,28 @@ use Symfony\Component\Translation\TranslatorInterface;
 class UserController
 {
     /** @var FormFactoryInterface */
-    private $formFactory;
+    protected $formFactory;
 
     /** @var Router */
-    private $router;
+    protected $router;
 
     /** @var FlashBagInterface */
-    private $flashBag;
+    protected $flashBag;
 
     /** @var TranslatorInterface */
-    private $translator;
+    protected $translator;
 
     /** @var Handler */
-    private $handler;
+    protected $handler;
 
     /** @var string */
-    private $form;
+    protected $form;
 
     /** @var UserRepository */
-    private $userRepository;
+    protected $userRepository;
 
     /** @var string */
-    private $redirectRoute;
+    protected $redirectRoute;
 
     public function __construct(
         FormFactoryInterface $formFactory,
