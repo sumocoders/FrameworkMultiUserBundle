@@ -3,6 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
 use SumoCoders\FrameworkMultiUserBundle\Command\Handler;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\BaseUserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Form\DeleteType;
 use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
@@ -103,7 +104,7 @@ class UserController
         }
 
         if ($id !== null) {
-            $deleteForm = $this->formFactory->create(DeleteType::class, $form->getData());
+            $deleteForm = $this->getDeleteForm($form->getData());
 
             return new Response(
                 $this->engine->render(
@@ -125,6 +126,22 @@ class UserController
                 ]
             )
         );
+    }
+
+    protected function getDeleteForm(BaseUserDataTransferObject $baseUserDataTransferObject): FormInterface
+    {
+        return $this->formFactory->create(
+            DeleteType::class,
+            $baseUserDataTransferObject,
+            [
+                'action' => $this->router->generate($this->getDeleteAction())
+            ]
+        );
+    }
+
+    protected function getDeleteAction(): string
+    {
+        return '';
     }
 
     protected function getTemplate(): string
