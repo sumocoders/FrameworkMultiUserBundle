@@ -134,7 +134,10 @@ class UserController
             DeleteType::class,
             $baseUserDataTransferObject,
             [
-                'action' => $this->router->generate($this->getDeleteAction())
+                'action' => $this->router->generate(
+                    $this->getDeleteAction(),
+                    ['id' => $baseUserDataTransferObject->getId()]
+                )
             ]
         );
     }
