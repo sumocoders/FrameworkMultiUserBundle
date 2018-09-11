@@ -7,7 +7,7 @@
   <div class="btn-toolbar">
     <input type="submit" class="btn btn-default" value="{{ 'sumocoders.multiuserbundle.form.submit'|trans|capitalize }}">
     {% if deleteForm is defined %}
-      <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#deleteUserModal">{{ 'sumocoders.multiuserbundle.form.delete'|trans|capitalize }}</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserModal">{{ 'sumocoders.multiuserbundle.form.delete'|trans|capitalize }}</button>
     {% endif %}
   </div>
   {{ form_end(form) }}
