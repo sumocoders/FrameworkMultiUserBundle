@@ -2,12 +2,13 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
 
 final class DoctrineBaseUserRepository extends AbstractUserRepository
 {
-    public function supportsClass(string $class): bool
+    public function __construct(ManagerRegistry $registry)
     {
-        return BaseUser::class === $class;
+        parent::__construct($registry, BaseUser::class);
     }
 }

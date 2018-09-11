@@ -1,4 +1,4 @@
-{% extends '::empty.html.twig' %}
+{% extends 'empty.html.twig' %}
 
 {% block main -%}
   <div class="container">
@@ -11,7 +11,7 @@
           </header>
 
           <a href="/" class="logo">
-            <img class="img-responsive" src="/assets/images/logo-application.svg" alt="{{ fallbacks.get('site_title') }}">
+            <img class="img-responsive" src="{{ asset('build/images/logo-application.svg') }}" alt="{{ fallbacks.get('site_title') }}">
           </a>
 
           {{ include('SumoCodersFrameworkCoreBundle::notifications.html.twig') }}

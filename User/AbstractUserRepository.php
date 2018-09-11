@@ -2,12 +2,12 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository as UserRepositoryInterface;
 
-abstract class AbstractUserRepository extends EntityRepository implements UserRepositoryInterface
+abstract class AbstractUserRepository extends ServiceEntityRepository implements UserRepositoryInterface
 {
     public function add(User $user): void
     {
@@ -25,7 +25,10 @@ abstract class AbstractUserRepository extends EntityRepository implements UserRe
         return $this->findOneBy(['email' => $emailAddress]);
     }
 
-    abstract public function supportsClass(string $class): bool;
+    public function supportsClass(string $class): bool
+    {
+        return $this->getClassName() === $class;
+    }
 
     public function save(User $user): void
     {

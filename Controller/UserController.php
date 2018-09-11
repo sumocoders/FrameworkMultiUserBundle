@@ -2,17 +2,21 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SumoCoders\FrameworkCoreBundle\BreadCrumb\BreadCrumbBuilder;
 use SumoCoders\FrameworkMultiUserBundle\Command\Handler;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\BaseUserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Form\DeleteType;
+use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -22,45 +26,41 @@ use Symfony\Component\Translation\TranslatorInterface;
 class UserController
 {
     /** @var FormFactoryInterface */
-    private $formFactory;
+    protected $formFactory;
 
     /** @var Router */
-    private $router;
+    protected $router;
 
     /** @var FlashBagInterface */
-    private $flashBag;
+    protected $flashBag;
 
     /** @var TranslatorInterface */
-    private $translator;
+    protected $translator;
 
     /** @var Handler */
-    private $handler;
+    protected $handler;
 
     /** @var string */
-    private $form;
+    protected $form;
 
     /** @var UserRepository */
-    private $userRepository;
-
-    /** @var BreadCrumbBuilder */
-    private $breadcrumbBuilder;
-
-    /** @var array */
-    private $breadcrumbs;
+    protected $userRepository;
 
     /** @var string */
-    private $redirectRoute;
+    protected $redirectRoute;
+
+    /** @var EngineInterface */
+    private $engine;
 
     public function __construct(
+        EngineInterface $engine,
         FormFactoryInterface $formFactory,
-        Router $router,
+        RouterInterface $router,
         FlashBagInterface $flashBag,
         TranslatorInterface $translator,
-        string $form,
+        FormWithDataTransferObject $form,
         Handler $handler,
         UserRepository $userRepository,
-        BreadCrumbBuilder $breadcrumbBuilder,
-        array $breadcrumbs,
         string $redirectRoute = null
     ) {
         $this->formFactory = $formFactory;
@@ -70,30 +70,19 @@ class UserController
         $this->form = $form;
         $this->handler = $handler;
         $this->userRepository = $userRepository;
-        $this->breadcrumbBuilder = $breadcrumbBuilder;
-        $this->breadcrumbs = $breadcrumbs;
         $this->redirectRoute = $redirectRoute;
+        $this->engine = $engine;
     }
 
     /**
      * @param Request $request
      * @param int|null $id
      *
-     * @Template()
-     *
-     * @return array|RedirectResponse
+     * @return Response|RedirectResponse
      */
     public function baseAction(Request $request, int $id = null)
     {
-        foreach ($this->breadcrumbs as $breadcrumb) {
-            $uri = '';
-            if ($breadcrumb['route'] !== '') {
-                $uri = $this->router->generate($breadcrumb['route']);
-            }
-
-            $this->breadcrumbBuilder->addSimpleItem(ucfirst($this->translator->trans($breadcrumb['label'])), $uri);
-        }
-
+        $template = $this->getTemplate();
         $form = $this->getFormForId($id);
         $form->handleRequest($request);
 
@@ -109,34 +98,86 @@ class UserController
                 )
             );
 
-            if ($this->redirectRoute !== null) {
-                return new RedirectResponse($this->router->generate($this->redirectRoute));
+            if ($this->getRedirectResponse() instanceof RedirectResponse) {
+                return $this->getRedirectResponse();
             }
         }
 
         if ($id !== null) {
-            $deleteForm = $this->formFactory->create(DeleteType::class, $form->getData());
+            $deleteForm = $this->getDeleteForm($form->getData());
 
-            return [
-                'form' => $form->createView(),
-                'deleteForm' => $deleteForm->createView(),
-                'user' => $form->getData()->getEntity(),
-            ];
+            return new Response(
+                $this->engine->render(
+                    $template,
+                    [
+                        'form' => $form->createView(),
+                        'deleteForm' => $deleteForm->createView(),
+                        'user' => $form->getData()->getEntity(),
+                    ]
+                )
+            );
         }
 
-        return ['form' => $form->createView()];
+        return new Response(
+            $this->engine->render(
+                $template,
+                [
+                    'form' => $form->createView(),
+                ]
+            )
+        );
     }
 
-    private function getFormForId(?int $id = null): Form
+    protected function getDeleteForm(BaseUserDataTransferObject $baseUserDataTransferObject): FormInterface
+    {
+        return $this->formFactory->create(
+            DeleteType::class,
+            $baseUserDataTransferObject,
+            [
+                'action' => $this->router->generate(
+                    $this->getDeleteAction(),
+                    ['id' => $baseUserDataTransferObject->getId()]
+                )
+            ]
+        );
+    }
+
+    protected function getDeleteAction(): string
+    {
+        return '';
+    }
+
+    protected function getTemplate(): string
+    {
+        return 'SumoCodersFrameworkMultiUserBundle:User:base.html.twig';
+    }
+
+    protected function getRedirectResponse(): ?RedirectResponse
+    {
+        if ($this->redirectRoute !== null) {
+            return new RedirectResponse($this->router->generate($this->redirectRoute));
+        }
+
+        return null;
+    }
+
+    protected function getFormForId(?int $id = null): FormInterface
     {
         if ($id === null) {
-            return $this->formFactory->create($this->form);
+            return $this->formFactory->create(
+                get_class($this->form)
+            );
         }
 
         $user = $this->userRepository->find((int) $id);
+
+        /** @var UserDataTransferObject $dataTransferObjectClass */
         $dataTransferObjectClass = $this->form::getDataTransferObjectClass();
         $dataTransferObject = $dataTransferObjectClass::fromUser($user);
 
-        return $this->formFactory->create($this->form, $dataTransferObject);
+        return $this->formFactory->create(
+            get_class($this->form),
+            $dataTransferObject
+        );
     }
 }

@@ -86,7 +86,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
-        return preg_match('/\/\w{2}\/login/', $request->getRequestUri()) !== false  && $request->isMethod('POST');
+        return preg_match('/\/\w{2}\/login/', $request->getRequestUri()) && $request->isMethod('POST');
     }
 
     protected function getLoginUrl(): string
