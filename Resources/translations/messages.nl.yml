@@ -32,6 +32,9 @@ sumocoders:
         deleteUser: Gebruiker verwijderen
       body:
         confirmDelete: Ben je zeker dat je deze gebruiker wilt verwijderen?
+    navigation:
+          logout: afmelden
+          settings: instellingen
 request:
   password:
     userName: gebruikersnaam
