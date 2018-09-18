@@ -1,11 +1,5 @@
 {% extends "SumoCodersFrameworkMultiUserBundle::empty_layout.html.twig" %}
 
-{% block header_title %}
-  <h2>
-    {{ 'user.header.title.login'|trans({},'messages')|capitalize }}
-  </h2>
-{% endblock %}
-
 {% block sumocoders_multi_user_content %}
   <form action="{{ path("multi_user_login") }}" method="post">
     {% if error %}
@@ -14,15 +8,19 @@
       </div>
     {% endif %}
 
-    <fieldset>
+    <fieldset class="mb-5">
       <div class="form-group">
         <label class="control-label" for="username">
           {{ 'sumocoders.multiuserbundle.form.user'|trans|capitalize }}<abbr title="{{ 'forms.labels.required'|trans|capitalize }}">*</abbr>
         </label>
 
         <div class="input-group">
-          <div class="input-group-addon username icon icon-user"></div>
-          <input id="username" name="_username" type="text" class="form-control input-lg" required />
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-user fa-lg"></i>
+            </span>
+          </div>
+          <input id="username" name="_username" type="text" class="form-control form-control-lg" required />
         </div>
       </div>
 
@@ -32,8 +30,12 @@
         </label>
 
         <div class="input-group">
-          <div class="input-group-addon password icon icon-lock"></div>
-          <input type="password" value="" id="password" name="_password" class="form-control input-lg" required />
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fas fa-lock fa-lg"></i>
+            </span>
+          </div>
+          <input type="password" value="" id="password" name="_password" class="form-control form-control-lg" required />
         </div>
       </div>
 
@@ -46,8 +48,8 @@
           </div>
         </div>
         <div class="col-md-6">
-          <button class="btn btn-success pull-right" type="submit" id="submit" name="_submit">
-            {{ 'sumocoders.multiuserbundle.form.login'|trans|capitalize }}<i class="icon iconArrowWhiteRight"></i>
+          <button class="btn btn-success float-right" type="submit" id="submit" name="_submit">
+            {{ 'sumocoders.multiuserbundle.form.login'|trans|capitalize }} <i class="far fa-arrow-alt-circle-right"></i>
           </button>
         </div>
       </div>

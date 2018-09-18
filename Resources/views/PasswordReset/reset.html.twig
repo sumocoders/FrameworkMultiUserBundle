@@ -16,8 +16,12 @@
     </label>
 
     <div class="input-group">
-      <div class="input-group-addon password icon icon-lock"></div>
-      {{ form_widget(form.newPassword.first, {attr: {class: 'input-lg'}}) }}
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fas fa-lock fa-lg"></i>
+        </span>
+      </div>
+      {{ form_widget(form.newPassword.first, {attr: {class: 'form-control-lg'}}) }}
     </div>
 
     <label class="control-label" for="change_password_newPassword_second">
@@ -25,11 +29,15 @@
     </label>
 
     <div class="input-group">
-      <div class="input-group-addon password icon icon-lock"></div>
-      {{ form_widget(form.newPassword.second, {attr: {class: 'input-lg'}}) }}
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fas fa-lock fa-lg"></i>
+        </span>
+      </div>
+      {{ form_widget(form.newPassword.second, {attr: {class: 'form-control-lg'}}) }}
     </div>
   </div>
-  {{ form_widget(form.submit, {attr: {class: 'btn-info pull-right'}}) }}
+  {{ form_widget(form.submit, {attr: {class: 'btn-success btn-block'}}) }}
   {{ form_rest(form) }}
   {{ form_end(form) }}
 

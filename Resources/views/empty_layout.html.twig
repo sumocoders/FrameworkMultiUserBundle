@@ -3,15 +3,15 @@
 {% block main -%}
   <div class="container">
     <section id="users" class="login">
-      <div class="row">
-        <div class="col-xs-12">
+      <div class="row justify-content-center">
+        <div class="col-4">
           <header class="header hide">
             {% block header_title %}
             {% endblock %}
           </header>
 
           <a href="/" class="logo">
-            <img class="img-responsive" src="{{ asset('build/images/logo-application.svg') }}" alt="{{ fallbacks.get('site_title') }}">
+            <img class="img-responsive" src="{{ asset('build/assets/images/logo-application.svg') }}" alt="{{ fallbacks.get('site_title') }}">
           </a>
 
           {{ include('SumoCodersFrameworkCoreBundle::notifications.html.twig') }}
