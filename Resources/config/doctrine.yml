@@ -1,0 +1,4 @@
+doctrine:
+  orm:
+    filters:
+      soft_deleted: SumoCoders\FrameworkMultiUserBundle\Filter\SoftDeleted

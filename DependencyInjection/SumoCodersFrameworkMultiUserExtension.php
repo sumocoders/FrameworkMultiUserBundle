@@ -4,6 +4,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -12,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class SumoCodersFrameworkMultiUserExtension extends Extension
+class SumoCodersFrameworkMultiUserExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -33,5 +34,11 @@ class SumoCodersFrameworkMultiUserExtension extends Extension
         $loader->load('forms.yml');
         $loader->load('repositories.yml');
         $loader->load('services.yml');
+    }
+
+    public function prepend(ContainerBuilder $container)
+    {
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('doctrine.yml');
     }
 }
