@@ -42,4 +42,6 @@ interface User extends UserInterface, PasswordReset, Blockable
      * @param PasswordEncoderInterface $encoder
      */
     public function encodePassword(PasswordEncoderInterface $encoder);
+
+    public function delete();
 }

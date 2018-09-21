@@ -5,6 +5,7 @@ namespace SumoCoders\FrameworkMultiUserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
+use SumoCoders\FrameworkMultiUserBundle\Traits\SoftDeletable;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User as UserInterface;
 use SumoCoders\FrameworkMultiUserBundle\ValueObject\Status;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
@@ -16,6 +17,7 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
  */
 class User implements UserInterface
 {
+    use SoftDeletable;
     /**
      * @var int
      *
