@@ -23,6 +23,7 @@ sumocoders:
       login_success: Welcome, %username%! You've successfully logged in.
       block_success: The user is blocked.
       unblock_success: The user is not blocked anymore.
+      deleted: The user has been deleted.
 request:
   password:
     userName: displayname
