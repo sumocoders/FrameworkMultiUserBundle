@@ -82,7 +82,10 @@ class UserController
             }
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'user' => $this->userRepository->find((int) $id),
+            'form' => $form->createView(),
+        ];
     }
 
     /**
