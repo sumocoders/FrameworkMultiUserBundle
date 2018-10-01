@@ -6,8 +6,10 @@ use SumoCoders\FrameworkMultiUserBundle\Exception\InvalidStatusException;
 
 final class Status
 {
-    const ACTIVE = 'active';
-    const BLOCKED = 'blocked';
+    private const ACTIVE = 'active';
+    private const BLOCKED = 'blocked';
+    private const INCOMPLETE = 'incomplete';
+    private const PENDING = 'pending';
 
     /** @var string */
     private $status;
@@ -36,6 +38,8 @@ final class Status
         $statuses = [
             self::ACTIVE,
             self::BLOCKED,
+            self::INCOMPLETE,
+            self::PENDING,
         ];
 
         return array_combine($statuses, $statuses);
@@ -51,9 +55,34 @@ final class Status
         return new self(self::BLOCKED);
     }
 
+    public static function incomplete(): self
+    {
+        return new self(self::INCOMPLETE);
+    }
+
+    public static function pending(): self
+    {
+        return new self(self::PENDING);
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === self::ACTIVE;
+    }
+
     public function isBlocked(): bool
     {
         return $this->status === self::BLOCKED;
+    }
+
+    public function isIncomplete(): bool
+    {
+        return $this->status === self::INCOMPLETE;
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === self::PENDING;
     }
 
     public function __toString(): string
