@@ -3,18 +3,21 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\ValueObject\Status;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="SumoCoders\FrameworkMultiUserBundle\User\DoctrineBaseUserRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  */
-class BaseUser implements User
+class BaseUser implements User, Serializable, EquatableInterface
 {
     /**
      * @var int
@@ -230,6 +233,30 @@ class BaseUser implements User
 
     public function canSwitchTo(BaseUser $user): bool
     {
+        return false;
+    }
+
+    public function serialize(): string
+    {
+        return serialize(
+            [
+                $this->id,
+                $this->username,
+            ]
+        );
+    }
+
+    public function unserialize($serialized): void
+    {
+        [$this->id, $this->username] = unserialize($serialized);
+    }
+
+    public function isEqualTo(UserInterface $user): bool
+    {
+        if ($user instanceof self) {
+            return $user->getId() === $this->getId();
+        }
+
         return false;
     }
 }
