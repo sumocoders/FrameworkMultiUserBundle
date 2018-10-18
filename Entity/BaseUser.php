@@ -9,13 +9,15 @@ use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\ValueObject\Status;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="SumoCoders\FrameworkMultiUserBundle\User\DoctrineBaseUserRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  */
-class BaseUser implements User, Serializable
+class BaseUser implements User, Serializable, EquatableInterface
 {
     /**
      * @var int
@@ -249,5 +251,10 @@ class BaseUser implements User, Serializable
     public function unserialize($serialized): void
     {
         [$this->id, $this->username, $this->password, $this->salt] = unserialize($serialized);
+    }
+
+    public function isEqualTo(UserInterface $user): bool
+    {
+        return $user->getUsername() === $this->getUsername();
     }
 }
