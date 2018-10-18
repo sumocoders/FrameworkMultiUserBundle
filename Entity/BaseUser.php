@@ -253,6 +253,10 @@ class BaseUser implements User, Serializable, EquatableInterface
 
     public function isEqualTo(UserInterface $user): bool
     {
-        return $user->getUsername() === $this->getUsername();
+        if ($user instanceof self) {
+            return $user->getId() === $this->getId();
+        }
+
+        return false;
     }
 }
