@@ -3,6 +3,7 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
@@ -14,7 +15,7 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  */
-class BaseUser implements User
+class BaseUser implements User, Serializable
 {
     /**
      * @var int
@@ -231,5 +232,22 @@ class BaseUser implements User
     public function canSwitchTo(BaseUser $user): bool
     {
         return false;
+    }
+
+    public function serialize(): string
+    {
+        return serialize(
+            [
+                $this->id,
+                $this->username,
+                $this->password,
+                $this->salt,
+            ]
+        );
+    }
+
+    public function unserialize($serialized): void
+    {
+        [$this->id, $this->username, $this->password, $this->salt] = unserialize($serialized);
     }
 }
