@@ -242,15 +242,13 @@ class BaseUser implements User, Serializable, EquatableInterface
             [
                 $this->id,
                 $this->username,
-                $this->password,
-                $this->salt,
             ]
         );
     }
 
     public function unserialize($serialized): void
     {
-        [$this->id, $this->username, $this->password, $this->salt] = unserialize($serialized);
+        [$this->id, $this->username] = unserialize($serialized);
     }
 
     public function isEqualTo(UserInterface $user): bool
