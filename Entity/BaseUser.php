@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
@@ -81,6 +82,11 @@ class BaseUser implements User, Serializable, EquatableInterface
      * @var string
      */
     protected $plainPassword;
+
+    /**
+     * @var Collection
+     */
+    private $roles;
 
     /**
      * @param string $username
