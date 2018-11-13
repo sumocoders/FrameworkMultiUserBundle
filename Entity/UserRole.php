@@ -60,6 +60,16 @@ class UserRole extends Role
         return $this->roleName;
     }
 
+    public function getCreatedOn(): DateTime
+    {
+        return $this->createdOn;
+    }
+
+    public function getEditedOn(): DateTime
+    {
+        return $this->editedOn;
+    }
+
     /**
      * @ORM\PrePersist
      */
@@ -75,16 +85,6 @@ class UserRole extends Role
     public function onPreUpdate(): void
     {
         $this->editedOn = new DateTime();
-    }
-
-    public function getCreatedOn(): DateTime
-    {
-        return $this->createdOn;
-    }
-
-    public function getEditedOn(): DateTime
-    {
-        return $this->editedOn;
     }
 
     public function __toString(): string
