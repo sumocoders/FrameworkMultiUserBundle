@@ -26,6 +26,9 @@ class BaseUserDataTransferObject implements UserDataTransferObject
     /** @var User */
     protected $user;
 
+    /** @var array */
+    public $roles;
+
     public static function fromUser(User $user): UserDataTransferObject
     {
         $baseUserTransferObject = new static();
@@ -34,6 +37,7 @@ class BaseUserDataTransferObject implements UserDataTransferObject
         $baseUserTransferObject->userName = $user->getUsername();
         $baseUserTransferObject->displayName = $user->getDisplayName();
         $baseUserTransferObject->email = $user->getEmail();
+        $baseUserTransferObject->roles = $user->getRoles();
         if ($user->hasPlainPassword()) {
             $baseUserTransferObject->plainPassword = $user->getPlainPassword();
         }
@@ -53,7 +57,8 @@ class BaseUserDataTransferObject implements UserDataTransferObject
             $this->userName,
             $this->plainPassword,
             $this->displayName,
-            $this->email
+            $this->email,
+            $this->roles
         );
     }
 
@@ -80,5 +85,10 @@ class BaseUserDataTransferObject implements UserDataTransferObject
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
     }
 }

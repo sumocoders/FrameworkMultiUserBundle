@@ -19,4 +19,6 @@ interface UserDataTransferObject
     public static function fromUser(User $user): self;
 
     public function getEntity(): User;
+
+    public function getRoles();
 }

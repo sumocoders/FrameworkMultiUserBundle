@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
@@ -85,8 +86,10 @@ class BaseUser implements User, Serializable, EquatableInterface
 
     /**
      * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="SumoCoders\FrameworkMultiUserBundle\Entity\UserRole")
      */
-    private $roles;
+    protected $roles;
 
     /**
      * @param string $username
@@ -95,6 +98,7 @@ class BaseUser implements User, Serializable, EquatableInterface
      * @param string $email
      * @param int $id
      * @param PasswordResetToken $token
+     * @param Collection $roles
      */
     public function __construct(
         string $username,
@@ -102,7 +106,8 @@ class BaseUser implements User, Serializable, EquatableInterface
         string $displayName,
         string $email,
         int $id = null,
-        PasswordResetToken $token = null
+        PasswordResetToken $token = null,
+        Collection $roles = null
     ) {
         $this->username = $username;
         $this->plainPassword = $plainPassword;
@@ -116,11 +121,17 @@ class BaseUser implements User, Serializable, EquatableInterface
         if ($token) {
             $this->passwordResetToken = $token;
         }
+
+        $this->roles = new ArrayCollection();
+        if ($roles) {
+            $this->roles = $roles;
+        }
+
     }
 
     public function getRoles(): array
     {
-        return ['ROLE_USER'];
+        return $this->roles->toArray();
     }
 
     public function getPassword(): string
