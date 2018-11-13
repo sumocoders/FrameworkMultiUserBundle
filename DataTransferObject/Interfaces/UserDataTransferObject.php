@@ -21,5 +21,5 @@ interface UserDataTransferObject
 
     public function getEntity(): User;
 
-    public function getRoles(): array;
+    public function getRoles(): ?Collection;
 }

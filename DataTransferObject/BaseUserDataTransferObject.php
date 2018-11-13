@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
@@ -27,7 +28,7 @@ class BaseUserDataTransferObject implements UserDataTransferObject
     /** @var User */
     protected $user;
 
-    /** @var array */
+    /** @var Collection|null */
     public $roles;
 
     public static function fromUser(User $user): UserDataTransferObject
@@ -59,7 +60,7 @@ class BaseUserDataTransferObject implements UserDataTransferObject
             $this->plainPassword,
             $this->displayName,
             $this->email,
-            $this->roles
+            $this->roles instanceof Collection ? $this->roles : new ArrayCollection()
         );
     }
 
@@ -88,7 +89,7 @@ class BaseUserDataTransferObject implements UserDataTransferObject
         return $this->plainPassword;
     }
 
-    public function getRoles(): array
+    public function getRoles(): ?Collection
     {
         return $this->roles;
     }

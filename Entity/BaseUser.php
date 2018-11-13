@@ -96,23 +96,24 @@ class BaseUser implements User, Serializable, EquatableInterface
      * @param string $plainPassword
      * @param string $displayName
      * @param string $email
+     * @param Collection $roles
      * @param int $id
      * @param PasswordResetToken $token
-     * @param Collection $roles
      */
     public function __construct(
         string $username,
         string $plainPassword,
         string $displayName,
         string $email,
+        Collection $roles,
         int $id = null,
-        PasswordResetToken $token = null,
-        Collection $roles
+        PasswordResetToken $token = null
     ) {
         $this->username = $username;
         $this->plainPassword = $plainPassword;
         $this->displayName = $displayName;
         $this->email = $email;
+        $this->roles = $roles;
         $this->id = $id;
 
         // set the default status to active
@@ -121,13 +122,11 @@ class BaseUser implements User, Serializable, EquatableInterface
         if ($token) {
             $this->passwordResetToken = $token;
         }
-
-        $this->roles = $roles;
     }
 
-    public function getRoles(): array
+    public function getRoles(): Collection
     {
-        return $this->roles->toArray();
+        return $this->roles;
     }
 
     public function getPassword(): string
