@@ -63,6 +63,7 @@ class FormAuthenticatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->getUser()->getId(), $user->getId());
         $this->assertEquals($this->getUser()->getUsername(), $user->getUsername());
         $this->assertEquals($this->getUser()->getEmail(), $user->getEmail());
+        $this->assertEquals($this->getUser()->getRoles(), $user->getRoles());
     }
 
     public function testCheckCredentials(): void

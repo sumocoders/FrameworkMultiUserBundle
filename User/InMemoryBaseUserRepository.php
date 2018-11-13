@@ -2,7 +2,9 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
+use SumoCoders\FrameworkMultiUserBundle\Entity\UserRole;
 use SumoCoders\FrameworkMultiUserBundle\Security\PasswordResetToken;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\UserRepository as UserRepositoryInterface;
@@ -20,7 +22,7 @@ class InMemoryBaseUserRepository implements UserRepositoryInterface
             'test',
             'Wouter Sioen',
             'wouter@example.dev',
-            1
+            new ArrayCollection([new UserRole(1)])
         );
         $user->encodePassword($encoderFactory->getEncoder($user));
 
@@ -31,7 +33,7 @@ class InMemoryBaseUserRepository implements UserRepositoryInterface
             'reset',
             'reset',
             'test@example.dev',
-            2,
+            new ArrayCollection([new UserRole(1)]),
             PasswordResetToken::generate()
         );
         $passwordResetUser->encodePassword($encoderFactory->getEncoder($passwordResetUser));
