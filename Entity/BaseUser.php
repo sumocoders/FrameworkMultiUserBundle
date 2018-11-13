@@ -124,7 +124,12 @@ class BaseUser implements User, Serializable, EquatableInterface
         }
     }
 
-    public function getRoles(): Collection
+    public function getRoles(): ?array
+    {
+        return $this->roles->toArray();
+    }
+
+    public function getRolesAsCollection(): ?Collection
     {
         return $this->roles;
     }
