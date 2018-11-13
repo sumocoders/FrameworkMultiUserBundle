@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
+use Doctrine\Common\Collections\Collection;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
@@ -87,7 +88,7 @@ class BaseUserDataTransferObject implements UserDataTransferObject
         return $this->plainPassword;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }
