@@ -43,9 +43,6 @@ class UserRole extends Role
      */
     private $editedOn;
 
-    /**
-     * @param string $roleName
-     */
     public function __construct(string $roleName)
     {
         parent::__construct($roleName);
@@ -53,17 +50,11 @@ class UserRole extends Role
         $this->roleName = $roleName;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getRole(): string
     {
         return $this->roleName;
