@@ -107,7 +107,7 @@ class BaseUser implements User, Serializable, EquatableInterface
         string $email,
         int $id = null,
         PasswordResetToken $token = null,
-        Collection $roles = null
+        Collection $roles
     ) {
         $this->username = $username;
         $this->plainPassword = $plainPassword;
@@ -122,11 +122,7 @@ class BaseUser implements User, Serializable, EquatableInterface
             $this->passwordResetToken = $token;
         }
 
-        $this->roles = new ArrayCollection();
-        if ($roles) {
-            $this->roles = $roles;
-        }
-
+        $this->roles = $roles;
     }
 
     public function getRoles(): array
