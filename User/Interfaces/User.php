@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\User\Interfaces;
 
+use Doctrine\Common\Collections\Collection;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -21,4 +22,6 @@ interface User extends UserInterface, PasswordReset, Blockable
     public function getPlainPassword(): string;
 
     public function encodePassword(PasswordEncoderInterface $encoder): void;
+
+    public function getRolesAsCollection(): ?Collection;
 }

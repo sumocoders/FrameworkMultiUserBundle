@@ -39,7 +39,7 @@ class BaseUserDataTransferObject implements UserDataTransferObject
         $baseUserTransferObject->userName = $user->getUsername();
         $baseUserTransferObject->displayName = $user->getDisplayName();
         $baseUserTransferObject->email = $user->getEmail();
-        $baseUserTransferObject->roles = $user->getRoles();
+        $baseUserTransferObject->roles = $user->getRolesAsCollection();
         if ($user->hasPlainPassword()) {
             $baseUserTransferObject->plainPassword = $user->getPlainPassword();
         }
