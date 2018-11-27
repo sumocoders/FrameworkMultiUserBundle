@@ -43,6 +43,7 @@ change:
       second: herhaal wachtwoord
     submit: Stel nieuw wachtwoord in
 user:
+  roles: Gebruikersrollen
   header:
     title:
       login: Login

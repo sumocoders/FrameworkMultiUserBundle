@@ -2,6 +2,7 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces;
 
+use Doctrine\Common\Collections\Collection;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 
 interface UserDataTransferObject
@@ -19,4 +20,6 @@ interface UserDataTransferObject
     public static function fromUser(User $user): self;
 
     public function getEntity(): User;
+
+    public function getRoles(): ?Collection;
 }

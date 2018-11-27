@@ -43,6 +43,7 @@ change:
       second: repeat password
     submit: Set new password
 user:
+  roles: User roles
   header:
     title:
       login: Login

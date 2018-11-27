@@ -2,6 +2,8 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
@@ -83,10 +85,18 @@ class BaseUser implements User, Serializable, EquatableInterface
     protected $plainPassword;
 
     /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="SumoCoders\FrameworkMultiUserBundle\Entity\UserRole")
+     */
+    protected $roles;
+
+    /**
      * @param string $username
      * @param string $plainPassword
      * @param string $displayName
      * @param string $email
+     * @param Collection $roles
      * @param int $id
      * @param PasswordResetToken $token
      */
@@ -95,6 +105,7 @@ class BaseUser implements User, Serializable, EquatableInterface
         string $plainPassword,
         string $displayName,
         string $email,
+        Collection $roles,
         int $id = null,
         PasswordResetToken $token = null
     ) {
@@ -102,6 +113,7 @@ class BaseUser implements User, Serializable, EquatableInterface
         $this->plainPassword = $plainPassword;
         $this->displayName = $displayName;
         $this->email = $email;
+        $this->roles = $roles;
         $this->id = $id;
 
         // set the default status to active
@@ -112,9 +124,14 @@ class BaseUser implements User, Serializable, EquatableInterface
         }
     }
 
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
-        return ['ROLE_USER'];
+        return $this->roles->toArray();
+    }
+
+    public function getRolesAsCollection(): ?Collection
+    {
+        return $this->roles;
     }
 
     public function getPassword(): string

@@ -1,10 +1,14 @@
 services:
   multi_user_form_add_base_user:
     class: SumoCoders\FrameworkMultiUserBundle\Form\AddBaseUserType
+    arguments:
+      - "@translator"
     tags:
       - { name: form.type }
 
   multi_user_form_edit_base_user:
     class: SumoCoders\FrameworkMultiUserBundle\Form\EditBaseUserType
+    arguments:
+      - "@translator"
     tags:
       - { name: form.type }

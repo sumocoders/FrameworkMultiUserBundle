@@ -2,6 +2,8 @@
 
 namespace SumoCoders\FrameworkMultiUserBundle\DataTransferObject;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\Interfaces\UserDataTransferObject;
 use SumoCoders\FrameworkMultiUserBundle\User\Interfaces\User;
 use SumoCoders\FrameworkMultiUserBundle\Entity\BaseUser;
@@ -26,6 +28,9 @@ class BaseUserDataTransferObject implements UserDataTransferObject
     /** @var User */
     protected $user;
 
+    /** @var Collection|null */
+    public $roles;
+
     public static function fromUser(User $user): UserDataTransferObject
     {
         $baseUserTransferObject = new static();
@@ -34,6 +39,7 @@ class BaseUserDataTransferObject implements UserDataTransferObject
         $baseUserTransferObject->userName = $user->getUsername();
         $baseUserTransferObject->displayName = $user->getDisplayName();
         $baseUserTransferObject->email = $user->getEmail();
+        $baseUserTransferObject->roles = $user->getRolesAsCollection();
         if ($user->hasPlainPassword()) {
             $baseUserTransferObject->plainPassword = $user->getPlainPassword();
         }
@@ -53,7 +59,8 @@ class BaseUserDataTransferObject implements UserDataTransferObject
             $this->userName,
             $this->plainPassword,
             $this->displayName,
-            $this->email
+            $this->email,
+            $this->roles instanceof Collection ? $this->roles : new ArrayCollection()
         );
     }
 
@@ -80,5 +87,10 @@ class BaseUserDataTransferObject implements UserDataTransferObject
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
+    }
+
+    public function getRoles(): ?Collection
+    {
+        return $this->roles;
     }
 }

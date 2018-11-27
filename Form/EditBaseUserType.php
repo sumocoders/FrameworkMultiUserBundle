@@ -3,7 +3,9 @@
 namespace SumoCoders\FrameworkMultiUserBundle\Form;
 
 use SumoCoders\FrameworkMultiUserBundle\DataTransferObject\BaseUserDataTransferObject;
+use SumoCoders\FrameworkMultiUserBundle\Entity\UserRole;
 use SumoCoders\FrameworkMultiUserBundle\Form\Interfaces\FormWithDataTransferObject;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -11,9 +13,20 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class EditBaseUserType extends AbstractType implements FormWithDataTransferObject
 {
+    /**
+     * @var TranslatorInterface
+     */
+    protected $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -40,6 +53,21 @@ class EditBaseUserType extends AbstractType implements FormWithDataTransferObjec
             [
                 'type' => PasswordType::class,
                 'required' => false,
+            ]
+        )->add(
+            'roles',
+            EntityType::class,
+            [
+                'attr' => [
+                    'class' => 'select2',
+                ],
+                'class' => UserRole::class,
+                'choice_label' => function (UserRole $userRole) {
+                    return $this->translator->trans($userRole);
+                },
+                'required' => false,
+                'multiple' => true,
+                'placeholder' => '',
             ]
         );
     }
