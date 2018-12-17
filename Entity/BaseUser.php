@@ -214,7 +214,7 @@ class BaseUser implements User
 
     public function toggleBlock(): void
     {
-        if ((string) $this->status === Status::BLOCKED) {
+        if ($this->status->equals(Status::blocked())) {
             $this->status = Status::active();
 
             return;

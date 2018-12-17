@@ -28,6 +28,11 @@ final class Status
         $this->status = $status;
     }
 
+    public function equals(Status $status): bool
+    {
+        return $this->status === $status->status;
+    }
+
     public static function fromString(string $status): self
     {
         return new self($status);
