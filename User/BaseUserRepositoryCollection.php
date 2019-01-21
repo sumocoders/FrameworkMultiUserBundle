@@ -81,7 +81,7 @@ class BaseUserRepositoryCollection
      *
      * @return User
      */
-    public function findUserByToken(PasswordResetToken $token): User
+    public function findUserByToken(PasswordResetToken $token): ?User
     {
         foreach ($this->userRepositories as $repository) {
             $user = $repository->findByPasswordResetToken($token);
@@ -91,7 +91,7 @@ class BaseUserRepositoryCollection
             }
         }
 
-        throw UserNotFound::withToken($token);
+        return null;
     }
 
     /**
