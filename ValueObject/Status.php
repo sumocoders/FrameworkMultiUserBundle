@@ -10,6 +10,7 @@ final class Status
     private const BLOCKED = 'blocked';
     private const INCOMPLETE = 'incomplete';
     private const PENDING = 'pending';
+    private const ARCHIVED = 'archived';
 
     /** @var string */
     private $status;
@@ -45,6 +46,7 @@ final class Status
             self::BLOCKED,
             self::INCOMPLETE,
             self::PENDING,
+            self::ARCHIVED,
         ];
 
         return array_combine($statuses, $statuses);
@@ -70,6 +72,11 @@ final class Status
         return new self(self::PENDING);
     }
 
+    public static function archived(): self
+    {
+        return new self(self::ARCHIVED);
+    }
+
     public function isActive(): bool
     {
         return $this->status === self::ACTIVE;
@@ -88,6 +95,11 @@ final class Status
     public function isPending(): bool
     {
         return $this->status === self::PENDING;
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->status === self::ARCHIVED;
     }
 
     public function __toString(): string
